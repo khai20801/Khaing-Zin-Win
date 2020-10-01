@@ -1265,7 +1265,7 @@ FUNCTION TO ADD WHITELIST DOMAIN
 const whitelistDomains = (res) => {
   var messageData = {
           "whitelisted_domains": [
-             "https://mccnpt.herokuapp.com" , 
+             "https://khaing.herokuapp.com" , 
              "https://herokuapp.com" ,                                     
           ]               
   };  
