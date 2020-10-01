@@ -977,7 +977,7 @@ const greeting =(sender_psid) => {
 
 
 const helloGreeting =(sender_psid) => {
-  let response = {"text": "Hello Yangan Campus"};
+  let response = {"text": "Hello asdasfsdfsdf"};
   callSend(sender_psid, response);
 }
 
