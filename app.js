@@ -971,7 +971,22 @@ function webviewTest(sender_psid){
 
 
 const greeting =(sender_psid) => {
-  let response = {"text": "Minalarbar. How may I help you?"};
+  let response = {
+    "text": "Pick a color:",
+    "quick_replies":[
+      {
+        "content_type":"text",
+        "title":"Red",
+        "payload":"<POSTBACK_PAYLOAD>",
+        "image_url":"http://example.com/img/red.png"
+      },{
+        "content_type":"text",
+        "title":"Green",
+        "payload":"<POSTBACK_PAYLOAD>",
+        "image_url":"http://example.com/img/green.png"
+      }
+    ]
+  };
   callSend(sender_psid, response);
 }
 
