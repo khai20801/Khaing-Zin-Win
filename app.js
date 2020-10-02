@@ -54,18 +54,18 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname+'/views');
 
 
-var firebaseConfig = {
-     credential: firebase.credential.cert({
-    "private_key": process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-    "client_email": process.env.FIREBASE_CLIENT_EMAIL,
-    "project_id": process.env.FIREBASE_PROJECT_ID,    
-    }),
-    databaseURL: process.env.FIREBASE_DB_URL,    
-  };
+// var firebaseConfig = {
+//      credential: firebase.credential.cert({
+//     "private_key": process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+//     "client_email": process.env.FIREBASE_CLIENT_EMAIL,
+//     "project_id": process.env.FIREBASE_PROJECT_ID,    
+//     }),
+//     databaseURL: process.env.FIREBASE_DB_URL,    
+//   };
 
 
 
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 
 let db = firebase.firestore(); 
 
