@@ -977,7 +977,7 @@ const greeting =(sender_psid) => {
 
 
 const helloGreeting =(sender_psid) => {
-  let response = {"text": "Hello asdasfsdfsdf"};
+  let response = {"text": "Hello Yangan Campus"};
   callSend(sender_psid, response);
 }
 
@@ -1112,7 +1112,7 @@ function testDelete(sender_psid){
 }
 
 const defaultReply = (sender_psid) => {
-  let response1 = {"text": "afafasf"};
+  let response1 = {"text": "To test text reply, type 'text'"};
   let response2 = {"text": "To test quick reply, type 'quick'"};
   let response3 = {"text": "To test button reply, type 'button'"};   
   let response4 = {"text": "To test webview, type 'webview'"};
@@ -1265,7 +1265,7 @@ FUNCTION TO ADD WHITELIST DOMAIN
 const whitelistDomains = (res) => {
   var messageData = {
           "whitelisted_domains": [
-             "https://khaing.herokuapp.com" , 
+             "https://mccnpt.herokuapp.com" , 
              "https://herokuapp.com" ,                                     
           ]               
   };  
