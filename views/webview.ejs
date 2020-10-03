@@ -16,7 +16,7 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'Messenger'));
 
-    const APP_ID = 544769076153407;    
+    const APP_ID = 1437772286611018;    
     var senderID = "";
     
     window.extAsyncInit = function() {
@@ -31,9 +31,11 @@
     };
   </script>
   
-	<h1><%= title %></h1>
+  <h1><%= title %></h1>
 
-  <form id="form" enctype="multipart/form-data" method="post" action="https://mccnpt.herokuapp.com/webview/">
+  <a href="https://naynewbot.herokuapp.com/webview2">go to webview 2</a>
+
+  <form id="form" enctype="multipart/form-data" method="post" action="https://naynewbot.herokuapp.com/webview/">
   <div class="form-group">
     <label for="name">Name</label>
     <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">    
@@ -51,18 +53,18 @@
   </form>
 
 
-	
+  
   <script>
       
    
       const windowShut = () => {
-        MessengerExtensions.requestCloseBrowser(function success() {
+   
+          MessengerExtensions.requestCloseBrowser(function success() {
           console.log("success");          
         }, function error(err) {
           console.log(err);
         });
-      }
-
+        }
       
       document.getElementById("form").addEventListener("submit", windowShut);       
 
