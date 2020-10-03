@@ -1,6 +1,6 @@
 'use strict';
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
-const APP_URL = "https://mccnpt.herokuapp.com";
+const APP_URL = "https://khaing.herokuapp.com";
 
 //new text
 
@@ -992,15 +992,17 @@ const quickReply =(sender_psid) => {
   let response = {
     "text": "Select your reply",
     "quick_replies":[
-            {
-              "content_type":"text",
-              "title":"On",
-              "payload":"on",              
-            },{
-              "content_type":"text",
-              "title":"Off",
-              "payload":"off",             
-            }
+      {
+        "content_type":"text",
+        "title":"Red",
+        "payload":"<POSTBACK_PAYLOAD>",
+        "image_url":"http://example.com/img/red.png"
+      },{
+        "content_type":"text",
+        "title":"Green",
+        "payload":"<POSTBACK_PAYLOAD>",
+        "image_url":"http://example.com/img/green.png"
+      }
     ]
   };
   callSend(sender_psid, response);
@@ -1265,7 +1267,7 @@ FUNCTION TO ADD WHITELIST DOMAIN
 const whitelistDomains = (res) => {
   var messageData = {
           "whitelisted_domains": [
-             "https://mccnpt.herokuapp.com" , 
+             "https://khaing.herokuapp.com" , 
              "https://herokuapp.com" ,                                     
           ]               
   };  
