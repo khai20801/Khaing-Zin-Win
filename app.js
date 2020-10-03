@@ -1,13 +1,11 @@
 'use strict';
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
-const APP_URL = process.env.APP_URL;
+const APP_URL = "https://mccnpt.herokuapp.com";
 
 //new text
 
 // Imports dependencies and set up http server
 const 
-  { uuid } = require('uuidv4'),
-  {format} = require('util'),
   request = require('request'),
   express = require('express'),
   body_parser = require('body-parser'),
@@ -17,29 +15,25 @@ const
   multer  = require('multer'),  
   app = express(); 
 
-const uuidv4 = uuid();
 
 app.use(body_parser.json());
 app.use(body_parser.urlencoded());
 
-const bot_questions = {
-  "q1": "please enter date (yyyy-mm-dd)",
-  "q2": "please enter time (hh:mm)",
-  "q3": "please enter full name",
-  "q4": "please enter gender",
-  "q5": "please enter phone number",
-  "q6": "please enter email",
-  "q7": "please leave a message"
+
+//app.locals.pageAccessToken = process.env.PAGE_ACCESS_TOKEN;
+
+let bot_q = {
+  askPhone: false,
+  askHotel: false,
+  askRestaurent:false
 }
 
-let current_question = '';
-
-let user_id = ''; 
-
-let userInputs = [];
+let user_input = {};
 
 
-/*
+
+
+  
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
@@ -47,17 +41,13 @@ var storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, file.originalname);
   }
-})*/
+})
 
-const upload = multer({ 
-  storage: multer.memoryStorage(),
-  limits :{
-    fileSize: 50 * 1024 * 1024  //no larger than 5mb
-  }
-
-});
+const upload = multer({ storage: storage });
 
 // parse application/x-www-form-urlencoded
+
+
 
 
 app.set('view engine', 'ejs');
@@ -70,8 +60,7 @@ var firebaseConfig = {
     "client_email": process.env.FIREBASE_CLIENT_EMAIL,
     "project_id": process.env.FIREBASE_PROJECT_ID,    
     }),
-    databaseURL: process.env.FIREBASE_DB_URL,   
-    storageBucket: process.env.FIREBASE_STORAGE_BUCKET
+    databaseURL: process.env.FIREBASE_DB_URL,    
   };
 
 
@@ -79,7 +68,9 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 let db = firebase.firestore(); 
-let bucket = firebase.storage().bucket();
+
+
+
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
@@ -98,13 +89,6 @@ app.post('/webhook', (req, res) => {
 
       let webhook_event = entry.messaging[0];
       let sender_psid = webhook_event.sender.id; 
-
-      user_id = sender_psid; 
-
-      if(!userInputs[user_id]){
-        userInputs[user_id] = {};
-      }    
-
 
       if (webhook_event.message) {
         if(webhook_event.message.quick_reply){
@@ -132,8 +116,9 @@ app.use('/uploads', express.static('uploads'));
 
 
 app.get('/',function(req,res){    
-    res.send('your app is up and running');
+    res.send('Your app is up and running');
 });
+
 
 app.get('/test',function(req,res){    
     res.render('test.ejs');
@@ -143,80 +128,6 @@ app.post('/test',function(req,res){
     const sender_psid = req.body.sender_id;     
     let response = {"text": "You  click delete button"};
     callSend(sender_psid, response);
-});
-
-app.get('/admin/appointments', async function(req,res){
- 
-  const appointmentsRef = db.collection('appointments');
-  const snapshot = await appointmentsRef.get();
-
-  if (snapshot.empty) {
-    res.send('no data');
-  } 
-
-  let data = []; 
-
-  snapshot.forEach(doc => {
-    let appointment = {};
-    appointment = doc.data();
-    appointment.doc_id = doc.id;
-
-    data.push(appointment);
-    
-  });
-
-  console.log('DATA:', data);
-
-  res.render('appointments.ejs', {data:data});
-  
-});
-
-app.get('/admin/updateappointment/:doc_id', async function(req,res){
-  let doc_id = req.params.doc_id; 
-  
-  const appoinmentRef = db.collection('appointments').doc(doc_id);
-  const doc = await appoinmentRef.get();
-  if (!doc.exists) {
-    console.log('No such document!');
-  } else {
-    console.log('Document data:', doc.data());
-    let data = doc.data();
-    data.doc_id = doc.id;
-
-    console.log('Document data:', data);
-    res.render('editappointment.ejs', {data:data});
-  } 
-
-});
-
-
-app.post('/admin/updateappointment', function(req,res){
-  console.log('REQ:', req.body); 
-
-  
-
-  let data = {
-    name:req.body.name,
-    phone:req.body.phone,
-    email:req.body.email,
-    gender:req.body.gender,
-    doctor:req.body.doctor,
-    department:req.body.department,
-    visit:req.body.visit,
-    date:req.body.date,
-    time:req.body.time,
-    message:req.body.message,
-    status:req.body.status,
-    doc_id:req.body.doc_id,
-    ref:req.body.ref,
-    comment:req.body.comment
-  }
-
-  db.collection('appointments').doc(req.body.doc_id)
-  .update(data).then(()=>{
-      res.redirect('/admin/appointments');
-  }).catch((err)=>console.log('ERROR:', error)); 
- 
 });
 
 /*********************************************
@@ -232,7 +143,7 @@ app.get('/showimages/:sender_id/',function(req,res){
         querySnapshot.forEach(function(doc) {
             let img = {};
             img.id = doc.id;
-            img.url = doc.data().url;         
+            img.url = doc.data().url;          
 
             data.push(img);                      
 
@@ -303,8 +214,219 @@ app.post('/imagepick',function(req,res){
 
 
 /*********************************************
-END Gallery Page
+Gallery Page
 **********************************************/
+
+/*********************************************
+Tour
+**********************************************/
+
+app.get('/privatetour/:sender_id/',function(req,res){
+    const sender_id = req.params.sender_id;
+    res.render('privatetour.ejs',{title:"Create Private Tour", sender_id:sender_id});
+});
+
+app.post('/privatetour',function(req,res){
+      
+      
+      let destination= req.body.destination;
+      let activities = req.body.activities;
+      let guests = req.body.guests;
+      let travel_mode = req.body.travel_mode;
+      let travel_option = req.body.travel_option;
+      let hotel = req.body.hotel;
+      let restaurent= req.body.restaurent;
+      let name  = req.body.name;
+      let mobile = req.body.mobile;
+      let sender = req.body.sender;  
+
+     let booking_number = generateRandom(5);    
+
+      db.collection('Pagodas Booking').add({
+           
+            destination:destination,
+            activities:activities,
+            guests:guests,
+            travel_mode:travel_mode,
+            travel_option:travel_option,
+            hotel:hotel,
+            restaurent:restaurent,            
+            name:name,
+            mobile:mobile,
+            booking_number:booking_number,
+          }).then(success => {             
+             showBookingNumber(sender, booking_number);   
+          }).catch(error => {
+            console.log(error);
+      });        
+});
+
+
+app.get('/updateprivatetour/:booking_number/:sender_id/',function(req,res){
+    const sender_id = req.params.sender_id;
+    const booking_number = req.params.booking_number;
+
+
+
+    db.collection("Pagodas Booking").where("booking_number", "==", booking_number)
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+
+            let data = {
+              doc_id:doc.id,
+              destination:doc.data().destination,
+              activities:doc.data().activities,
+              guests:doc.data().guests,
+              travel_mode:doc.data().travel_mode,
+              travel_option:doc.data().travel_option,
+              hotel:doc.data().hotel,
+              restaurent:doc.data().restaurent,            
+              name:doc.data().name,
+              mobile:doc.data().mobile,
+              booking_number:doc.data().booking_number,
+            }   
+
+            console.log("BOOKING DATA", data);     
+
+             res.render('updateprivatetour.ejs',{data:data, sender_id:sender_id});
+            
+
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });    
+});
+
+app.post('/updateprivatetour',function(req,res){
+      
+      
+      let destination= req.body.destination;
+      let activities = req.body.activities;
+      let guests = req.body.guests;
+      let travel_mode = req.body.travel_mode;
+      let travel_option = req.body.travel_option;
+      let hotel = req.body.hotel;
+      let restaurent= req.body.restaurent;
+      let name  = req.body.name;
+      let mobile = req.body.mobile;
+      let sender = req.body.sender;
+      let booking_number = req.body.booking_number; 
+      let doc_id = req.body.doc_id;  
+
+      db.collection('Pagodas Booking').doc(doc_id).update({           
+            destination:destination,
+            activities:activities,
+            guests:guests,
+            travel_mode:travel_mode,
+            travel_option:travel_option,
+            hotel:hotel,
+            restaurent:restaurent,            
+            name:name,
+            mobile:mobile,
+            booking_number:booking_number,
+          }).then(success => {             
+             showBookingNumber(sender, booking_number);   
+          }).catch(error => {
+            console.log(error);
+      });        
+});
+
+
+
+
+
+
+
+
+app.get('/addpackage/:sender_id/',function(req,res){
+    const sender_id = req.params.sender_id;
+    res.render('addpackage.ejs',{title:"Hi!! from WebView", sender_id:sender_id});
+});
+
+
+app.post('/addpackage',function(req,res){      
+      let image  = req.body.image; 
+      let title = req.body.title;
+      let description = req.body.description;   
+      let sku = req.body.sku;   
+      let sender = req.body.sender;   
+
+      db.collection('package').add({
+            image: image,
+            title: title,
+            description: description,
+            sku:sku
+            
+          }).then(success => {             
+             notifySave(sender);    
+          }).catch(error => {
+            console.log(error);
+      });        
+});
+
+
+app.get('/booktour/:sku/:sender_id',function(req,res){
+    const sku = req.params.sku;
+    const sender_id = req.params.sender_id;
+
+
+    
+
+  
+    const packages = {
+      yangon:{
+        title:"Yangon 2D1N",
+        hotels:['Melia', 'Lotte', 'Sedona'],
+        restaurents:['Fuji House', 'Koh Fu', 'Seeds']
+      },
+      mandalay:{
+        title:"Mandalay 2D1N",
+        hotels:['Yandanarbon', 'Apex', 'Golden Leaff'],
+        restaurents:['Goldious', 'Mingalabar Myanmar', 'Unique']
+      }
+
+    }
+
+
+
+
+
+    res.render('booktour.ejs',{title:"Book Tour Package", sender_id:sender_id, package:packages[sku]});
+});
+
+
+app.post('/booktour',function(req,res){
+      let name  = req.body.name;
+      let mobile = req.body.mobile;
+      let tour_package = req.body.tour_package;
+      let restaurent = req.body.restaurent;
+      let hotel = req.body.hotel;
+      let sender = req.body.sender;
+
+      let booking_ref = generateRandom(5);   
+
+
+      db.collection('Bookings').add({           
+            name:name,
+            mobile:mobile,
+            restaurent:restaurent,
+            hotel:hotel,
+            ref:booking_ref,
+            package:tour_package
+          }).then(success => {             
+             showBookingNumber(sender, booking_ref);    
+          }).catch(error => {
+            console.log(error);
+      });        
+});
+
+
+/*********************************************
+END Tour
+**********************************************/
+
 
 //webview test
 app.get('/webview/:sender_id',function(req,res){
@@ -312,46 +434,25 @@ app.get('/webview/:sender_id',function(req,res){
     res.render('webview.ejs',{title:"Hello!! from WebView", sender_id:sender_id});
 });
 
-app.get('/webview2',function(req,res){
-    
-    res.render('webviews2.ejs');
-});
-
 app.post('/webview',upload.single('file'),function(req,res){
        
       let name  = req.body.name;
       let email = req.body.email;
-      let img_url = "";
-      let sender = req.body.sender;  
+      let img_url = APP_URL + "/" + req.file.path;
+      let sender = req.body.sender;    
 
-      console.log("REQ FILE:",req.file);
-
-
-
-      let file = req.file;
-      if (file) {
-        uploadImageToStorage(file).then((img_url) => {
-            db.collection('webview').add({
-              name: name,
-              email: email,
-              image: img_url
-              }).then(success => {   
-                console.log("DATA SAVED")
-                thankyouReply(sender, name, img_url);    
-              }).catch(error => {
-                console.log(error);
-              }); 
-        }).catch((error) => {
-          console.error(error);
-        });
-      }
-
-
-
-     
       
       
-           
+      db.collection('webview').add({
+            name: name,
+            email: email,
+            image: img_url
+          }).then(success => {   
+             console.log("DATA SAVED")
+             thankyouReply(sender, name, img_url);    
+          }).catch(error => {
+            console.log(error);
+      });        
 });
 
 //Set up Get Started Button. To run one time
@@ -404,41 +505,17 @@ Function to Handle when user send quick reply message
 ***********************************************/
 
 function handleQuickReply(sender_psid, received_message) {
-
-  console.log('QUICK REPLY', received_message);
-
-  received_message = received_message.toLowerCase();
-
-  if(received_message.startsWith("visit:")){
-    let visit = received_message.slice(6);
-    
-    userInputs[user_id].visit = visit;
-    
-    current_question = 'q1';
-    botQuestions(current_question, sender_psid);
-  }else if(received_message.startsWith("department:")){
-    let dept = received_message.slice(11);
-    userInputs[user_id].department = dept;
-    showDoctor(sender_psid);
-  }else{
-
-      switch(received_message) {                
+  
+  switch(received_message) {        
         case "on":
             showQuickReplyOn(sender_psid);
           break;
         case "off":
             showQuickReplyOff(sender_psid);
-          break; 
-        case "confirm-appointment":
-              saveAppointment(userInputs[user_id], sender_psid);
-          break;              
+          break;                
         default:
             defaultReply(sender_psid);
-    } 
-
-  }
-  
-  
+  } 
  
 }
 
@@ -447,99 +524,30 @@ Function to Handle when user send text message
 ***********************************************/
 
 const handleMessage = (sender_psid, received_message) => {
-
-  console.log('TEXT REPLY', received_message);
   //let message;
   let response;
 
-  if(received_message.attachments){
-     handleAttachments(sender_psid, received_message.attachments);
-  }else if(current_question == 'q1'){
-     console.log('DATE ENTERED',received_message.text);
-     userInputs[user_id].date = received_message.text;
-     current_question = 'q2';
-     botQuestions(current_question, sender_psid);
-  }else if(current_question == 'q2'){
-     console.log('TIME ENTERED',received_message.text);
-     userInputs[user_id].time = received_message.text;
-     current_question = 'q3';
-     botQuestions(current_question, sender_psid);
-  }else if(current_question == 'q3'){
-     console.log('FULL NAME ENTERED',received_message.text);
-     userInputs[user_id].name = received_message.text;
-     current_question = 'q4';
-     botQuestions(current_question, sender_psid);
-  }else if(current_question == 'q4'){
-     console.log('GENDER ENTERED',received_message.text);
-     userInputs[user_id].gender = received_message.text;
-     current_question = 'q5';
-     botQuestions(current_question, sender_psid);
-  }else if(current_question == 'q5'){
-     console.log('PHONE NUMBER ENTERED',received_message.text);
-     userInputs[user_id].phone = received_message.text;
-     current_question = 'q6';
-     botQuestions(current_question, sender_psid);
-  }else if(current_question == 'q6'){
-     console.log('EMAIL ENTERED',received_message.text);
-     userInputs[user_id].email = received_message.text;
-     current_question = 'q7';
-     botQuestions(current_question, sender_psid);
-  }else if(current_question == 'q7'){
-     console.log('MESSAGE ENTERED',received_message.text);
-     userInputs[user_id].message = received_message.text;
-     current_question = '';
-     
-     confirmAppointment(sender_psid);
-  }
-  else {
-      
-      let user_message = received_message.text;      
-     
-      user_message = user_message.toLowerCase(); 
+  if(bot_q.askHotel && received_message.text){
+        user_input.hotel = received_message.text;
+        bot_q.askHotel = false;        
+        askRef(sender_psid);
+      }
 
-      switch(user_message) { 
-      case "hi":
-          hiReply(sender_psid);
-        break;
-      case "hospital":
-          hospitalAppointment(sender_psid);
-        break;                
-      case "text":
-        textReply(sender_psid);
-        break;
-      case "quick":
-        quickReply(sender_psid);
-        break;
-      case "button":                  
-        buttonReply(sender_psid);
-        break;
-      case "webview":
-        webviewTest(sender_psid);
-        break;       
-      case "show images":
-        showImages(sender_psid)
-        break;               
-      default:
-          defaultReply(sender_psid);
-      }       
-          
-      
-    }
+  else if(bot_q.askRestaurent && received_message.text){
+        user_input.restaurent = received_message.text;
+        bot_q.askRestaurent = false;
+        askRef(sender_psid);
+      }
 
-}
-
-/*********************************************
-Function to handle when user send attachment
-**********************************************/
-
-
-const handleAttachments = (sender_psid, attachments) => {
+  else if(bot_q.askRef && received_message.text){
+        user_input.ref = received_message.text;
+        bot_q.askRef = false;        
+        updateItinerary(sender_psid, user_input.ref);
+      }
   
-  console.log('ATTACHMENT', attachments);
-
-
-  let response; 
-  let attachment_url = attachments[0].payload.url;
+  
+  else if(received_message.attachments){
+    let attachment_url = received_message.attachments[0].payload.url;
     response = {
       "attachment": {
         "type": "template",
@@ -566,30 +574,86 @@ const handleAttachments = (sender_psid, attachments) => {
       }
     }
     callSend(sender_psid, response);
+  } else {
+      
+      let user_message = received_message.text;
+
+      console.log('USER MESSAGE', user_message);
+
+      if(user_message.includes("Change Booking:")){
+        let ref_num = user_message.slice(15);
+        ref_num = ref_num.trim();
+        updateBooking(sender_psid, ref_num);        
+      }else{
+          user_message = user_message.toLowerCase(); 
+
+          switch(user_message) {
+        case "hi":
+          greeting(sender_psid);
+          break;
+        case "hello":        
+          helloGreeting(sender_psid);
+          break;
+        case "text":
+          textReply(sender_psid);
+          break;
+        case "quick":
+          quickReply(sender_psid);
+          break;
+        case "button":
+          console.log('CASE: BUTTON');            
+          buttonReply(sender_psid);
+          break;
+        case "webview":
+          webviewTest(sender_psid);
+          break; 
+        case "show expiry":
+          showExpiry(sender_psid);
+          break;
+        case "hello eagle":
+          helloEagle(sender_psid); 
+          break;
+        case "admin":
+          adminCreatePackage(sender_psid); 
+          break;         
+        case "show packages":
+          showTourPackages(sender_psid); 
+          break;        
+        case "private tour":
+          privateTour(sender_psid); 
+          break; 
+        case "update itinerary":
+          amendTour(sender_psid); 
+          break; 
+        case "change hotel":
+          askHotel(sender_psid); 
+          break;
+        case "change restaurent":
+          askRestaurent(sender_psid); 
+          break;        
+        case "show images":
+          showImages(sender_psid)
+          break;
+        case "test delete":
+          testDelete(sender_psid)
+          break;        
+        default:
+            defaultReply(sender_psid);
+        }          
+      }     
+      
+    }
+
 }
+
 
 
 /*********************************************
 Function to handle when user click button
 **********************************************/
-const handlePostback = (sender_psid, received_postback) => { 
-
-  
-
+const handlePostback = (sender_psid, received_postback) => {
   let payload = received_postback.payload;
-
-  console.log('BUTTON PAYLOAD', payload);
-
-  
-  if(payload.startsWith("Doctor:")){
-    let doctor_name = payload.slice(7);
-    console.log('SELECTED DOCTOR IS: ', doctor_name);
-    userInputs[user_id].doctor = doctor_name;
-    console.log('TEST', userInputs);
-    firstOrFollowUp(sender_psid);
-  }else{
-
-      switch(payload) {        
+  switch(payload) {        
       case "yes":
           showButtonReplyYes(sender_psid);
         break;
@@ -598,24 +662,246 @@ const handlePostback = (sender_psid, received_postback) => {
         break;                      
       default:
           defaultReply(sender_psid);
+  } 
+}
+
+/*********************************************
+START TOUR
+**********************************************/
+
+
+
+
+
+
+const helloEagle = (sender_psid) => { 
+    let response1 = {"text": "Do you want to change your itinerary?, (type 'update itinerary')"};
+    let response2 = {"text": "Do you want to view packages? (type 'show packages')"};    
+    callSend(sender_psid, response1).then(()=>{
+      return callSend(sender_psid, response2);
+    }); 
+}
+
+//to add tour packages by admin
+function adminCreatePackage(sender_psid){
+  let response;
+  response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Create a tour package",                       
+            "buttons": [              
+              {
+                "type": "web_url",
+                "title": "create",
+                "url": APP_URL + "/addpackage/"+sender_psid,
+                 "webview_height_ratio": "full",
+                "messenger_extensions": true,          
+              },
+              
+            ],
+          }]
+        }
+      }
+    }
+  callSendAPI(sender_psid, response);
+}
+
+//to show tour packages
+const showTourPackages = (sender_psid) => {  
+
+  db.collection('package').get()
+  .then((snapshot) => {
+    let elementItems = [];
+
+    snapshot.forEach((doc) => {  
+      var obj = {};
+      //obj._id  = doc.id ;        
+      obj.title = doc.data().title;       
+      obj.image_url = doc.data().image;      
+      obj.buttons = [{"type":"web_url", "title":"BOOK NOW", "url": APP_URL+"/booktour/"+doc.data().sku+"/"+sender_psid, "webview_height_ratio": "full", "messenger_extensions": true,}]; 
+      elementItems.push(obj);     
+    });
+
+    
+
+    let response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "image_aspect_ratio": "square",
+          "elements": elementItems
+        }
+      }
+    }    
+    callSend(sender_psid, response);
+  })
+  .catch((err) => {
+    console.log('Error getting documents', err);
+  }); 
+}
+
+
+const privateTour = (sender_psid) => {
+  let response;
+  response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Create a tour package",                       
+            "buttons": [              
+              {
+                "type": "web_url",
+                "title": "create",
+                "url":APP_URL+"/privatetour/"+sender_psid,
+                 "webview_height_ratio": "full",
+                "messenger_extensions": true,          
+              },
+              
+            ],
+          }]
+        }
+      }
+    }
+  callSendAPI(sender_psid, response);
+}
+
+const updateBooking = (sender_psid, ref_num) => {
+    let response;
+  response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "You are updating your booking number: " + ref_num,                       
+            "buttons": [              
+              {
+                "type": "web_url",
+                "title": "Update",
+                "url":APP_URL+"/updateprivatetour/"+ref_num+"/"+sender_psid,
+                 "webview_height_ratio": "full",
+                "messenger_extensions": true,          
+              },
+              
+            ],
+          }]
+        }
+      }
+    }
+  callSendAPI(sender_psid, response);
+}
+
+const amendTour = (sender_psid) => { 
+    let response = {
+    "text": `Do you want to change hotel or restaurent?`,    
+    };
+    callSend(sender_psid, response); 
+}
+
+const askHotel = (sender_psid) => {  
+  bot_q.askHotel = true;
+  bot_q.askRestaurent = false;  
+  let response = {
+    "text": `Enter name of the hotel you want to stay`,    
+    };
+    callSend(sender_psid, response); 
+}
+
+
+const askRestaurent = (sender_psid) => {
+  bot_q.askRestaurent = true;
+  bot_q.askHotel = false;
+  let response = {
+    "text": `Enter name of the restaurent you want to go`,    
+    };
+    callSend(sender_psid, response); 
+}
+
+const askRef = (sender_psid) => {  
+  bot_q.askRef = true;
+ 
+  let response = {
+    "text": `Please enter your booking reference number`,    
+    };
+    callSend(sender_psid, response); 
+}
+
+const updateItinerary = (sender_psid, ref) =>{
+  
+  let query =  db.collection('Bookings').where('ref', '==', ref).limit(1).get()
+  .then(snapshot => {
+    if (snapshot.empty) {
+      console.log('No matching documents.');
+      let response = {
+        "text": `Unknown reference number`,    
+      };
+      callSend(sender_psid, response);
+      return;
     } 
 
-  }
+    const booking = snapshot.docs[0];
+
+
+    
+    if(user_input.hotel){
+       booking.ref.update({hotel:user_input.hotel});
+       notifySave(sender_psid); 
+    }
+
+    if(user_input.restaurent){
+      booking.ref.update({restaurent:user_input.restaurent});
+      notifySave(sender_psid);  
+    }
+  })
+  .catch(err => {
+    console.log('Error getting documents', err);
+  });
 
 
   
+     
 }
+
+const notifySave = (sender_psid) => { 
+    let response = {
+    "text": `Your data is saved`,    
+    };
+    callSend(sender_psid, response); 
+}
+
+const showBookingNumber = (sender_psid, ref) => { 
+    let response = {
+    "text": `Your data is saved. Please keep your booking reference ${ref}`,    
+    };
+    callSend(sender_psid, response); 
+}
+
 
 
 const generateRandom = (length) => {
    var result           = '';
-   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
    var charactersLength = characters.length;
    for ( var i = 0; i < length; i++ ) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
    }
    return result;
 }
+
+
+/*********************************************
+END TOUR
+**********************************************/
+
+
+
+
 
 /*********************************************
 GALLERY SAMPLE
@@ -634,7 +920,7 @@ const showImages = (sender_psid) => {
               {
                 "type": "web_url",
                 "title": "enter",
-                "url":"https://fbstarter.herokuapp.com/showimages/"+sender_psid,
+                "url":APP_URL+"/showimages/"+sender_psid,
                  "webview_height_ratio": "full",
                 "messenger_extensions": true,          
               },
@@ -653,6 +939,10 @@ END GALLERY SAMPLE
 **********************************************/
 
 
+
+
+
+
 function webviewTest(sender_psid){
   let response;
   response = {
@@ -666,7 +956,7 @@ function webviewTest(sender_psid){
               {
                 "type": "web_url",
                 "title": "webview",
-                "url":APP_URL+"webview/"+sender_psid,
+                "url": APP_URL+"/webview/"+sender_psid,
                  "webview_height_ratio": "full",
                 "messenger_extensions": true,          
               },
@@ -679,201 +969,18 @@ function webviewTest(sender_psid){
   callSendAPI(sender_psid, response);
 }
 
-/**************
-start hospital
-**************/
-const hospitalAppointment = (sender_psid) => {
-   let response1 = {"text": "Welcome to ABC Hospital"};
-   let response2 = {
-    "text": "Please select department",
-    "quick_replies":[
-            {
-              "content_type":"text",
-              "title":"General Surgery",
-              "payload":"department:General Surgery",              
-            },{
-              "content_type":"text",
-              "title":"ENT",
-              "payload":"department:ENT",             
-            },{
-              "content_type":"text",
-              "title":"Dermatology",
-              "payload":"department:Dermatology", 
-            }
 
-    ]
-  };
-
-  callSend(sender_psid, response1).then(()=>{
-    return callSend(sender_psid, response2);
-  });
-}
-
-
-const showDoctor = (sender_psid) => {
-    let response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "James Smith",
-            "subtitle": "General Surgeon",
-            "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "James Smith",
-                  "payload": "Doctor:James Smith",
-                },               
-              ],
-          },{
-            "title": "Kenneth Martinez",
-            "subtitle": "General Surgeon",
-            "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Kenneth Martinez",
-                  "payload": "Doctor:Kenneth Martinez",
-                },               
-              ],
-          },{
-            "title": "Barbara Young",
-            "subtitle": "General Surgeon",
-            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Barbara Young",
-                  "payload": "Doctor:Barbara Young",
-                },               
-              ],
-          }
-
-          ]
-        }
-      }
-    }
-
-  
-  callSend(sender_psid, response);
-
-}
-
-const firstOrFollowUp = (sender_psid) => {
-
-  let response = {
-    "text": "First Time Visit or Follow Up",
-    "quick_replies":[
-            {
-              "content_type":"text",
-              "title":"First Time",
-              "payload":"visit:first time",              
-            },{
-              "content_type":"text",
-              "title":"Follow Up",
-              "payload":"visit:follow up",             
-            }
-    ]
-  };
-  callSend(sender_psid, response);
-
-}
-
-const botQuestions = (current_question, sender_psid) => {
-  if(current_question == 'q1'){
-    let response = {"text": bot_questions.q1};
-    callSend(sender_psid, response);
-  }else if(current_question == 'q2'){
-    let response = {"text": bot_questions.q2};
-    callSend(sender_psid, response);
-  }else if(current_question == 'q3'){
-    let response = {"text": bot_questions.q3};
-    callSend(sender_psid, response);
-  }else if(current_question == 'q4'){
-    let response = {"text": bot_questions.q4};
-    callSend(sender_psid, response);
-  }else if(current_question == 'q5'){
-    let response = {"text": bot_questions.q5};
-    callSend(sender_psid, response);
-  }else if(current_question == 'q6'){
-    let response = {"text": bot_questions.q6};
-    callSend(sender_psid, response);
-  }else if(current_question == 'q7'){
-    let response = {"text": bot_questions.q7};
-    callSend(sender_psid, response);
-  }
-}
-
-const confirmAppointment = (sender_psid) => {
-  console.log('APPOINTMENT INFO', userInputs);
-  let summery = "department:" + userInputs[user_id].department + "\u000A";
-  summery += "doctor:" + userInputs[user_id].doctor + "\u000A";
-  summery += "visit:" + userInputs[user_id].visit + "\u000A";
-  summery += "date:" + userInputs[user_id].date + "\u000A";
-  summery += "time:" + userInputs[user_id].time + "\u000A";
-  summery += "name:" + userInputs[user_id].name + "\u000A";
-  summery += "gender:" + userInputs[user_id].gender + "\u000A";
-  summery += "phone:" + userInputs[user_id].phone + "\u000A";
-  summery += "email:" + userInputs[user_id].email + "\u000A";
-  summery += "message:" + userInputs[user_id].message + "\u000A";
-
-  let response1 = {"text": summery};
-
-  let response2 = {
-    "text": "Select your reply",
-    "quick_replies":[
-            {
-              "content_type":"text",
-              "title":"Confirm",
-              "payload":"confirm-appointment",              
-            },{
-              "content_type":"text",
-              "title":"Cancel",
-              "payload":"off",             
-            }
-    ]
-  };
-  
-  callSend(sender_psid, response1).then(()=>{
-    return callSend(sender_psid, response2);
-  });
-}
-
-const saveAppointment = (arg, sender_psid) => {
-  let data = arg;
-  data.ref = generateRandom(6);
-  data.status = "pending";
-  db.collection('appointments').add(data).then((success)=>{
-    console.log('SAVED', success);
-    let text = "Thank you. We have received your appointment."+ "\u000A";
-    text += " We wil call you to confirm soon"+ "\u000A";
-    text += "Your booking reference number is:" + data.ref;
-    let response = {"text": text};
-    callSend(sender_psid, response);
-  }).catch((err)=>{
-     console.log('Error', err);
-  });
-}
-
-/**************
-end hospital
-**************/
-
-
-
-
-const hiReply =(sender_psid) => {
-  let response = {"text": "You sent hi message"};
+const greeting =(sender_psid) => {
+  let response = {"text": "Minalarbar. How may I help you?"};
   callSend(sender_psid, response);
 }
 
 
-const greetInMyanmar =(sender_psid) => {
-  let response = {"text": "Mingalarbar. How may I help"};
+const helloGreeting =(sender_psid) => {
+  let response = {"text": "Hello Yangan Campus"};
   callSend(sender_psid, response);
 }
+
 
 const textReply =(sender_psid) => {
   let response = {"text": "You sent text message"};
@@ -991,7 +1098,7 @@ function testDelete(sender_psid){
               {
                 "type": "web_url",
                 "title": "enter",
-                "url":"https://fbstarter.herokuapp.com/test/",
+                "url":APP_URL+"/test/",
                  "webview_height_ratio": "full",
                 "messenger_extensions": true,          
               },
@@ -1018,7 +1125,8 @@ const defaultReply = (sender_psid) => {
   });  
 }
 
-const callSendAPI = (sender_psid, response) => {   
+const callSendAPI = (sender_psid, response) => {  
+  
   let request_body = {
     "recipient": {
       "id": sender_psid
@@ -1050,44 +1158,6 @@ async function callSend(sender_psid, response){
 }
 
 
-const uploadImageToStorage = (file) => {
-  return new Promise((resolve, reject) => {
-    if (!file) {
-      reject('No image file');
-    }
-    let newFileName = `${Date.now()}_${file.originalname}`;
-
-    let fileUpload = bucket.file(newFileName);
-
-    const blobStream = fileUpload.createWriteStream({
-      metadata: {
-        contentType: file.mimetype,
-         metadata: {
-            firebaseStorageDownloadTokens: uuidv4
-          }
-      }
-    });
-
-    blobStream.on('error', (error) => {
-      console.log('BLOB:', error);
-      reject('Something is wrong! Unable to upload at the moment.');
-    });
-
-    blobStream.on('finish', () => {
-      // The public URL can be used to directly access the file via HTTP.
-      //const url = format(`https://storage.googleapis.com/${bucket.name}/${fileUpload.name}`);
-      const url = format(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${fileUpload.name}?alt=media&token=${uuidv4}`);
-      console.log("image url:", url);
-      resolve(url);
-    });
-
-    blobStream.end(file.buffer);
-  });
-}
-
-
-
-
 /*************************************
 FUNCTION TO SET UP GET STARTED BUTTON
 **************************************/
@@ -1114,8 +1184,6 @@ const setupGetStartedButton = (res) => {
 /**********************************
 FUNCTION TO SET UP PERSISTENT MENU
 ***********************************/
-
-
 
 const setupPersistentMenu = (res) => {
   var messageData = { 
@@ -1197,8 +1265,8 @@ FUNCTION TO ADD WHITELIST DOMAIN
 const whitelistDomains = (res) => {
   var messageData = {
           "whitelisted_domains": [
-             APP_URL , 
-             "https://herokuapp.com" ,                                   
+             "https://mccnpt.herokuapp.com" , 
+             "https://herokuapp.com" ,                                     
           ]               
   };  
   request({
