@@ -971,21 +971,13 @@ function webviewTest(sender_psid){
 
 
 const greeting =(sender_psid) => {
-  let response = {"text": "Minalarbar. How may I help you? How are you?"};
+  let response = {"text": "Minalarbar. How may I help you?"};
   callSend(sender_psid, response);
 }
-
-
-
-const textReply =(sender_psid) => {
-  let response = {"text": "You sent text message"};
-  callSend(sender_psid, response);
-}
-
 
 const quickReply =(sender_psid) => {
   let response = {
-    "text": "Select your reply",
+    "text": "What do you want?",
     "quick_replies":[
             {
               "content_type":"text",
