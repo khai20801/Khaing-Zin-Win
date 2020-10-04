@@ -971,7 +971,7 @@ function webviewTest(sender_psid){
 
 
 const greeting =(sender_psid) => {
-  let response = {"text": "Minalarbar. How may I help you?"};
+  let response = {"text": "<span style='color:red;'>Minalarbar! How may I help you?</span>"};
   callSend(sender_psid, response);
 }
 
