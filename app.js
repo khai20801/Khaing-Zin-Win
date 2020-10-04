@@ -971,15 +971,10 @@ function webviewTest(sender_psid){
 
 
 const greeting =(sender_psid) => {
-  let response = {"text": "Minalarbar. How may I help you?"};
+  let response = {"text": "Minalarbar. How may I help you? How are you?"};
   callSend(sender_psid, response);
 }
 
-
-const helloGreeting =(sender_psid) => {
-  let response = {"text": "Hello Yangan Campus"};
-  callSend(sender_psid, response);
-}
 
 
 const textReply =(sender_psid) => {
