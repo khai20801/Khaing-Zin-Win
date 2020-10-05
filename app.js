@@ -975,10 +975,10 @@ const greeting =(sender_psid) => {
   callSend(sender_psid, response);
 }
 
-/*const textReply =(sender_psid) => {
-  let response = {"text": "What do you want?"};
+const textReply =(sender_psid) => {
+  let response = {"text": "Welcome?"};
   callSend(sender_psid, response);
-}*/
+}
 
 
 const quickReply =(sender_psid) => {
