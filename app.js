@@ -975,10 +975,10 @@ const greeting =(sender_psid) => {
   callSend(sender_psid, response);
 }
 
-/*const textReply =(sender_psid) => {
+const textReply =(sender_psid) => {
   let response = {"text": "What do you want?"};
   callSend(sender_psid, response);
-}*/
+}
 
 
 const quickReply =(sender_psid) => {
@@ -987,7 +987,7 @@ const quickReply =(sender_psid) => {
     "quick_replies":[
       {
         "content_type":"text",
-        "title":"Red",
+        "title":"yellow",
         "payload":"<POSTBACK_PAYLOAD>",
         "image_url":"http://example.com/img/red.png"
       },{
