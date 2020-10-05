@@ -971,30 +971,30 @@ function webviewTest(sender_psid){
 
 
 const greeting =(sender_psid) => {
-  let response = {"text": "Minalarbar. How are you ?"};
+  let response = {"text": "Minalarbar. Welcome from our Restaurant. FACTS..."};
   callSend(sender_psid, response);
 }
 
-const textReply =(sender_psid) => {
+/*const textReply =(sender_psid) => {
   let response = {"text": "What do you want?"};
   callSend(sender_psid, response);
-}
+}*/
 
 
 const quickReply =(sender_psid) => {
   let response = {
-    "text": "Select your reply",
+    "text": "Select your method",
     "quick_replies":[
       {
         "content_type":"text",
-        "title":"yellow",
+        "title":"Delivery",
         "payload":"<POSTBACK_PAYLOAD>",
-        "image_url":"http://example.com/img/red.png"
+        /*"image_url":"http://example.com/img/red.png"*/
       },{
         "content_type":"text",
-        "title":"Green",
+        "title":"Pick up",
         "payload":"<POSTBACK_PAYLOAD>",
-        "image_url":"http://example.com/img/green.png"
+        /*"image_url":"http://example.com/img/green.png"*/
       }
     ]
   };
