@@ -971,14 +971,30 @@ function webviewTest(sender_psid){
 
 
 const greeting =(sender_psid) => {
-  let response = {"text": "Minalarbar. How are you ?"};
+  let response = {"text": "Minalarbar. Welcome from our restaurant"};
   callSend(sender_psid, response);
 }
 
-/*const textReply =(sender_psid) => {
-  let response = {"text": "What do you want?"};
+const textReply =(sender_psid) => {
+  let response = {"text": "FACTS"};
+  let response = {
+    "text": "Select your reply",
+    "quick_replies":[
+      {
+        "content_type":"text",
+        "title":"Delivery",
+        "payload":"<POSTBACK_PAYLOAD>",
+        
+      },{
+        "content_type":"text",
+        "title":"Pickup",
+        "payload":"<POSTBACK_PAYLOAD>",
+       
+      }
+    ]
+  };
   callSend(sender_psid, response);
-}*/
+}
 
 
 const quickReply =(sender_psid) => {
