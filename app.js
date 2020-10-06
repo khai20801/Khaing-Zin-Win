@@ -971,12 +971,27 @@ function webviewTest(sender_psid){
 
 
 const greeting =(sender_psid) => {
-  let response = {"text": "Minalarbar. Welcome from our Restaurant. FACTS..."};
+  let response = {"text": "Minalarbar. Welcome from our Restaurant"};
   callSend(sender_psid, response);
 }
 
 const textReply =(sender_psid) => {
-  let response = {"text": "Welcome?"};
+  let response = {"text": "Restaurant facts"};
+  let response = {
+    "text": "Select your method",
+      {
+        "content_type":"text",
+        "title":"Delivery",
+        "payload":"<POSTBACK_PAYLOAD>",
+        /*"image_url":"http://example.com/img/red.png"*/
+      },{
+        "content_type":"text",
+        "title":"Pick up",
+        "payload":"<POSTBACK_PAYLOAD>",
+        /*"image_url":"http://example.com/img/green.png"*/
+      }
+   
+  };
   callSend(sender_psid, response);
 }
 
@@ -1106,7 +1121,7 @@ function testDelete(sender_psid){
   callSendAPI(sender_psid, response);
 }
 
-const defaultReply = (sender_psid) => {
+/*const defaultReply = (sender_psid) => {
   let response1 = {"text": "To test text reply, type 'text'"};
   let response2 = {"text": "To test quick reply, type 'quick'"};
   let response3 = {"text": "To test button reply, type 'button'"};   
@@ -1118,7 +1133,7 @@ const defaultReply = (sender_psid) => {
         });
       });
   });  
-}
+}*/
 
 const callSendAPI = (sender_psid, response) => {  
   
