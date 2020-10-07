@@ -995,23 +995,43 @@ const textReply =(sender_psid) => {
   callSend(sender_psid, response);
 }
 
+const showReplyOn =(sender_psid) => {
+  let response = { "Delivery": "You sent Delivery" };
+  callSend(sender_psid, response);
+}
+
+const showReplyOff =(sender_psid) => {
+  let response = { "Pick up": "You sent Pickup" };
+  callSend(sender_psid, response);
+}
 
 const quickReply =(sender_psid) => {
   let response = {
-    "text": "Select your method",
-    "quick_replies":[
+    "text": "Select your menu",
+    
       {
         "content_type":"text",
-        "title":"Delivery",
+        "title":"Breakfast",
         "payload":"<POSTBACK_PAYLOAD>",
         /*"image_url":"http://example.com/img/red.png"*/
       },{
         "content_type":"text",
-        "title":"Pick up",
+        "title":"Myanmar Food",
         "payload":"<POSTBACK_PAYLOAD>",
         /*"image_url":"http://example.com/img/green.png"*/
+      },
+       {
+        "content_type":"text",
+        "title":"Lunch",
+        "payload":"<POSTBACK_PAYLOAD>",
+        /*"image_url":"http://example.com/img/red.png"*/
+      }, {
+        "content_type":"text",
+        "title":"Chinese Food",
+        "payload":"<POSTBACK_PAYLOAD>",
+        /*"image_url":"http://example.com/img/red.png"*/
       }
-    ]
+    
   };
   callSend(sender_psid, response);
 }
@@ -1057,7 +1077,7 @@ const buttonReply =(sender_psid) => {
   callSend(sender_psid, response);
 }
 
-const showButtonReplyYes =(sender_psid) => {
+/*const showButtonReplyYes =(sender_psid) => {
   let response = { "text": "You clicked YES" };
   callSend(sender_psid, response);
 }
