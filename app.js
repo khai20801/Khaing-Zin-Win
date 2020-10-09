@@ -971,15 +971,9 @@ function webviewTest(sender_psid){
 
 
 const greeting =(sender_psid) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
+
   let response = {"text": "Minalarbar. Welcome from our restaurant"};
-=======
-  let response = {"text": "Minalarbar. Welcome from our Restaurant. FACTS..."};
->>>>>>> 3b5d37188a76549697538d834caab97385392ad9
-=======
-  let response = {"text": "Minalarbar. Welcome from our Restaurant"};
->>>>>>> cc3576af996ee10aa1b4eb9887be510ce89a2233
+
   callSend(sender_psid, response);
 }
 
