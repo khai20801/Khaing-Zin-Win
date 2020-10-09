@@ -972,23 +972,30 @@ function webviewTest(sender_psid){
 
 const greeting =(sender_psid) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
   let response = {"text": "Minalarbar. Welcome from our restaurant"};
 =======
   let response = {"text": "Minalarbar. Welcome from our Restaurant. FACTS..."};
 >>>>>>> 3b5d37188a76549697538d834caab97385392ad9
+=======
+  let response = {"text": "Minalarbar. Welcome from our Restaurant"};
+>>>>>>> cc3576af996ee10aa1b4eb9887be510ce89a2233
   callSend(sender_psid, response);
 }
 
 const textReply =(sender_psid) => {
 
+
   let response1 = {"text": "FACTS"};
   let response2 = {
     "text": "Select your reply",
     "quick_replies":[
+
       {
         "content_type":"text",
         "title":"Delivery",
         "payload":"<POSTBACK_PAYLOAD>",
+
         
       },{
         "content_type":"text",
@@ -1002,25 +1009,41 @@ const textReply =(sender_psid) => {
   callSend(sender_psid, response1).then(()=>{
   return callSend(sender_psid, response2);
 });
+
 }
 
+const showReplyOff =(sender_psid) => {
+  let response = { "Pick up": "You sent Pickup" };
+  callSend(sender_psid, response);
+}
 
 const quickReply =(sender_psid) => {
   let response = {
-    "text": "Select your method",
-    "quick_replies":[
+    "text": "Select your menu",
+    
       {
         "content_type":"text",
-        "title":"Delivery",
+        "title":"Breakfast",
         "payload":"<POSTBACK_PAYLOAD>",
         /*"image_url":"http://example.com/img/red.png"*/
       },{
         "content_type":"text",
-        "title":"Pick up",
+        "title":"Myanmar Food",
         "payload":"<POSTBACK_PAYLOAD>",
         /*"image_url":"http://example.com/img/green.png"*/
+      },
+       {
+        "content_type":"text",
+        "title":"Lunch",
+        "payload":"<POSTBACK_PAYLOAD>",
+        /*"image_url":"http://example.com/img/red.png"*/
+      }, {
+        "content_type":"text",
+        "title":"Chinese Food",
+        "payload":"<POSTBACK_PAYLOAD>",
+        /*"image_url":"http://example.com/img/red.png"*/
       }
-    ]
+    
   };
   callSend(sender_psid, response);
 }
@@ -1066,7 +1089,7 @@ const buttonReply =(sender_psid) => {
   callSend(sender_psid, response);
 }
 
-const showButtonReplyYes =(sender_psid) => {
+/*const showButtonReplyYes =(sender_psid) => {
   let response = { "text": "You clicked YES" };
   callSend(sender_psid, response);
 }
@@ -1130,7 +1153,7 @@ function testDelete(sender_psid){
   callSendAPI(sender_psid, response);
 }
 
-const defaultReply = (sender_psid) => {
+/*const defaultReply = (sender_psid) => {
   let response1 = {"text": "To test text reply, type 'text'"};
   let response2 = {"text": "To test quick reply, type 'quick'"};
   let response3 = {"text": "To test button reply, type 'button'"};   
@@ -1142,7 +1165,7 @@ const defaultReply = (sender_psid) => {
         });
       });
   });  
-}
+}*/
 
 const callSendAPI = (sender_psid, response) => {  
   
