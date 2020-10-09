@@ -1014,7 +1014,7 @@ const showReplyOff =(sender_psid) => {
 const quickReply =(sender_psid) => {
   let response = {
     "text": "Select your menu",
-    
+    "quick_replies":[
       {
         "content_type":"text",
         "title":"Breakfast",
@@ -1037,7 +1037,7 @@ const quickReply =(sender_psid) => {
         "payload":"<POSTBACK_PAYLOAD>",
         /*"image_url":"http://example.com/img/red.png"*/
       }
-    
+    ]
   };
   callSend(sender_psid, response);
 }
