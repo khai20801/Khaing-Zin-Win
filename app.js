@@ -971,13 +971,18 @@ function webviewTest(sender_psid){
 
 
 const greeting =(sender_psid) => {
+<<<<<<< HEAD
   let response = {"text": "Minalarbar. Welcome from our restaurant"};
+=======
+  let response = {"text": "Minalarbar. Welcome from our Restaurant. FACTS..."};
+>>>>>>> 3b5d37188a76549697538d834caab97385392ad9
   callSend(sender_psid, response);
 }
 
 const textReply =(sender_psid) => {
-  let response = {"text": "FACTS"};
-  let response = {
+
+  let response1 = {"text": "FACTS"};
+  let response2 = {
     "text": "Select your reply",
     "quick_replies":[
       {
@@ -993,24 +998,27 @@ const textReply =(sender_psid) => {
       }
     ]
   };
-  callSend(sender_psid, response);
+
+  callSend(sender_psid, response1).then(()=>{
+  return callSend(sender_psid, response2);
+});
 }
 
 
 const quickReply =(sender_psid) => {
   let response = {
-    "text": "Select your reply",
+    "text": "Select your method",
     "quick_replies":[
       {
         "content_type":"text",
-        "title":"Red",
+        "title":"Delivery",
         "payload":"<POSTBACK_PAYLOAD>",
-        "image_url":"http://example.com/img/red.png"
+        /*"image_url":"http://example.com/img/red.png"*/
       },{
         "content_type":"text",
-        "title":"Green",
+        "title":"Pick up",
         "payload":"<POSTBACK_PAYLOAD>",
-        "image_url":"http://example.com/img/green.png"
+        /*"image_url":"http://example.com/img/green.png"*/
       }
     ]
   };
