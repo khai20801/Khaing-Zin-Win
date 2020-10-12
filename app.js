@@ -497,7 +497,7 @@ const handleMessage = (sender_psid, received_message) => {
       case "hi":
           hiReply(sender_psid);
         break;
-      case "text":
+      case "foodorder":
           foodorder(sender_psid);
         break;                
       case "text":
@@ -679,7 +679,7 @@ function webviewTest(sender_psid){
 start hospital
 **************/
 const foodorder = (sender_psid) => {
-   let response1 = {"text": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ်"};
+   let response1 = {"foodorder": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ်"};
    let response2 = {
     "text": "Please select department",
     "quick_replies":[
@@ -861,7 +861,7 @@ end hospital
 
 
 const hiReply =(sender_psid) => {
-  let response = {"text": "မင်္ဂလာပါ "};
+  let response = {"text": "မင်္ဂလာပါ အစားအသောက်မှာယူရန် foodorder ဟုရိုက်ထည့်ပါ"};
   callSend(sender_psid, response);
 }
 
