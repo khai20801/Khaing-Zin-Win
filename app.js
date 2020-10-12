@@ -1194,7 +1194,7 @@ const whitelistDomains = (res) => {
   var messageData = {
           "whitelisted_domains": [
              APP_URL , 
-             "https:khaing//herokuapp.com" ,                                   
+             "https://herokuapp.com" ,                                   
           ]               
   };  
   request({
