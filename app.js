@@ -679,23 +679,20 @@ function webviewTest(sender_psid){
 start hospital
 **************/
 const foodorder = (sender_psid) => {
-   let response1 = {"foodorder": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ်"};
+   let response1 = {"text": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ်"};
    let response2 = {
-    "text": "Please select department",
+    "text": "Please select order method",
     "quick_replies":[
             {
               "content_type":"text",
-              "title":"",
-              "payload":"department:General Surgery",              
+              "title":"Delivery",
+              "payload":"department:Delivery",              
             },{
               "content_type":"text",
-              "title":"ENT",
-              "payload":"department:ENT",             
-            },{
-              "content_type":"text",
-              "title":"Dermatology",
-              "payload":"department:Dermatology", 
+              "title":"Pickup",
+              "payload":"department:Pickup",             
             }
+            
 
     ]
   };
