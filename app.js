@@ -200,9 +200,9 @@ app.post('/admin/updateappointment', function(req,res){
     name:req.body.name,
     phone:req.body.phone,
     email:req.body.email,
-    /*gender:req.body.gender,*/
+    gender:req.body.gender,
     doctor:req.body.doctor,
-    foodtype:req.body.foodtype,
+    department:req.body.department,
     visit:req.body.visit,
     date:req.body.date,
     time:req.body.time,
@@ -412,18 +412,18 @@ function handleQuickReply(sender_psid, received_message) {
     
     current_question = 'q1';
     botQuestions(current_question, sender_psid);
-  }else if(received_message.startsWith("foodtype:")){
+  }else if(received_message.startsWith("department:")){
     let dept = received_message.slice(11);
-    userInputs[user_id].foodtype = dept;
+    userInputs[user_id].department = dept;
     showDoctor(sender_psid);
   }else{
 
       switch(received_message) {                
-        case "delivery":
-            showQuickReplyDelivery(sender_psid);
+        case "on":
+            showQuickReplyOn(sender_psid);
           break;
-        case "pickup":
-            showQuickReplyPickup(sender_psid);
+        case "off":
+            showQuickReplyOff(sender_psid);
           break; 
         case "confirm-appointment":
               saveAppointment(userInputs[user_id], sender_psid);
@@ -465,23 +465,23 @@ const handleMessage = (sender_psid, received_message) => {
      userInputs[user_id].name = received_message.text;
      current_question = 'q4';
      botQuestions(current_question, sender_psid);
-  }/*else if(current_question == 'q4'){
+  }else if(current_question == 'q4'){
      console.log('GENDER ENTERED',received_message.text);
      userInputs[user_id].gender = received_message.text;
      current_question = 'q5';
      botQuestions(current_question, sender_psid);
-  }*/else if(current_question == 'q4'){
+  }else if(current_question == 'q5'){
      console.log('PHONE NUMBER ENTERED',received_message.text);
      userInputs[user_id].phone = received_message.text;
      current_question = 'q6';
      botQuestions(current_question, sender_psid);
-  }/*else if(current_question == 'q6'){
+  }else if(current_question == 'q6'){
      console.log('EMAIL ENTERED',received_message.text);
      userInputs[user_id].email = received_message.text;
      current_question = 'q7';
      botQuestions(current_question, sender_psid);
-  }*/else if(current_question == 'q5'){
-     console.log('Special Request ENTERED',received_message.text);
+  }else if(current_question == 'q7'){
+     console.log('MESSAGE ENTERED',received_message.text);
      userInputs[user_id].message = received_message.text;
      current_question = '';
      
@@ -676,37 +676,26 @@ function webviewTest(sender_psid){
 }
 
 /**************
-start order
+start hospital
 **************/
-const Order = (sender_psid) => {
-   let response1 = {"text": "သိန်းရာဇာစားသောက်ဆိုင်မှကြိုဆိုပါတယ်"};
+const hospitalAppointment = (sender_psid) => {
+   let response1 = {"text": "Welcome to ABC Hospital"};
    let response2 = {
-    "text": "အစားအသောက်အမျိုးအစားရွေးချယ်ပါ",
+    "text": "Please select department",
     "quick_replies":[
             {
               "content_type":"text",
-              "title":"မနက်စာ",
-              "payload":"foodtype:မနက်စာ",              
+              "title":"General Surgery",
+              "payload":"department:General Surgery",              
             },{
               "content_type":"text",
-              "title":"နေ့လည်စာ
-",
-              "payload":"foodtype:နေ့လည်စာ
-",             
+              "title":"ENT",
+              "payload":"department:ENT",             
             },{
               "content_type":"text",
-              "title":"မြန်မာအစားအစာ",
-              "payload":"foodtype:မြန်မာအစားအစာ", 
-            },{
-              "content_type":"text",
-              "title":"တရုတ်အစားအစာ",
-              "payload":"foodtype:တရုတ်အစားအစာ", 
-            },{
-              "content_type":"text",
-              "title":"အအေးနှင့်မုန့်",
-              "payload":"foodtype:အအေးနှင့်မုန့်", 
+              "title":"Dermatology",
+              "payload":"department:Dermatology", 
             }
-            
 
     ]
   };
@@ -815,7 +804,7 @@ const botQuestions = (current_question, sender_psid) => {
 
 const confirmAppointment = (sender_psid) => {
   console.log('APPOINTMENT INFO', userInputs);
-  let summery = "foodtype:" + userInputs[user_id].foodtype + "\u000A";
+  let summery = "department:" + userInputs[user_id].department + "\u000A";
   summery += "doctor:" + userInputs[user_id].doctor + "\u000A";
   summery += "visit:" + userInputs[user_id].visit + "\u000A";
   summery += "date:" + userInputs[user_id].date + "\u000A";
@@ -872,48 +861,47 @@ end hospital
 
 
 const hiReply =(sender_psid) => {
-  let response = {"text": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ် လူကြီးမင်း မှာယူလိုသောအစားအသောက်များကို နေပြည်တော်အတွင်း သုံးထောင် ဖိုးနှင့်အထက် ဝယ်ယူပါက အိမ်တိုင်ရာရောက် ပို့ဆောင်ပေးပါမည် 
-အသေးစိတ်သိရှိလိုပါက page မှသော်လည်းကောင်း ဖုန်းနံပါတ်-0949212876 သို့ ဆက်သွယ် နိုင်ပါသည်"};
+  let response = {"text": "You sent hi message"};
   callSend(sender_psid, response);
 }
 
-/*
+
 const greetInMyanmar =(sender_psid) => {
   let response = {"text": "Mingalarbar. How may I help"};
   callSend(sender_psid, response);
-}*/
+}
 
 const textReply =(sender_psid) => {
-  let response = {"text": "ဆက်သွယ်မှာယူလိုပါက 'မှာယူမည်' ဟုရိုက်ထည့်ပါ"};
+  let response = {"text": "You sent text message"};
   callSend(sender_psid, response);
 }
 
 
 const quickReply =(sender_psid) => {
   let response = {
-    "မှာယူမည်": "Select your order method",
+    "text": "Select your reply",
     "quick_replies":[
             {
-              "content_type":"Delivery",
-              "title":"Delivery",
-              "payload":"Delivery",              
+              "content_type":"text",
+              "title":"On",
+              "payload":"on",              
             },{
-              "content_type":"Pickup",
-              "title":"Pickup",
-              "payload":"Pickup",             
+              "content_type":"text",
+              "title":"Off",
+              "payload":"off",             
             }
     ]
   };
   callSend(sender_psid, response);
 }
 
-const showQuickReplyDelivery =(sender_psid) => {
-  let response = { "text": "Delivery Method ကို ရွေးချယ်လိုက်သည်" };
+const showQuickReplyOn =(sender_psid) => {
+  let response = { "text": "You sent quick reply ON" };
   callSend(sender_psid, response);
 }
 
-const showQuickReplyPickup =(sender_psid) => {
-  let response = { "text": "Pickup Method ကို ရွေးချယ်လိုက်သည်" };
+const showQuickReplyOff =(sender_psid) => {
+  let response = { "text": "You sent quick reply OFF" };
   callSend(sender_psid, response);
 }
 
