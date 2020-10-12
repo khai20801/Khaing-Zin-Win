@@ -497,8 +497,8 @@ const handleMessage = (sender_psid, received_message) => {
       case "hi":
           hiReply(sender_psid);
         break;
-      case "hospital":
-          hospitalAppointment(sender_psid);
+      case "foodorder":
+          foodorder(sender_psid);
         break;                
       case "text":
         textReply(sender_psid);
@@ -679,23 +679,23 @@ function webviewTest(sender_psid){
 start hospital
 **************/
 const hospitalAppointment = (sender_psid) => {
-   let response1 = {"text": "Welcome to ABC Hospital"};
+   let response1 = {"text": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ် လူကြီးမင်း မှာယူလိုသောအစားအသောက်များကို နေပြည်တော်အတွင်း သုံးထောင် ဖိုးနှင့်အထက် ဝယ်ယူပါက အိမ်တိုင်ရာရောက် ပို့ဆောင်ပေးပါမည် 
+အသေးစိတ်သိရှိလိုပါက page မှသော်လည်းကောင်း ဖုန်းနံပါတ်-0949212876 သို့ ဆက်သွယ် နိုင်ပါသည်"};
    let response2 = {
-    "text": "Please select department",
+    "text": "Please select order method",
     "quick_replies":[
             {
               "content_type":"text",
-              "title":"General Surgery",
-              "payload":"department:General Surgery",              
+              "title":"Delivery",
+              "payload":"department:Delivery",              
             },{
               "content_type":"text",
-              "title":"ENT",
-              "payload":"department:ENT",             
-            },{
-              "content_type":"text",
-              "title":"Dermatology",
-              "payload":"department:Dermatology", 
+              "title":"Pickup",
+              "payload":"department:Pickup",             
             }
+
+
+
 
     ]
   };
