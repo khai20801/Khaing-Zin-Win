@@ -715,7 +715,7 @@ const showFood = (sender_psid) => {
             "title": "300",
 
             "subtitle": "မနက်စာ",
-            "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
+            "image_url":"https://s.yimg.com/ny/api/res/1.2/qsNFpXXUTYpc8mHA1i.2qg--~A/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAw/https://itk-assets.nyc3.cdn.digitaloceanspaces.com/2020/01/559c3c00-e51f-11e9-8797-d1089c252eee-1620x911.jpeg",                       
             "buttons": [
                 {
                   "type": "postback",
