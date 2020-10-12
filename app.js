@@ -679,14 +679,14 @@ function webviewTest(sender_psid){
 start hospital
 **************/
 const hospitalAppointment = (sender_psid) => {
-   let response1 = {"text": "Welcome to ABC Hospital"};
+   let response1 = {"text": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ်"};
    let response2 = {
-    "text": "Please select department",
+    "text": "Please select order method",
     "quick_replies":[
             {
               "content_type":"text",
-              "title":"General Surgery",
-              "payload":"department:General Surgery",              
+              "title":"Delivery",
+              "payload":"department:Delivery",              
             },{
               "content_type":"text",
               "title":"ENT",
@@ -861,7 +861,7 @@ end hospital
 
 
 const hiReply =(sender_psid) => {
-  let response = {"text": "မင်္ဂလာပါ"};
+  let response = {"text": "မင်္ဂလာပါ "};
   callSend(sender_psid, response);
 }
 
