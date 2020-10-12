@@ -742,7 +742,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "မုန့်ဟင်းခါး",
-                  "payload": "Doctor:မုန့်ဟင်းခါး",
+                  "payload": "food:မုန့်ဟင်းခါး",
                 },               
               ],
           }
@@ -754,7 +754,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "နန်းကြီးသုပ်",
-                  "payload": "Doctor:နန်းကြီးသုပ်",
+                  "payload": "food:နန်းကြီးသုပ်",
                 },               
               ],
           },{
@@ -765,7 +765,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "ခေါက်ဆွဲသုပ်",
-                  "payload": "Doctor:ခေါက်ဆွဲသုပ်",
+                  "payload": "food:ခေါက်ဆွဲသုပ်",
                 },               
               ],
           },{
@@ -776,7 +776,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "အစုံသုပ်",
-                  "payload": "Doctor:အစုံသုပ်",
+                  "payload": "food:အစုံသုပ်",
                 },               
               ],
           },{
@@ -787,7 +787,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "ရှမ်းခေါက်ဆွဲ",
-                  "payload": "Doctor:ရှမ်းခေါက်ဆွဲ",
+                  "payload": "food:ရှမ်းခေါက်ဆွဲ",
                 },               
               ],
           },{
@@ -798,7 +798,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "ဆီချက်",
-                  "payload": "Doctor:ဆီချက်",
+                  "payload": "food:ဆီချက်",
                 },               
               ],
           },{
@@ -809,7 +809,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "မြီးရှည်",
-                  "payload": "Doctor:မြီးရှည်",
+                  "payload": "food:မြီးရှည်",
                 },               
               ],
           },{
@@ -820,7 +820,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "မာလာဟင်",
-                  "payload": "Doctor:မာလာဟင်",
+                  "payload": "food:မာလာဟင်",
                 },               
               ],
           }
