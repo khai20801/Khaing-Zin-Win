@@ -861,7 +861,7 @@ end hospital
 
 
 const hiReply =(sender_psid) => {
-  let response = {"text": "You sent hi message"};
+  let response = {"text": "မင်္ဂလာပါ"};
   callSend(sender_psid, response);
 }
 
