@@ -713,7 +713,7 @@ const showFood = (sender_psid) => {
           "template_type": "generic",
           "elements": [{
             "title": "ကော်ဖီ",
-            "title": "300"
+            "title": "300",
             "subtitle": "မနက်စာ",
             "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
             "buttons": [
