@@ -679,8 +679,7 @@ function webviewTest(sender_psid){
 start hospital
 **************/
 const hospitalAppointment = (sender_psid) => {
-   let response1 = {"text": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ် လူကြီးမင်း မှာယူလိုသောအစားအသောက်များကို နေပြည်တော်အတွင်း သုံးထောင် ဖိုးနှင့်အထက် ဝယ်ယူပါက အိမ်တိုင်ရာရောက် ပို့ဆောင်ပေးပါမည် 
-အသေးစိတ်သိရှိလိုပါက page မှသော်လည်းကောင်း ဖုန်းနံပါတ်-0949212876 သို့ ဆက်သွယ် နိုင်ပါသည်"};
+   let response1 = {"text": "Welcome to ABC Hospital"};
    let response2 = {
     "text": "Please select department",
     "quick_replies":[
