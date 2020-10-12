@@ -580,10 +580,10 @@ const handlePostback = (sender_psid, received_postback) => {
   
   if(payload.startsWith("food:")){
     let food_name = payload.slice(7);
-    console.log('SELECTED DOCTOR IS: ', food_name);
+    console.log('SELECTED FOOD IS: ', food_name);
     userInputs[user_id].food = food_name;
     console.log('TEST', userInputs);
-    firstOrFollowUp(sender_psid);
+    OrderOrViewPoints(sender_psid);
   }else{
 
       switch(payload) {        
@@ -756,19 +756,19 @@ const showFood = (sender_psid) => {
 
 }
 
-const firstOrFollowUp = (sender_psid) => {
+const OrderOrViewPoints = (sender_psid) => {
 
   let response = {
-    "text": "First Time Visit or Follow Up",
+    "text": "အစားအသောက်မှာယူမည် သို့မဟုတ် Point များကြည့်မည်",
     "quick_replies":[
             {
               "content_type":"text",
-              "title":"First Time",
-              "payload":"visit:first time",              
+              "title":"အစားအသောက်မှာယူမည်",
+              "payload":"visit:food order",              
             },{
               "content_type":"text",
-              "title":"Follow Up",
-              "payload":"visit:follow up",             
+              "title":"Point များကြည့်မည်",
+              "payload":"visit:view point",             
             }
     ]
   };
