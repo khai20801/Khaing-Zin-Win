@@ -202,7 +202,7 @@ app.post('/admin/updateappointment', function(req,res){
     email:req.body.email,
     gender:req.body.gender,
     doctor:req.body.doctor,
-    department:req.body.department,
+    ordermethod:req.body.ordermethod,
     visit:req.body.visit,
     date:req.body.date,
     time:req.body.time,
@@ -412,10 +412,10 @@ function handleQuickReply(sender_psid, received_message) {
     
     current_question = 'q1';
     botQuestions(current_question, sender_psid);
-  }else if(received_message.startsWith("department:")){
+  }else if(received_message.startsWith("ordermethod:")){
     let dept = received_message.slice(11);
-    userInputs[user_id].department = dept;
-    showDoctor(sender_psid);
+    userInputs[user_id].ordermethod = dept;
+    showFood(sender_psid);
   }else{
 
       switch(received_message) {                
@@ -686,13 +686,13 @@ const foodorder = (sender_psid) => {
             {
               "content_type":"text",
               "title":"Delivery",
-              "payload":"department:Delivery",              
+              "payload":"ordermethod:Delivery",              
             },{
               "content_type":"text",
               "title":"Pickup",
-              "payload":"department:Pickup",             
+              "payload":"ordermethod:Pickup",             
             }
-            
+
 
     ]
   };
@@ -703,7 +703,7 @@ const foodorder = (sender_psid) => {
 }
 
 
-const showDoctor = (sender_psid) => {
+const showFood = (sender_psid) => {
     let response = {
       "attachment": {
         "type": "template",
@@ -801,7 +801,7 @@ const botQuestions = (current_question, sender_psid) => {
 
 const confirmAppointment = (sender_psid) => {
   console.log('APPOINTMENT INFO', userInputs);
-  let summery = "department:" + userInputs[user_id].department + "\u000A";
+  let summery = "ordermethod:" + userInputs[user_id].ordermethod + "\u000A";
   summery += "doctor:" + userInputs[user_id].doctor + "\u000A";
   summery += "visit:" + userInputs[user_id].visit + "\u000A";
   summery += "date:" + userInputs[user_id].date + "\u000A";
