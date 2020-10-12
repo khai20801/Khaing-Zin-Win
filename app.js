@@ -201,7 +201,7 @@ app.post('/admin/updateappointment', function(req,res){
     phone:req.body.phone,
     email:req.body.email,
     gender:req.body.gender,
-    doctor:req.body.doctor,
+    food:req.body.food,
     ordermethod:req.body.ordermethod,
     visit:req.body.visit,
     date:req.body.date,
@@ -512,9 +512,7 @@ const handleMessage = (sender_psid, received_message) => {
       case "webview":
         webviewTest(sender_psid);
         break;  
-     case "food type":
-     foodtype(sender_psid) ;
-     break;    
+
       case "show images":
         showImages(sender_psid)
         break;               
@@ -580,10 +578,10 @@ const handlePostback = (sender_psid, received_postback) => {
   console.log('BUTTON PAYLOAD', payload);
 
   
-  if(payload.startsWith("Doctor:")){
-    let doctor_name = payload.slice(7);
-    console.log('SELECTED DOCTOR IS: ', doctor_name);
-    userInputs[user_id].doctor = doctor_name;
+  if(payload.startsWith("food:")){
+    let food_name = payload.slice(7);
+    console.log('SELECTED DOCTOR IS: ', food_name);
+    userInputs[user_id].food = food_name;
     console.log('TEST', userInputs);
     firstOrFollowUp(sender_psid);
   }else{
@@ -704,29 +702,8 @@ const foodorder = (sender_psid) => {
     return callSend(sender_psid, response2);
   });
 }
-const foodtype = (sender_psid) => {
-   let response1 = {"text": "Hello"};
-   let response2 = {
-    "text": "Please select food type",
-    "quick_replies":[
-            {
-              "content_type":"text",
-              "title":"Breakfast",
-              "payload":"ordermethod:Breakfast",              
-            },{
-              "content_type":"text",
-              "title":"Pickup",
-              "payload":"ordermethod:Pickup",             
-            }
 
 
-    ]
-  };
-
-  callSend(sender_psid, response1).then(()=>{
-    return callSend(sender_psid, response2);
-  });
-}
 
 const showFood = (sender_psid) => {
     let response = {
@@ -736,24 +713,24 @@ const showFood = (sender_psid) => {
           "template_type": "generic",
           "elements": [{
             "title": "Coffee",
-            "subtitle": "General Surgeon",
+            "subtitle": "Breakfast",
             "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "James Smith",
-                  "payload": "Doctor:James Smith",
+                  "title": "Coffee",
+                  "payload": "food:Coffee",
                 },               
               ],
           },{
-            "title": "Kenneth Martinez",
-            "subtitle": "General Surgeon",
+            "title": "rice and curry",
+            "subtitle": "lunch",
             "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "Kenneth Martinez",
-                  "payload": "Doctor:Kenneth Martinez",
+                  "title": "lunch",
+                  "payload": "food:rice and curry",
                 },               
               ],
           },{
@@ -827,7 +804,7 @@ const botQuestions = (current_question, sender_psid) => {
 const confirmAppointment = (sender_psid) => {
   console.log('APPOINTMENT INFO', userInputs);
   let summery = "ordermethod:" + userInputs[user_id].ordermethod + "\u000A";
-  summery += "doctor:" + userInputs[user_id].doctor + "\u000A";
+  summery += "food:" + userInputs[user_id].food + "\u000A";
   summery += "visit:" + userInputs[user_id].visit + "\u000A";
   summery += "date:" + userInputs[user_id].date + "\u000A";
   summery += "time:" + userInputs[user_id].time + "\u000A";
