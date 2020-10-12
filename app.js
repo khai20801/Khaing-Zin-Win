@@ -513,7 +513,8 @@ const handleMessage = (sender_psid, received_message) => {
         webviewTest(sender_psid);
         break;  
      case "food type":
-     foodtype(sender_psid)     
+     foodtype(sender_psid) ;
+     break;    
       case "show images":
         showImages(sender_psid)
         break;               
@@ -710,7 +711,7 @@ const foodtype = (sender_psid) => {
     "quick_replies":[
             {
               "content_type":"text",
-              "title":"Delivery",
+              "title":"Breakfast",
               "payload":"ordermethod:Breakfast",              
             },{
               "content_type":"text",
