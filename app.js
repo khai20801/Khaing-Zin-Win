@@ -497,8 +497,8 @@ const handleMessage = (sender_psid, received_message) => {
       case "hi":
           hiReply(sender_psid);
         break;
-      case "hospital":
-          hospitalAppointment(sender_psid);
+      case "text":
+          foodorder(sender_psid);
         break;                
       case "text":
         textReply(sender_psid);
@@ -678,7 +678,7 @@ function webviewTest(sender_psid){
 /**************
 start hospital
 **************/
-const hospitalAppointment = (sender_psid) => {
+const foodorder = (sender_psid) => {
    let response1 = {"text": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ်"};
    let response2 = {
     "text": "Please select department",
