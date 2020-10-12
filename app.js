@@ -511,7 +511,9 @@ const handleMessage = (sender_psid, received_message) => {
         break;
       case "webview":
         webviewTest(sender_psid);
-        break;       
+        break;  
+     case "food type":
+     foodtype(sender_psid)     
       case "show images":
         showImages(sender_psid)
         break;               
@@ -701,7 +703,29 @@ const foodorder = (sender_psid) => {
     return callSend(sender_psid, response2);
   });
 }
+const foodtype = (sender_psid) => {
+   let response1 = {"text": "Hello"};
+   let response2 = {
+    "text": "Please select food type",
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"Delivery",
+              "payload":"ordermethod:Breakfast",              
+            },{
+              "content_type":"text",
+              "title":"Pickup",
+              "payload":"ordermethod:Pickup",             
+            }
 
+
+    ]
+  };
+
+  callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2);
+  });
+}
 
 const showFood = (sender_psid) => {
     let response = {
@@ -710,7 +734,7 @@ const showFood = (sender_psid) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "James Smith",
+            "title": "Coffee",
             "subtitle": "General Surgeon",
             "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
             "buttons": [
