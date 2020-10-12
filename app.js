@@ -146,10 +146,10 @@ app.post('/test',function(req,res){
     callSend(sender_psid, response);
 });
 
-app.get('/admin/appointments', async function(req,res){
+app.get('/admin/customerorder', async function(req,res){
  
-  const appointmentsRef = db.collection('appointments');
-  const snapshot = await appointmentsRef.get();
+  const customerorderRef = db.collection('customerorder');
+  const snapshot = await customerorderRef.get();
 
   if (snapshot.empty) {
     res.send('no data');
@@ -158,24 +158,24 @@ app.get('/admin/appointments', async function(req,res){
   let data = []; 
 
   snapshot.forEach(doc => {
-    let appointment = {};
-    appointment = doc.data();
-    appointment.doc_id = doc.id;
+    let customerorder = {};
+    customerorder = doc.data();
+    customerorder.doc_id = doc.id;
 
-    data.push(appointment);
+    data.push(customerorder);
     
   });
 
   console.log('DATA:', data);
 
-  res.render('appointments.ejs', {data:data});
+  res.render('customerorder.ejs', {data:data});
   
 });
 
-app.get('/admin/updateappointment/:doc_id', async function(req,res){
+app.get('/admin/updatecustomerorder/:doc_id', async function(req,res){
   let doc_id = req.params.doc_id; 
   
-  const appoinmentRef = db.collection('appointments').doc(doc_id);
+  const appoinmentRef = db.collection('customerorder').doc(doc_id);
   const doc = await appoinmentRef.get();
   if (!doc.exists) {
     console.log('No such document!');
@@ -185,13 +185,13 @@ app.get('/admin/updateappointment/:doc_id', async function(req,res){
     data.doc_id = doc.id;
 
     console.log('Document data:', data);
-    res.render('editappointment.ejs', {data:data});
+    res.render('editcustomerorder.ejs', {data:data});
   } 
 
 });
 
 
-app.post('/admin/updateappointment', function(req,res){
+app.post('/admin/updatecustomerorder', function(req,res){
   console.log('REQ:', req.body); 
 
   
@@ -213,9 +213,9 @@ app.post('/admin/updateappointment', function(req,res){
     comment:req.body.comment
   }
 
-  db.collection('appointments').doc(req.body.doc_id)
+  db.collection('customerorder').doc(req.body.doc_id)
   .update(data).then(()=>{
-      res.redirect('/admin/appointments');
+      res.redirect('/admin/customerorder');
   }).catch((err)=>console.log('ERROR:', error)); 
  
 });
@@ -425,8 +425,8 @@ function handleQuickReply(sender_psid, received_message) {
         case "off":
             showQuickReplyOff(sender_psid);
           break; 
-        case "confirm-appointment":
-              saveAppointment(userInputs[user_id], sender_psid);
+        case "confirm-customerorder":
+              savecustomerorder(userInputs[user_id], sender_psid);
           break;              
         default:
             defaultReply(sender_psid);
@@ -485,7 +485,7 @@ const handleMessage = (sender_psid, received_message) => {
      userInputs[user_id].message = received_message.text;
      current_question = '';
      
-     confirmAppointment(sender_psid);
+     confirmcustomerorder(sender_psid);
   }
   else {
       
@@ -712,8 +712,8 @@ const showFood = (sender_psid) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "ကော်ဖီ",
             "title": "300",
+
             "subtitle": "မနက်စာ",
             "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
             "buttons": [
@@ -880,8 +880,8 @@ const botQuestions = (current_question, sender_psid) => {
   }
 }
 
-const confirmAppointment = (sender_psid) => {
-  console.log('APPOINTMENT INFO', userInputs);
+const confirmcustomerorder = (sender_psid) => {
+  console.log('customerorder INFO', userInputs);
   let summery = "ordermethod:" + userInputs[user_id].ordermethod + "\u000A";
   summery += "food:" + userInputs[user_id].food + "\u000A";
   summery += "visit:" + userInputs[user_id].visit + "\u000A";
@@ -901,7 +901,7 @@ const confirmAppointment = (sender_psid) => {
             {
               "content_type":"text",
               "title":"Confirm",
-              "payload":"confirm-appointment",              
+              "payload":"confirm-customerorder",              
             },{
               "content_type":"text",
               "title":"Cancel",
@@ -915,13 +915,13 @@ const confirmAppointment = (sender_psid) => {
   });
 }
 
-const saveAppointment = (arg, sender_psid) => {
+const savecustomerorder = (arg, sender_psid) => {
   let data = arg;
   data.ref = generateRandom(6);
   data.status = "pending";
-  db.collection('appointments').add(data).then((success)=>{
+  db.collection('customerorder').add(data).then((success)=>{
     console.log('SAVED', success);
-    let text = "Thank you. We have received your appointment."+ "\u000A";
+    let text = "Thank you. We have received your order."+ "\u000A";
     text += " We wil call you to confirm soon"+ "\u000A";
     text += "Your booking reference number is:" + data.ref;
     let response = {"text": text};
