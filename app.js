@@ -712,36 +712,115 @@ const showFood = (sender_psid) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Coffee",
-            "subtitle": "Breakfast",
+            "title": "ကော်ဖီ",
+            "title": "300"
+            "subtitle": "မနက်စာ",
             "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "Coffee",
-                  "payload": "food:Coffee",
+                  "title": "ကော်ဖီ",
+                  "payload": "food:ကော်ဖီ",
                 },               
               ],
           },{
-            "title": "rice and curry",
-            "subtitle": "lunch",
+            "title": "လက်ဘက်ရည်",
+            "subtitle": "မနက်စာ",
             "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "lunch",
-                  "payload": "food:rice and curry",
+                  "title": "လက်ဘက်ရည်",
+                  "payload": "food:လက်ဘက်ရည်",
                 },               
               ],
           },{
-            "title": "Barbara Young",
-            "subtitle": "General Surgeon",
+            "title": "မုန့်ဟင်းခါး",
+            "subtitle": "မနက်စာ",
             "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "Barbara Young",
-                  "payload": "Doctor:Barbara Young",
+                  "title": "မုန့်ဟင်းခါး",
+                  "payload": "Doctor:မုန့်ဟင်းခါး",
+                },               
+              ],
+          }
+          ,{
+            "title": "နန်းကြီးသုပ်",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "နန်းကြီးသုပ်",
+                  "payload": "Doctor:နန်းကြီးသုပ်",
+                },               
+              ],
+          },{
+            "title": "ခေါက်ဆွဲသုပ်",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "ခေါက်ဆွဲသုပ်",
+                  "payload": "Doctor:ခေါက်ဆွဲသုပ်",
+                },               
+              ],
+          },{
+            "title": "အစုံသုပ်",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "အစုံသုပ်",
+                  "payload": "Doctor:အစုံသုပ်",
+                },               
+              ],
+          },{
+            "title": "ရှမ်းခေါက်ဆွဲ",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "ရှမ်းခေါက်ဆွဲ",
+                  "payload": "Doctor:ရှမ်းခေါက်ဆွဲ",
+                },               
+              ],
+          },{
+            "title": "ဆီချက်",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "ဆီချက်",
+                  "payload": "Doctor:ဆီချက်",
+                },               
+              ],
+          },{
+            "title": "မြီးရှည်",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "မြီးရှည်",
+                  "payload": "Doctor:မြီးရှည်",
+                },               
+              ],
+          },{
+            "title": "မာလာဟင်",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "မာလာဟင်",
+                  "payload": "Doctor:မာလာဟင်",
                 },               
               ],
           }
