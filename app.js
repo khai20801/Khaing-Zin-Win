@@ -681,12 +681,12 @@ start hospital
 const hospitalAppointment = (sender_psid) => {
    let response1 = {"text": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ်"};
    let response2 = {
-    "text": "Please select order method",
+    "text": "Please select department",
     "quick_replies":[
             {
               "content_type":"text",
-              "title":"Delivery",
-              "payload":"department:Delivery",              
+              "title":"",
+              "payload":"department:General Surgery",              
             },{
               "content_type":"text",
               "title":"ENT",
