@@ -509,7 +509,7 @@ const handleMessage = (sender_psid, received_message) => {
       case "button":                  
         buttonReply(sender_psid);
         break;
-      case "view point":
+      case "viewpoint":
         viewpointReply(sender_psid);
         break;
       case "webview":
@@ -1121,8 +1121,8 @@ function testDelete(sender_psid){
 }
 
 const defaultReply = (sender_psid) => {
-  let response1 = {"text": "To test text reply, type 'text'"};
-  let response2 = {"text": "To test quick reply, type 'quick'"};
+  let response1 = {"text": "အစားအသောက်မှာယူရန် foodorder ဟုရိုက်ထည့်ပါ"};
+  let response2 = {"text": "Point များကြည့်ရန် viewpoint ဟုရိုက်ထည့်ပါ"};
   let response3 = {"text": "To test button reply, type 'button'"};   
   let response4 = {"text": "To test webview, type 'webview'"};
     callSend(sender_psid, response1).then(()=>{
