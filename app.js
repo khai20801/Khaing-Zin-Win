@@ -946,7 +946,7 @@ const confirmcustomerorder = (sender_psid) => {
             },{
               "content_type":"text",
               "title":"Cancel",
-              "payload":"off",             
+              "payload":"OFF",             
             }
     ]
   };
@@ -1020,7 +1020,7 @@ const showQuickReplyOn =(sender_psid) => {
 }
 
 const showQuickReplyOff =(sender_psid) => {
-  let response = { "text": "You sent quick reply OFF" };
+  let response = { "text": "order cancel ပြီးပါပြီ အစားအသောက်မှာယူရန် foodorder ဟုရိုက်ထည့်ပါ" };
   callSend(sender_psid, response);
 }
 
