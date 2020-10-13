@@ -876,6 +876,17 @@ const showFood = (sender_psid) => {
   callSend(sender_psid, response);
 
 }
+let price = {
+  'နန်းကြီးသုပ်':3000,
+  'mote-hin-khar':1500
+}
+
+
+let customer_selected = 'food';
+let quantity = ;
+let total = price[customer_selected]*quantity;
+
+console.log(`Total price for ${customer_selected} * ${quantity} is ${total}`);
 /*const OrderOrViewPoints = (sender_psid) => {
 
   let response = {
