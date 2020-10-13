@@ -506,7 +506,7 @@ const handleMessage = (sender_psid, received_message) => {
       case "quick":
         quickReply(sender_psid);
         break;
-      case "button":                  
+      case "foodtype":                  
         buttonReply(sender_psid);
         break;
       case "view point":
@@ -515,9 +515,7 @@ const handleMessage = (sender_psid, received_message) => {
       case "webview":
         webviewTest(sender_psid);
         break;  
-      case "foodtype":
-      foodtypeReply(sender_psid);
-      break;
+      
       case "show images":
         showImages(sender_psid)
         break;               
@@ -707,31 +705,7 @@ const foodorder = (sender_psid) => {
     return callSend(sender_psid, response2);
   });
 }
-/*added*/
-const foodtypeReply = (sender_psid) => {
-    let response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            
 
-            "subtitle": "မနက်စာ",
-           
-            "buttons": [
-                {
-                  "type": "postback",
-                  
-                  "payload": "food:ကော်ဖီ",
-                },               
-              ],
-          }]
-        }
-      }
-    }
-}
-  /*added*/
   callSend(sender_psid, response);
 
 }
@@ -957,7 +931,7 @@ const confirmcustomerorder = (sender_psid) => {
   console.log('customerorder INFO', userInputs);
   let summery = "ordermethod:" + userInputs[user_id].ordermethod + "\u000A";
   summery += "food:" + userInputs[user_id].food + "\u000A";
-  summery += "visit:" + userInputs[user_id].visit + "\u000A";
+  summery += "order:" + userInputs[user_id].visit + "\u000A";
   summery += "date:" + userInputs[user_id].date + "\u000A";
   summery += "time:" + userInputs[user_id].time + "\u000A";
   summery += "name:" + userInputs[user_id].name + "\u000A";
@@ -1064,18 +1038,18 @@ const buttonReply =(sender_psid) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Are you OK?",
+            "title": "Choose your foodtype",
             "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "Yes!",
-                  "payload": "yes",
+                  "title": "Breakfast",
+                  "payload": "food:မြီးရှည်",
                 },
                 {
                   "type": "postback",
-                  "title": "No!",
-                  "payload": "no",
+                  "title": "Lunch",
+                  "payload": "food:မြီးရှည်",
                 }
               ],
           }]
