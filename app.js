@@ -726,7 +726,7 @@ const OrderOrViewPoints = (sender_psid) => {
 
 }
 
-/*ViewPoint reply*/
+/*ViewPoint reply
 const viewpoint = (sender_psid) => {
 
   let response = {
@@ -746,7 +746,7 @@ const viewpoint = (sender_psid) => {
   callSend(sender_psid, response);
 
 }
-/*_______*/
+*/
 const showFood = (sender_psid) => {
     let response = {
       "attachment": {
