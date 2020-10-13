@@ -937,7 +937,7 @@ const confirmcustomerorder = (sender_psid) => {
   let response1 = {"text": summery};
 
   let response2 = {
-    "text": "Select your reply",
+    "text": "Order ကိုအတည်ပြုပါ Confirm ပြီးပါက Order Cancel ခွင့်မပြုပါ",
     "quick_replies":[
             {
               "content_type":"text",
@@ -962,8 +962,8 @@ const savecustomerorder = (arg, sender_psid) => {
   data.status = "pending";
   db.collection('customerorder').add(data).then((success)=>{
     console.log('SAVED', success);
-    let text = "Thank you. We have received your order."+ "\u000A";
-    text += " We wil call you to confirm soon"+ "\u000A";
+    let text = "Thank you. Order ကိုအတည်ပြုပြီးပါပြီ."+ "\u000A";
+    text += " မှာယူပြီး မိနစ်သုံးဆယ်အတွင်းရပါမည် "+ "\u000A";
     text += "Your booking reference number is:" + data.ref;
     let response = {"text": text};
     callSend(sender_psid, response);
