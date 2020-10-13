@@ -754,7 +754,7 @@ const showFood = (sender_psid) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "300",
+            "title": "500",
 
             "subtitle": "မနက်စာ",
             "image_url":"https://s.yimg.com/ny/api/res/1.2/qsNFpXXUTYpc8mHA1i.2qg--~A/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAw/https://itk-assets.nyc3.cdn.digitaloceanspaces.com/2020/01/559c3c00-e51f-11e9-8797-d1089c252eee-1620x911.jpeg",                       
@@ -766,7 +766,7 @@ const showFood = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "လက်ဘက်ရည်",
+            "title": "700",
             "subtitle": "မနက်စာ",
             "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
             "buttons": [
@@ -777,7 +777,7 @@ const showFood = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "မုန့်ဟင်းခါး",
+            "title": "700",
             "subtitle": "မနက်စာ",
             "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
             "buttons": [
@@ -789,7 +789,7 @@ const showFood = (sender_psid) => {
               ],
           }
           ,{
-            "title": "3000",
+            "title": "1200",
             "subtitle": "မနက်စာ",
             "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
             "buttons": [
@@ -800,7 +800,7 @@ const showFood = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "ခေါက်ဆွဲသုပ်",
+            "title": "1200",
             "subtitle": "မနက်စာ",
             "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
             "buttons": [
@@ -811,7 +811,7 @@ const showFood = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "အစုံသုပ်",
+            "title": "1200",
             "subtitle": "မနက်စာ",
             "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
             "buttons": [
@@ -822,7 +822,7 @@ const showFood = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "ရှမ်းခေါက်ဆွဲ",
+            "title": "1200",
             "subtitle": "မနက်စာ",
             "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
             "buttons": [
@@ -833,7 +833,7 @@ const showFood = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "ဆီချက်",
+            "title": "1200",
             "subtitle": "မနက်စာ",
             "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
             "buttons": [
@@ -844,7 +844,7 @@ const showFood = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "မြီးရှည်",
+            "title": "1200",
             "subtitle": "မနက်စာ",
             "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
             "buttons": [
@@ -855,7 +855,7 @@ const showFood = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "မာလာဟင်",
+            "title": "2500",
             "subtitle": "မနက်စာ",
             "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
             "buttons": [
@@ -876,17 +876,7 @@ const showFood = (sender_psid) => {
   callSend(sender_psid, response);
 
 }
-let title = {
-  'နန်းကြီးသုပ်':3000,
-  'mote-hin-khar':1500
-}
 
-
-let customer_selected = 'food';
-let quantity ='quantity';
-let total = title[customer_selected]*quantity;
-
-console.log(`Total price for ${customer_selected} * ${title} is ${total}`);
 /*const OrderOrViewPoints = (sender_psid) => {
 
   let response = {
