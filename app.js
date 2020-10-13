@@ -316,7 +316,7 @@ app.get('/webview/:sender_id',function(req,res){
 app.post('/webview',upload.single('file'),function(req,res){
        
       let name  = req.body.name;
-      let email = req.body.email;
+      let quantity = req.body.quantity;
       let img_url = "";
       let sender = req.body.sender;  
 
@@ -329,7 +329,7 @@ app.post('/webview',upload.single('file'),function(req,res){
         uploadImageToStorage(file).then((img_url) => {
             db.collection('webview').add({
               name: name,
-              email: email,
+              quantity: quantity,
               image: img_url
               }).then(success => {   
                 console.log("DATA SAVED")
@@ -508,6 +508,9 @@ const handleMessage = (sender_psid, received_message) => {
         break;
       case "button":                  
         buttonReply(sender_psid);
+        break;
+      case "view point":
+        viewpointReply(sender_psid);
         break;
       case "webview":
         webviewTest(sender_psid);
@@ -723,7 +726,27 @@ const OrderOrViewPoints = (sender_psid) => {
 
 }
 
+/*ViewPoint reply*/
+const viewpoint = (sender_psid) => {
 
+  let response = {
+    "text": "Point များကြည့်မည်",
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"အစားအသောက်မှာယူမည်",
+              "payload":"visit:food order",              
+            },{
+              "content_type":"text",
+              "title":"Point များကြည့်မည်",
+              "payload":"visit:view point",             
+            }
+    ]
+  };
+  callSend(sender_psid, response);
+
+}
+/*_______*/
 const showFood = (sender_psid) => {
     let response = {
       "attachment": {
