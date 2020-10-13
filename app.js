@@ -515,7 +515,9 @@ const handleMessage = (sender_psid, received_message) => {
       case "webview":
         webviewTest(sender_psid);
         break;  
-
+      case "foodtype":
+      foodtypeReply(sender_psid);
+      break;
       case "show images":
         showImages(sender_psid)
         break;               
@@ -705,6 +707,34 @@ const foodorder = (sender_psid) => {
     return callSend(sender_psid, response2);
   });
 }
+/*added*/
+const foodtypeReply = (sender_psid) => {
+    let response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            
+
+            "subtitle": "မနက်စာ",
+           
+            "buttons": [
+                {
+                  "type": "postback",
+                  
+                  "payload": "food:ကော်ဖီ",
+                },               
+              ],
+          }]
+        }
+      }
+    }
+}
+  /*added*/
+  callSend(sender_psid, response);
+
+}
 
 const OrderOrViewPoints = (sender_psid) => {
 
@@ -746,6 +776,7 @@ const viewpoint = (sender_psid) => {
   callSend(sender_psid, response);
 
 }
+
 /*_______*/
 const showFood = (sender_psid) => {
     let response = {
