@@ -702,6 +702,7 @@ const foodorder = (sender_psid) => {
     return callSend(sender_psid, response2);
   });
 }
+
 const OrderOrViewPoints = (sender_psid) => {
 
   let response = {
@@ -852,8 +853,7 @@ const showFood = (sender_psid) => {
   callSend(sender_psid, response);
 
 }
-
-const OrderOrViewPoints = (sender_psid) => {
+/*const OrderOrViewPoints = (sender_psid) => {
 
   let response = {
     "text": "အစားအသောက်မှာယူမည် သို့မဟုတ် Point များကြည့်မည်",
@@ -871,7 +871,7 @@ const OrderOrViewPoints = (sender_psid) => {
   };
   callSend(sender_psid, response);
 
-}
+}*/
 
 const botQuestions = (current_question, sender_psid) => {
   if(current_question == 'q1'){
