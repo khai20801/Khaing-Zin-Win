@@ -29,7 +29,7 @@ const bot_questions = {
   "q3": "please enter full name",
   "q4": "please enter address",
   "q5": "please enter phone number",
-  "q6": "please enter email",
+  "q6": "please enter quantity",
   "q7": "please enter special request"
 }
 
@@ -199,7 +199,7 @@ app.post('/admin/updatecustomerorder', function(req,res){
   let data = {
     name:req.body.name,
     phone:req.body.phone,
-    email:req.body.email,
+    quantity:req.body.quantity,
     address:req.body.address,
     food:req.body.food,
     ordermethod:req.body.ordermethod,
@@ -476,8 +476,8 @@ const handleMessage = (sender_psid, received_message) => {
      current_question = 'q6';
      botQuestions(current_question, sender_psid);
   }else if(current_question == 'q6'){
-     console.log('EMAIL ENTERED',received_message.text);
-     userInputs[user_id].email = received_message.text;
+     console.log('QUANTITY ENTERED',received_message.text);
+     userInputs[user_id].quantity = received_message.text;
      current_question = 'q7';
      botQuestions(current_question, sender_psid);
   }else if(current_question == 'q7'){
@@ -702,7 +702,25 @@ const foodorder = (sender_psid) => {
     return callSend(sender_psid, response2);
   });
 }
+const OrderOrViewPoints = (sender_psid) => {
 
+  let response = {
+    "text": "အစားအသောက်မှာယူမည် သို့မဟုတ် Point များကြည့်မည်",
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"အစားအသောက်မှာယူမည်",
+              "payload":"visit:food order",              
+            },{
+              "content_type":"text",
+              "title":"Point များကြည့်မည်",
+              "payload":"visit:view point",             
+            }
+    ]
+  };
+  callSend(sender_psid, response);
+
+}
 
 
 const showFood = (sender_psid) => {
@@ -890,8 +908,8 @@ const confirmcustomerorder = (sender_psid) => {
   summery += "name:" + userInputs[user_id].name + "\u000A";
   summery += "address:" + userInputs[user_id].address + "\u000A";
   summery += "phone:" + userInputs[user_id].phone + "\u000A";
-  summery += "email:" + userInputs[user_id].email + "\u000A";
-  summery += "message:" + userInputs[user_id].message + "\u000A";
+  summery += "quantity:" + userInputs[user_id].quantity + "\u000A";
+  summery += "request:" + userInputs[user_id].request + "\u000A";
 
   let response1 = {"text": summery};
 
