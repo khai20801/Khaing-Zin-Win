@@ -27,10 +27,10 @@ const bot_questions = {
   "q1": "please enter date (yyyy-mm-dd)",
   "q2": "please enter time (hh:mm)",
   "q3": "please enter full name",
-  "q4": "please enter gender",
+  "q4": "please enter address",
   "q5": "please enter phone number",
   "q6": "please enter email",
-  "q7": "please leave a message"
+  "q7": "please enter special request"
 }
 
 let current_question = '';
@@ -200,7 +200,7 @@ app.post('/admin/updatecustomerorder', function(req,res){
     name:req.body.name,
     phone:req.body.phone,
     email:req.body.email,
-    gender:req.body.gender,
+    address:req.body.address,
     food:req.body.food,
     ordermethod:req.body.ordermethod,
     visit:req.body.visit,
@@ -466,8 +466,8 @@ const handleMessage = (sender_psid, received_message) => {
      current_question = 'q4';
      botQuestions(current_question, sender_psid);
   }else if(current_question == 'q4'){
-     console.log('GENDER ENTERED',received_message.text);
-     userInputs[user_id].gender = received_message.text;
+     console.log('ADDRESS ENTERED',received_message.text);
+     userInputs[user_id].address = received_message.text;
      current_question = 'q5';
      botQuestions(current_question, sender_psid);
   }else if(current_question == 'q5'){
@@ -888,7 +888,7 @@ const confirmcustomerorder = (sender_psid) => {
   summery += "date:" + userInputs[user_id].date + "\u000A";
   summery += "time:" + userInputs[user_id].time + "\u000A";
   summery += "name:" + userInputs[user_id].name + "\u000A";
-  summery += "gender:" + userInputs[user_id].gender + "\u000A";
+  summery += "address:" + userInputs[user_id].address + "\u000A";
   summery += "phone:" + userInputs[user_id].phone + "\u000A";
   summery += "email:" + userInputs[user_id].email + "\u000A";
   summery += "message:" + userInputs[user_id].message + "\u000A";
@@ -939,7 +939,7 @@ end hospital
 
 
 const hiReply =(sender_psid) => {
-  let response = {"text": "မင်္ဂလာပါ အစားအသောက်မှာယူရန် foodorder ဟုရိုက်ထည့်ပါ"};
+  let response = {"text": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ် အစားအသောက်မှာယူရန် foodorder ဟုရိုက်ထည့်ပါ"};
   callSend(sender_psid, response);
 }
 
