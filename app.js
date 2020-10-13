@@ -754,7 +754,7 @@ const showFood = (sender_psid) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "price": "300",
+            "title": "300",
 
             "subtitle": "မနက်စာ",
             "image_url":"https://s.yimg.com/ny/api/res/1.2/qsNFpXXUTYpc8mHA1i.2qg--~A/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAw/https://itk-assets.nyc3.cdn.digitaloceanspaces.com/2020/01/559c3c00-e51f-11e9-8797-d1089c252eee-1620x911.jpeg",                       
@@ -789,7 +789,7 @@ const showFood = (sender_psid) => {
               ],
           }
           ,{
-            "price": "3000",
+            "title": "3000",
             "subtitle": "မနက်စာ",
             "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
             "buttons": [
@@ -876,17 +876,17 @@ const showFood = (sender_psid) => {
   callSend(sender_psid, response);
 
 }
-let price = {
+let title = {
   'နန်းကြီးသုပ်':3000,
   'mote-hin-khar':1500
 }
 
 
 let customer_selected = 'food';
-let quantity ='quantity' ;
-let total = price[customer_selected]*quantity;
+let quantity ='quantity';
+let total = title[customer_selected]*quantity;
 
-console.log(`Total price for ${customer_selected} * ${quantity} is ${total}`);
+console.log(`Total price for ${customer_selected} * ${title} is ${total}`);
 /*const OrderOrViewPoints = (sender_psid) => {
 
   let response = {
