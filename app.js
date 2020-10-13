@@ -506,7 +506,7 @@ const handleMessage = (sender_psid, received_message) => {
       case "quick":
         quickReply(sender_psid);
         break;
-      case "foodtype":                  
+      case "button":                  
         buttonReply(sender_psid);
         break;
       case "view point":
@@ -515,7 +515,7 @@ const handleMessage = (sender_psid, received_message) => {
       case "webview":
         webviewTest(sender_psid);
         break;  
-      
+
       case "show images":
         showImages(sender_psid)
         break;               
@@ -706,10 +706,6 @@ const foodorder = (sender_psid) => {
   });
 }
 
-  callSend(sender_psid, response);
-
-}
-
 const OrderOrViewPoints = (sender_psid) => {
 
   let response = {
@@ -750,7 +746,6 @@ const viewpoint = (sender_psid) => {
   callSend(sender_psid, response);
 
 }
-
 /*_______*/
 const showFood = (sender_psid) => {
     let response = {
@@ -931,7 +926,7 @@ const confirmcustomerorder = (sender_psid) => {
   console.log('customerorder INFO', userInputs);
   let summery = "ordermethod:" + userInputs[user_id].ordermethod + "\u000A";
   summery += "food:" + userInputs[user_id].food + "\u000A";
-  summery += "order:" + userInputs[user_id].visit + "\u000A";
+  summery += "visit:" + userInputs[user_id].visit + "\u000A";
   summery += "date:" + userInputs[user_id].date + "\u000A";
   summery += "time:" + userInputs[user_id].time + "\u000A";
   summery += "name:" + userInputs[user_id].name + "\u000A";
@@ -1038,18 +1033,18 @@ const buttonReply =(sender_psid) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Choose your foodtype",
+            "title": "Are you OK?",
             "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "Breakfast",
-                  "payload": "food:မြီးရှည်",
+                  "title": "Yes!",
+                  "payload": "yes",
                 },
                 {
                   "type": "postback",
-                  "title": "Lunch",
-                  "payload": "food:မြီးရှည်",
+                  "title": "No!",
+                  "payload": "no",
                 }
               ],
           }]
