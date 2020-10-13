@@ -427,7 +427,10 @@ function handleQuickReply(sender_psid, received_message) {
           break; 
         case "confirm-customerorder":
               savecustomerorder(userInputs[user_id], sender_psid);
-          break;              
+          break;
+        case "confirmorder":
+        confirmorder(sender_psid);
+        break;         
         default:
             defaultReply(sender_psid);
     } 
@@ -868,7 +871,7 @@ const showFood = (sender_psid) => {
           }
 
           ]
-        }
+    
       }
     }
 
@@ -877,9 +880,9 @@ const showFood = (sender_psid) => {
 
 }
 
-const confirmcustomerorder = (sender_psid) => {
-
-  let response1 = {"text": summery};
+const confirmorder = (sender_psid) => {
+console.log('customerorder INFO', userInputs);
+  let response1 = {"text":"Choose confirm or cancel"};
 
   let response2 = {
     "text": "Order ကိုအတည်ပြုပါ",
