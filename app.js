@@ -877,6 +877,29 @@ const showFood = (sender_psid) => {
 
 }
 
+const confirmcustomerorder = (sender_psid) => {
+
+  let response1 = {"text": summery};
+
+  let response2 = {
+    "text": "Order ကိုအတည်ပြုပါ",
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"Confirm",
+              "payload":"confirm-customerorder",              
+            },{
+              "content_type":"text",
+              "title":"Cancel",
+              "payload":"OFF",             
+            }
+    ]
+  };
+  
+  callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2);
+  });
+}
 /*const OrderOrViewPoints = (sender_psid) => {
 
   let response = {
