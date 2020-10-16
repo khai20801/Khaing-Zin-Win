@@ -1044,17 +1044,17 @@ const buttonReply =(sender_psid) => {
                 {
                   "type": "postback",
                   "title": "lunch",
-                  "payload": "yes",
+                  "payload": "breakfast",
                 },
                 {
                   "type": "postback",
                   "title": "Chinese Food",
-                  "payload": "yes",
+                  "payload": "breakfast",
                 },
                 {
                   "type": "postback",
                   "title": "Coffee and Drinks",
-                  "payload": "yes",
+                  "payload": "breakfast",
                 }
               ],
           }]
