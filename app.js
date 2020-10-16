@@ -416,6 +416,7 @@ function handleQuickReply(sender_psid, received_message) {
     let dept = received_message.slice(11);
     userInputs[user_id].ordermethod = dept;
     showFood(sender_psid);
+    breakfast(sender_psid);
   }else{
 
       switch(received_message) {                
@@ -506,6 +507,9 @@ const handleMessage = (sender_psid, received_message) => {
       case "quick":
         quickReply(sender_psid);
         break;
+      case "breakfast":
+        breakfastReply(sender_psid);
+        break;
       case "button":                  
         buttonReply(sender_psid);
         break;
@@ -590,8 +594,8 @@ const handlePostback = (sender_psid, received_postback) => {
   }else{
 
       switch(payload) {        
-      case "breakfast":
-          showButtonReplybreakfast(sender_psid);
+      case "yes":
+          showButtonReplyYes(sender_psid);
         break;
       case "no":
           showButtonReplyNo(sender_psid);
@@ -747,6 +751,135 @@ const viewpoint = (sender_psid) => {
 
 }
 */
+const breakfast = (sender_psid) => {
+    let response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "300",
+
+            "subtitle": "မနက်စာ",
+            "image_url":"https://s.yimg.com/ny/api/res/1.2/qsNFpXXUTYpc8mHA1i.2qg--~A/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAw/https://itk-assets.nyc3.cdn.digitaloceanspaces.com/2020/01/559c3c00-e51f-11e9-8797-d1089c252eee-1620x911.jpeg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "ကော်ဖီ",
+                  "payload": "food:ကော်ဖီ",
+                },               
+              ],
+          },{
+            "title": "500",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "လက်ဘက်ရည်",
+                  "payload": "food:လက်ဘက်ရည်",
+                },               
+              ],
+          },{
+            "title": "500",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "မုန့်ဟင်းခါး",
+                  "payload": "food:မုန့်ဟင်းခါး",
+                },               
+              ],
+          }
+          ,{
+            "title": "1200",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "နန်းကြီးသုပ်",
+                  "payload": "food:နန်းကြီးသုပ်",
+                },               
+              ],
+          },{
+            "title": "1200",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "ခေါက်ဆွဲသုပ်",
+                  "payload": "food:ခေါက်ဆွဲသုပ်",
+                },               
+              ],
+          },{
+            "title": "1200",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "အစုံသုပ်",
+                  "payload": "food:အစုံသုပ်",
+                },               
+              ],
+          },{
+            "title": "1200",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "ရှမ်းခေါက်ဆွဲ",
+                  "payload": "food:ရှမ်းခေါက်ဆွဲ",
+                },               
+              ],
+          },{
+            "title": "1200",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "ဆီချက်",
+                  "payload": "food:ဆီချက်",
+                },               
+              ],
+          },{
+            "title": "1200",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "မြီးရှည်",
+                  "payload": "food:မြီးရှည်",
+                },               
+              ],
+          },{
+            "title": "2500",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "မာလာဟင်",
+                  "payload": "food:မာလာဟင်",
+                },               
+              ],
+          }
+
+          ]
+        }
+      }
+    }
+
+  
+  callSend(sender_psid, response);
+
+}
 const showFood = (sender_psid) => {
     let response = {
       "attachment": {
@@ -1033,28 +1166,18 @@ const buttonReply =(sender_psid) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "အစားအစာအမျိုးအစားရွေးချယ်ပါ",
+            "title": "Are you OK?",
             "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "Breakfast",
-                  "payload": "breakfast",
+                  "title": "Yes!",
+                  "payload": "yes",
                 },
                 {
                   "type": "postback",
-                  "title": "lunch",
-                  "payload": "breakfast",
-                },
-                {
-                  "type": "postback",
-                  "title": "Chinese Food",
-                  "payload": "breakfast",
-                },
-                {
-                  "type": "postback",
-                  "title": "Coffee and Drinks",
-                  "payload": "breakfast",
+                  "title": "No!",
+                  "payload": "no",
                 }
               ],
           }]
@@ -1066,134 +1189,9 @@ const buttonReply =(sender_psid) => {
   callSend(sender_psid, response);
 }
 
-const showButtonReplybreakfast =(sender_psid) => {
-  let response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "300",
-
-            "subtitle": "မနက်စာ",
-            "image_url":"https://s.yimg.com/ny/api/res/1.2/qsNFpXXUTYpc8mHA1i.2qg--~A/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAw/https://itk-assets.nyc3.cdn.digitaloceanspaces.com/2020/01/559c3c00-e51f-11e9-8797-d1089c252eee-1620x911.jpeg",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "ကော်ဖီ",
-                  "payload": "food:ကော်ဖီ",
-                },               
-              ],
-          },{
-            "title": "500",
-            "subtitle": "မနက်စာ",
-            "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "လက်ဘက်ရည်",
-                  "payload": "food:လက်ဘက်ရည်",
-                },               
-              ],
-          },{
-            "title": "500",
-            "subtitle": "မနက်စာ",
-            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "မုန့်ဟင်းခါး",
-                  "payload": "food:မုန့်ဟင်းခါး",
-                },               
-              ],
-          }
-          ,{
-            "title": "1200",
-            "subtitle": "မနက်စာ",
-            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "နန်းကြီးသုပ်",
-                  "payload": "food:နန်းကြီးသုပ်",
-                },               
-              ],
-          },{
-            "title": "1200",
-            "subtitle": "မနက်စာ",
-            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "ခေါက်ဆွဲသုပ်",
-                  "payload": "food:ခေါက်ဆွဲသုပ်",
-                },               
-              ],
-          },{
-            "title": "1200",
-            "subtitle": "မနက်စာ",
-            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "အစုံသုပ်",
-                  "payload": "food:အစုံသုပ်",
-                },               
-              ],
-          },{
-            "title": "1200",
-            "subtitle": "မနက်စာ",
-            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "ရှမ်းခေါက်ဆွဲ",
-                  "payload": "food:ရှမ်းခေါက်ဆွဲ",
-                },               
-              ],
-          },{
-            "title": "1200",
-            "subtitle": "မနက်စာ",
-            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "ဆီချက်",
-                  "payload": "food:ဆီချက်",
-                },               
-              ],
-          },{
-            "title": "1200",
-            "subtitle": "မနက်စာ",
-            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "မြီးရှည်",
-                  "payload": "food:မြီးရှည်",
-                },               
-              ],
-          },{
-            "title": "2500",
-            "subtitle": "မနက်စာ",
-            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "မာလာဟင်",
-                  "payload": "food:မာလာဟင်",
-                },               
-              ],
-          }
-
-          ]
-        }
-      }
-    }
-
-  
+const showButtonReplyYes =(sender_psid) => {
+  let response = { "text": "You clicked YES" };
   callSend(sender_psid, response);
-
 }
 
 const showButtonReplyNo =(sender_psid) => {
