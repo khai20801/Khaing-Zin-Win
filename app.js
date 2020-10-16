@@ -416,7 +416,7 @@ function handleQuickReply(sender_psid, received_message) {
     let dept = received_message.slice(11);
     userInputs[user_id].ordermethod = dept;
     showFood(sender_psid);
-    breakfast(sender_psid);
+   
   }else{
 
       switch(received_message) {                
