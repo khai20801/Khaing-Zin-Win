@@ -416,10 +416,10 @@ function handleQuickReply(sender_psid, received_message) {
     let dept = received_message.slice(11);
     userInputs[user_id].ordermethod = dept;
     showFood(sender_psid);
-   
+
   }else{
 
-      switch(received_message) {                
+      switch(received_message) {                     
         case "on":
             showQuickReplyOn(sender_psid);
           break;
@@ -758,7 +758,7 @@ const breakfast = (sender_psid) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "300",
+            "title": "400",
 
             "subtitle": "မနက်စာ",
             "image_url":"https://s.yimg.com/ny/api/res/1.2/qsNFpXXUTYpc8mHA1i.2qg--~A/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAw/https://itk-assets.nyc3.cdn.digitaloceanspaces.com/2020/01/559c3c00-e51f-11e9-8797-d1089c252eee-1620x911.jpeg",                       
@@ -770,9 +770,9 @@ const breakfast = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "500",
+            "title": "700",
             "subtitle": "မနက်စာ",
-            "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
+            "image_url":"https://www.kenyans.co.ke/files/images/news/gallery-1513337481-cup-of-tea.jpg",                       
             "buttons": [
                 {
                   "type": "postback",
@@ -783,7 +783,7 @@ const breakfast = (sender_psid) => {
           },{
             "title": "500",
             "subtitle": "မနက်စာ",
-            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "image_url":"https://sanctum-inle-resort.com/wp-content/uploads/2015/09/mohinga-myanmar-food-sanctum-inle-resort.jpg",                       
             "buttons": [
                 {
                   "type": "postback",
@@ -795,7 +795,7 @@ const breakfast = (sender_psid) => {
           ,{
             "title": "1200",
             "subtitle": "မနက်စာ",
-            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "image_url":"https://www.beyondboundariesmyanmar.com/blog/wp-content/uploads/2019/08/Nangyi-thoke-myanmar.jpg",                       
             "buttons": [
                 {
                   "type": "postback",
@@ -806,7 +806,7 @@ const breakfast = (sender_psid) => {
           },{
             "title": "1200",
             "subtitle": "မနက်စာ",
-            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "image_url":"http://www.seetheworldinmyeyes.com/wp-content/uploads/2014/01/SeeTheWorldInMyEyes-Vegetarian-Travels-Myanmar-Noodle-Salad-in-Yangon.jpg",                       
             "buttons": [
                 {
                   "type": "postback",
@@ -815,20 +815,20 @@ const breakfast = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "1200",
+            "title": "200",
             "subtitle": "မနက်စာ",
-            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "image_url":"http://www.averysegal.com/wp-content/uploads/2014/03/myanmar-breakfast-fritters-and-somosas.jpg",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "အစုံသုပ်",
-                  "payload": "food:အစုံသုပ်",
+                  "title": "အီကြာကွေ",
+                  "payload": "food:အီကြာကွေ",
                 },               
               ],
           },{
             "title": "1200",
             "subtitle": "မနက်စာ",
-            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "image_url":"http://i2.wp.com/www.foodrepublic.com/wp-content/uploads/2017/02/Shan-Noodles.jpg?resize=700%2C547",                       
             "buttons": [
                 {
                   "type": "postback",
@@ -839,7 +839,7 @@ const breakfast = (sender_psid) => {
           },{
             "title": "1200",
             "subtitle": "မနက်စာ",
-            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "image_url":"https://th.bing.com/th/id/OIP.PuwOyjubLC5VDhsCwDVEsQHaG0?pid=Api&rs=1",                       
             "buttons": [
                 {
                   "type": "postback",
@@ -848,25 +848,25 @@ const breakfast = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "1200",
+            "title": "2000",
             "subtitle": "မနက်စာ",
-            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "image_url":"https://blog-001.west.edge.storage-yahoo.jp/res/blog-0b-10/nanakita2012/folder/1867020/66/68299566/img_3?1397789574",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "မြီးရှည်",
-                  "payload": "food:မြီးရှည်",
+                  "title": "ကော်ရည်",
+                  "payload": "food:ကော်ရည်",
                 },               
               ],
           },{
             "title": "2500",
             "subtitle": "မနက်စာ",
-            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "image_url":"http://flavorverse.com/wp-content/uploads/2016/11/Laphet-Thoke-Best-Burmese-Food-640x427.jpg",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "မာလာဟင်",
-                  "payload": "food:မာလာဟင်",
+                  "title": "လက်ဖက်သုပ်",
+                  "payload": "food:လက်ဖက်သုပ်",
                 },               
               ],
           }
