@@ -1002,7 +1002,41 @@ const handlePostback = (sender_psid, received_postback) => {
     showMenu(sender_psid);
   });  
 }
+const showMenu = async(sender_psid) => {
+  let title = "";
+  const userRef = db.collection('users').doc(sender_psid);
+    const user = await userRef.get();
+    if (!user.exists) {
+      title = "Register";  
+      first_reg = true;      
+    } else {
+      title = "Update Profile";  
+      first_reg = false;      
+    } 
 
+
+  let response = {
+    "text": "Select your reply",
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"title",
+              "payload":"register",              
+            },{
+              "content_type":"text",
+              "title":"Shop",
+              "payload":"shop",             
+            },
+            {
+              "content_type":"text",
+              "title":"My Order",
+              "payload":"check-order",             
+            }
+
+    ]
+  };
+  callSend(sender_psid, response);
+}
 const generateRandom = (length) => {
    var result           = '';
    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
