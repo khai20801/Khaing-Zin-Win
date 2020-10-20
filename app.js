@@ -994,7 +994,7 @@ const hiReply =(sender_psid) => {
 }
 
 const foodtypeReply =(sender_psid) => {
-  let response = {"text": "မင်္ဂလာပါ "};
+  let response1 = {"text": "မင်္ဂလာပါ "};
   let response2 = {
     "text": "Please select foodtype",
     "quick_replies":[
