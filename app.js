@@ -992,9 +992,27 @@ const hiReply =(sender_psid) => {
   let response = {"text": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ် အစားအသောက်မှာယူရန် foodorder ဟုရိုက်ထည့်ပါ"};
   callSend(sender_psid, response);
 }
+
 const foodtypeReply =(sender_psid) => {
   let response = {"text": "မင်္ဂလာပါ "};
-  callSend(sender_psid, response);
+  let response2 = {
+    "text": "Please select foodtype",
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"Delivery",
+              "payload":"breakfast",              
+            },{
+              "content_type":"text",
+              "title":"Pickup",
+              "payload":"lunch",             
+            }
+    ]
+  };
+
+  callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2);
+  });
 }
 
 
