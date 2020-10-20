@@ -1037,6 +1037,34 @@ const showMenu = async(sender_psid) => {
   };
   callSend(sender_psid, response);
 }
+
+const shopMenu =(sender_psid) => {
+  let response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Nay Shop",
+            "image_url":"https://img.favpng.com/8/22/6/toy-shop-retail-toys-r-us-clip-art-png-favpng-Q5kvdVUxgvDQT9M9vmsHzByQY.jpg",                       
+            "buttons": [              
+              {
+                "type": "web_url",
+                "title": "Shop Now",
+                "url":APP_URL+"shop/",
+                 "webview_height_ratio": "full",
+                "messenger_extensions": true,          
+              },
+              
+            ],
+          }]
+        }
+      }
+    }  
+  callSend(sender_psid, response);
+}
+
+
 const generateRandom = (length) => {
    var result           = '';
    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
