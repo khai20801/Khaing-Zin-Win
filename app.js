@@ -751,7 +751,7 @@ const viewpoint = (sender_psid) => {
 
 }
 */
-const breakfast = (sender_psid) => {
+const showFood = (sender_psid) => {
     let response = {
       "attachment": {
         "type": "template",
