@@ -510,9 +510,7 @@ const handleMessage = (sender_psid, received_message) => {
       case "quick":
         quickReply(sender_psid);
         break;
-      case "breakfast":
-        breakfastReply(sender_psid);
-        break;
+      
       case "button":                  
         buttonReply(sender_psid);
         break;
