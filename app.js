@@ -903,9 +903,9 @@ const handleMessage = (sender_psid, received_message) => {
       case "webview":
         webviewTest(sender_psid);
         break;  
-      case "start"{
+      case "start":
         startGreeting(sender_psid);
-      }
+      break;
       case "show images":
         showImages(sender_psid)
         break;               
@@ -1017,6 +1017,7 @@ const generateRandom = (length) => {
 GALLERY SAMPLE
 **********************************************/
 
+/*
 const showImages = (sender_psid) => {
   let response;
   response = {
@@ -1042,6 +1043,7 @@ const showImages = (sender_psid) => {
     }
   callSendAPI(sender_psid, response);
 }
+*/
 
 
 /*********************************************
