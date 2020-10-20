@@ -49,7 +49,7 @@ const bot_questions2 = {
 }
 let sess;
 
-let current_question = '';
+let current_question2 = '';
 let user_id = ''; 
 let userInputs = [];
 let first_reg = false;
@@ -783,12 +783,12 @@ function handleQuickReply(sender_psid, received_message) {
 
   switch(received_message) {                
       case "register":
-          current_question = "q1";
-          botQuestions2(current_question, sender_psid);
+          current_question2 = "q1";
+          botQuestions2(current_question2, sender_psid);
         break;
       case "check-order":         
-          current_question = "q4";
-          botQuestions2(current_question, sender_psid);
+          current_question2 = "q4";
+          botQuestions2(current_question2, sender_psid);
         break; 
       case "shop":
           shopMenu(sender_psid);
@@ -852,6 +852,24 @@ const handleMessage = (sender_psid, received_message) => {
      current_question = '';
      
      confirmcustomerorder(sender_psid);
+  }else if(current_question2 == 'q1'){     
+     userInputs[user_id].name = received_message.text;
+     current_question2 = 'q2';
+     botQuestions2(current_question2, sender_psid);
+  }else if(current_question2 == 'q2'){    
+     userInputs[user_id].phone = received_message.text; 
+     current_question2 = 'q3';
+     botQuestions2(current_question2, sender_psid);
+  }else if(current_question2 == 'q3'){
+     userInputs[user_id].address = received_message.text;     
+     current_question2 = '';     
+     confirmRegister(sender_psid);
+  }else if(current_question2 == 'q4'){
+     let order_ref = received_message.text; 
+
+     console.log('order_ref: ', order_ref);    
+     current_question2 = '';     
+     showOrder(sender_psid, order_ref);
   }
   else {
       
@@ -859,7 +877,7 @@ const handleMessage = (sender_psid, received_message) => {
      
       user_message = user_message.toLowerCase(); 
 
-      switch(user_message) { 
+      switch(user_message) {
       case "hi":
           hiReply(sender_psid);
         break;
@@ -1295,6 +1313,22 @@ const botQuestions = (current_question, sender_psid) => {
   }
 }
 
+const botQuestions2 = (current_question2, sender_psid) => {
+  if(current_question2 == 'q1'){
+    let response = {"text": bot_questions.q1};
+    callSend(sender_psid, response);
+  }else if(current_question2 == 'q2'){
+    let response = {"text": bot_questions.q2};
+    callSend(sender_psid, response);
+  }else if(current_question2 == 'q3'){
+    let response = {"text": bot_questions.q3};
+    callSend(sender_psid, response);
+  }
+  else if(current_question2 == 'q4'){
+    let response = {"text": bot_questions.q4};
+    callSend(sender_psid, response);
+  }
+}
 const confirmcustomerorder = (sender_psid) => {
   console.log('customerorder INFO', userInputs);
   let summery = "ordermethod:" + userInputs[user_id].ordermethod + "\u000A";
