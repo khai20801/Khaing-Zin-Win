@@ -522,9 +522,6 @@ const handleMessage = (sender_psid, received_message) => {
       case "webview":
         webviewTest(sender_psid);
         break;  
-case "Breakfast":
-breakfastReply(sender_psid);
-break;
       case "show images":
         showImages(sender_psid)
         break;               
@@ -594,7 +591,7 @@ const handlePostback = (sender_psid, received_postback) => {
     let food_name = payload.slice(7);
     console.log('SELECTED FOOD IS: ', food_name);
     userInputs[user_id].food = food_name;
-    console.log('TEST', userInputs);
+    console.log('TEST', userInpts);
     OrderOrViewPoints(sender_psid);
   }else{
 
@@ -1002,11 +999,11 @@ const foodtypeReply =(sender_psid) => {
     "quick_replies":[
             {
               "content_type":"text",
-              "title":"Breakfast",
+              "title":"breakfast",
               "payload":"food:breakfast",              
             },{
               "content_type":"text",
-              "title":"Lunch",
+              "title":"lunch",
               "payload":"food:lunch",             
             }
     ]
@@ -1017,7 +1014,7 @@ const foodtypeReply =(sender_psid) => {
   });
 }
 
-const breakfastReply =(sender_psid) => {
+const showfoodtypeReplybreakfast =(sender_psid) => {
 let response = {
       "attachment": {
         "type": "template",
