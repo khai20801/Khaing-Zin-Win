@@ -117,15 +117,14 @@ app.post('/webhook', (req, res) => {
     body.entry.forEach(function(entry) {
 
       let webhook_event = entry.messaging[0];
-      let sender_psid = webhook_event.sender.id;       
-      
+      let sender_psid = webhook_event.sender.id; 
+
       user_id = sender_psid; 
 
-      if(!userInputs2[user_id2]){
-        userInputs2[user_id2] = {};
-        customer[user_id2] = {};
-      } 
-               
+      if(!userInputs[user_id]){
+        userInputs[user_id] = {};
+      }    
+
 
       if (webhook_event.message) {
         if(webhook_event.message.quick_reply){
