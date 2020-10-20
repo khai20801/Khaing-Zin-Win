@@ -993,9 +993,15 @@ const handlePostback = (sender_psid, received_postback) => {
   }
 
 
-  
+ 
 }
 
+ const startGreeting =(sender_psid) => {
+  let response = {"text": "Welcome to NAY shop."};
+  callSend(sender_psid, response).then(()=>{
+    showMenu(sender_psid);
+  });  
+}
 
 const generateRandom = (length) => {
    var result           = '';
