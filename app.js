@@ -33,13 +33,32 @@ const bot_questions = {
   "q7": "please enter special request"
 }
 
+
+
 let current_question = '';
 
 let user_id = ''; 
 
 let userInputs = [];
 
+const bot_questions2 = {
+  "q1": "please enter you name",
+  "q2": "please enter your phone number",
+  "q3": "please enter your address",
+  "q4": "please enter your order reference number" 
+}
+let sess;
 
+let current_question = '';
+let user_id = ''; 
+let userInputs = [];
+let first_reg = false;
+let customer = [];
+
+
+let temp_points = 0;
+let cart_total = 0;
+let cart_discount = 0;
 /*
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -146,6 +165,45 @@ app.post('/test',function(req,res){
     callSend(sender_psid, response);
 });
 
+app.get('/admin/addproduct', async function(req,res){
+  res.render('addproduct.ejs');  
+});
+
+app.post('/admin/saveproduct',upload.single('file'),function(req,res){
+       
+      let name  = req.body.name;
+      let description = req.body.description;
+      let img_url = "";
+      let price = parseInt(req.body.price); 
+      let sku = req.body.sku;
+
+      let today = new Date();
+
+      
+
+
+      let file = req.file;
+      if (file) {
+        uploadImageToStorage(file).then((img_url) => {
+            db.collection('products').add({
+              name: name,
+              description: description,
+              image: img_url,
+              price:price,
+              sku:sku,
+              created_on:today
+              }).then(success => {   
+                console.log("DATA SAVED")
+                res.redirect('../admin/products');    
+              }).catch(error => {
+                console.log(error);
+              }); 
+        }).catch((error) => {
+          console.error(error);
+        });
+      }             
+});
+
 app.get('/admin/customerorder', async function(req,res){
  
   const customerorderRef = db.collection('customerorder');
@@ -190,6 +248,41 @@ app.get('/admin/updatecustomerorder/:doc_id', async function(req,res){
 
 });
 
+app.get('/admin/orders', async(req,res)=>{
+
+  const ordersRef = db.collection('orders').orderBy('created_on', 'desc');
+  const snapshot = await ordersRef.get();
+
+  if (snapshot.empty) {
+    res.send('no data');
+  } else{
+
+      let data = []; 
+
+  snapshot.forEach(doc => {
+    let order = {};
+    
+    order = doc.data();
+    order.doc_id = doc.id;
+    
+    let d = new Date(doc.data().created_on._seconds);
+    d = d.toString();
+    order.created_on = d;
+    
+
+    data.push(order);
+    
+  });
+
+
+  res.render('order_records.ejs', {data:data});
+
+
+  }
+
+    
+});
+
 
 app.post('/admin/updatecustomerorder', function(req,res){
   console.log('REQ:', req.body); 
@@ -219,6 +312,289 @@ app.post('/admin/updatecustomerorder', function(req,res){
   }).catch((err)=>console.log('ERROR:', error)); 
  
 });
+
+/*****Example***/
+app.get('/shop', async function(req,res){
+
+  customer[user_id].id = user_id;
+
+  const userRef = db.collection('users').doc(user_id);
+  const user = await userRef.get();
+  if (!user.exists) {
+    customer[user_id].name = ""; 
+    customer[user_id].phone = "";
+    customer[user_id].address = "";
+    customer[user_id].points = 0;
+         
+  } else {
+      customer[user_id].name = user.data().name; 
+      customer[user_id].phone = user.data().phone; 
+      customer[user_id].address = user.data().address; 
+      
+      customer[user_id].points = user.data().points; 
+       
+  } 
+
+
+  const productsRef = db.collection('products').orderBy('created_on', 'desc');
+  const snapshot = await productsRef.get();
+
+  if (snapshot.empty) {
+    res.send('no data');
+  } 
+
+  let data = []; 
+
+  snapshot.forEach(doc => { 
+    
+    let product = {}; 
+
+    product = doc.data();
+    
+    product.id = doc.id; 
+    
+    let d = new Date(doc.data().created_on._seconds);
+    d = d.toString();
+    product.created_on = d;   
+
+    data.push(product);
+    
+  });  
+
+  //console.log('DATA:', data); 
+  res.render('shop.ejs', {data:data});
+
+});
+
+
+app.post('/cart', function(req, res){
+    
+    if(!customer[user_id].cart){
+        customer[user_id].cart = [];
+    }
+    
+    let item = {};
+    item.id = req.body.item_id;
+    item.name = req.body.item_name;
+    item.price = parseInt(req.body.item_price);
+    item.qty = parseInt(req.body.item_qty);
+    item.total = item.price * item.qty; 
+
+
+    const itemInCart = (element) => element.id == item.id;
+    let item_index = customer[user_id].cart.findIndex(itemInCart); 
+
+    if(item_index < 0){
+        customer[user_id].cart.push(item);
+    }else{
+        customer[user_id].cart[item_index].qty = item.qty;
+        customer[user_id].cart[item_index].total = item.total;
+    }      
+     
+    res.redirect('../cart');   
+});
+
+
+app.get('/cart', function(req, res){     
+    temp_points = customer[user_id].points; 
+    let sub_total = 0;
+    cart_total = 0;
+    cart_discount = 0;
+
+    if(!customer[user_id].cart){
+        customer[user_id].cart = [];
+    }
+    if(customer[user_id].cart.length < 1){
+        res.send('your cart is empty. back to shop <a href="../shop">shop</a>');
+    }else{ 
+
+        customer[user_id].cart.forEach((item) => sub_total += item.total);        
+
+        cart_total = sub_total - cart_discount;       
+
+        customer[user_id].use_point = false;
+
+        res.render('cart.ejs', {cart:customer[user_id].cart, sub_total:sub_total, user:customer[user_id], cart_total:cart_total, discount:cart_discount, points:temp_points});    
+    }
+});
+
+
+
+app.get('/emptycart', function(req, res){  
+    customer[user_id].cart = [];
+    customer[user_id].use_point = false;
+    //customer[user_id].points = 400;
+    cart_discount = 0;
+    res.redirect('../cart');    
+});
+
+
+app.post('/pointdiscount', function(req, res){
+
+    //temp_points = customer[user_id].points; 
+    let sub_total = 0;
+    //cart_total = 0;
+    //cart_discount = 0;
+  
+    if(!customer[user_id].cart){
+        customer[user_id].cart = [];
+    }
+    if(customer[user_id].cart.length < 1){
+        res.send('your cart is empty. back to shop <a href="../shop">shop</a>');
+    }else{ 
+        customer[user_id].use_point = true;        
+
+        customer[user_id].cart.forEach((item) => sub_total += item.total); 
+
+        console.log('BEFORE');
+        console.log('sub total:'+sub_total);
+        console.log('cart total:'+cart_total);
+        console.log('cart discount:'+cart_discount);
+        console.log('temp points:'+ temp_points);
+       
+        if(sub_total != 0 || cart_total != 0){
+          if(sub_total >=  parseInt(req.body.points)){
+           console.log('Point is smaller than subtotal');
+           cart_discount =  parseInt(req.body.points);
+           cart_total = sub_total - cart_discount;
+           temp_points = 0; 
+           
+          }else{
+             console.log('Point is greater than subtotal');
+             cart_discount = sub_total; 
+             cart_total = 0;
+             temp_points -= sub_total;
+                       
+          }
+
+        }
+
+                
+
+        console.log('AFTER');
+        console.log('sub total:'+sub_total);
+        console.log('cart total:'+cart_total);
+        console.log('cart discount:'+cart_discount);
+        console.log('temp points:'+ temp_points);
+        
+        res.render('cart.ejs', {cart:customer[user_id].cart, sub_total:sub_total, user:customer[user_id], cart_total:cart_total, discount:cart_discount, points:temp_points});      
+    }
+});
+
+
+app.get('/order', function(req, res){
+    let sub_total;
+  
+    if(!customer[user_id].cart){
+        customer[user_id].cart = [];
+    }
+    if(customer[user_id].cart.length < 1){
+        res.send('your cart is empty. back to shop <a href="../shop">shop</a>');
+    }else{   
+        sub_total = 0;
+        customer[user_id].cart.forEach((item) => sub_total += item.total);   
+
+        let item_list = "";
+        customer[user_id].cart.forEach((item) => item_list += item.name+'*'+item.qty);  
+        
+        res.render('order.ejs', {cart:customer[user_id].cart, sub_total:sub_total, user:customer[user_id], cart_total:cart_total, discount:cart_discount, items:item_list});    
+    }
+});
+
+app.post('/order', function(req, res){
+    let today = new Date();
+
+
+    let data = {
+      name: req.body.name,
+      phone: req.body.phone,
+      address: req.body.address,
+      items: req.body.items,
+      sub_total: parseInt(req.body.sub_total),
+      discount: parseInt(req.body.discount),
+      total: parseInt(req.body.total),
+      payment_type: req.body.payment_type,
+      ref: generateRandom(6),
+      created_on: today,
+      status: "pending",
+      comment:"",      
+    }
+
+
+
+
+    db.collection('orders').add(data).then((success)=>{
+        
+        console.log('TEMP POINTS:', temp_points);
+        console.log('CUSTOMER: ', customer[user_id]);
+
+        //get 10% from sub total and add to remaining points;
+        let newpoints = temp_points + data.sub_total * 0.1;  
+
+        let update_data = {points: newpoints };
+
+        console.log('update_data: ', update_data);
+
+        db.collection('users').doc(user_id).update(update_data).then((success)=>{
+              console.log('POINT UPDATE:');
+              let text = "Thank you. Your order has been confirmed. Your order reference number is "+data.ref;      
+              let response = {"text": text};
+              callSend(user_id, response);       
+          
+          }).catch((err)=>{
+             console.log('Error', err);
+          });   
+      }).catch((err)=>{
+         console.log('Error', err);
+      });
+});
+
+
+
+
+
+//webview test
+app.get('/webview/:sender_id',function(req,res){
+    const sender_id = req.params.sender_id;
+    res.render('webview.ejs',{title:"Hello!! from WebView", sender_id:sender_id});
+});
+
+
+
+app.post('/webview',upload.single('file'),function(req,res){
+      
+      let name  = req.body.name;
+      let email = req.body.email;
+      let img_url = "";
+      let sender = req.body.sender;  
+
+      console.log("REQ FILE:",req.file);
+
+
+
+      let file = req.file;
+      if (file) {
+        uploadImageToStorage(file).then((img_url) => {
+            db.collection('webview').add({
+              name: name,
+              email: email,
+              image: img_url
+              }).then(success => {   
+                console.log("DATA SAVED")
+                thankyouReply(sender, name, img_url);    
+              }).catch(error => {
+                console.log(error);
+              }); 
+        }).catch((error) => {
+          console.error(error);
+        });
+      } 
+      
+           
+});
+
+
+/***Example****/
 
 /*********************************************
 Gallery page
@@ -403,41 +779,30 @@ function handleQuickReply(sender_psid, received_message) {
 
   console.log('QUICK REPLY', received_message);
 
-  received_message = received_message.toLowerCase();
+  received_message = received_message.toLowerCase();  
 
-  if(received_message.startsWith("visit:")){
-    let visit = received_message.slice(6);
-    
-    userInputs[user_id].visit = visit;
-    
-    current_question = 'q1';
-    botQuestions(current_question, sender_psid);
-  }else if(received_message.startsWith("ordermethod:")){
-    let dept = received_message.slice(11);
-    userInputs[user_id].ordermethod = dept;
-    showFood(sender_psid);
-
-  }else{
-
-      switch(received_message) {                     
-        case "on":
-            showQuickReplyOn(sender_psid);
-          break;
-        case "off":
-            showQuickReplyOff(sender_psid);
-          break; 
-        case "confirm-customerorder":
-              savecustomerorder(userInputs[user_id], sender_psid);
-          break;              
-        default:
-            defaultReply(sender_psid);
-    } 
-
-  }
-  
-  
+  switch(received_message) {                
+      case "register":
+          current_question = "q1";
+          botQuestions2(current_question, sender_psid);
+        break;
+      case "check-order":         
+          current_question = "q4";
+          botQuestions2(current_question, sender_psid);
+        break; 
+      case "shop":
+          shopMenu(sender_psid);
+        break; 
+      case "confirm-register":         
+            saveRegistration(userInputs[user_id], sender_psid);
+        break;  
+                 
+      default:
+          defaultReply(sender_psid);
+  }  
  
 }
+
 
 /**********************************************
 Function to Handle when user send text message
@@ -520,7 +885,9 @@ const handleMessage = (sender_psid, received_message) => {
       case "webview":
         webviewTest(sender_psid);
         break;  
-
+      case "start"{
+        startGreeting(sender_psid);
+      }
       case "show images":
         showImages(sender_psid)
         break;               
@@ -1359,3 +1726,114 @@ const whitelistDomains = (res) => {
       }
   });
 } 
+const confirmRegister = (sender_psid) => {
+
+  let summery = "";
+  summery += "name:" + userInputs[user_id].name + "\u000A";
+  summery += "phone:" + userInputs[user_id].phone + "\u000A";
+  summery += "address:" + userInputs[user_id].address + "\u000A";
+
+  let response1 = {"text": summery};
+
+  let response2 = {
+    "text": "Confirm to register",
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"Confirm",
+              "payload":"confirm-register",              
+            },{
+              "content_type":"text",
+              "title":"Cancel",
+              "payload":"off",             
+            }
+    ]
+  };
+  
+  callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2);
+  });
+}
+
+const saveRegistration = (arg, sender_psid) => {
+
+  let data = arg;  
+
+  if(first_reg){
+      let today = new Date();
+      data.fid = sender_psid;
+      data.created_on = today;
+      data.points = 50;
+      data.status = "pending";
+     
+  
+      db.collection('users').doc(sender_psid).set(data).then((success)=>{
+        console.log('SAVED', success);
+        //first_reg = false;
+        let text = "Thank you. You have been registered."+ "\u000A";      
+        let response = {"text": text};
+        callSend(sender_psid, response);
+      }).catch((err)=>{
+         console.log('Error', err);
+      });
+
+  }else{
+      let update_data = {name:data.name, phone:data.phone, address:data.address};
+      db.collection('users').doc(sender_psid).update(update_data).then((success)=>{
+      console.log('SAVED', success);
+      //first_reg = false;
+      let text = "Thank you. You have been registered."+ "\u000A";      
+      let response = {"text": text};
+      callSend(sender_psid, response);
+      }).catch((err)=>{
+         console.log('Error', err);
+      });
+
+  }
+}
+
+const showOrder = async(sender_psid, order_ref) => {
+
+    let cust_points = 0;
+
+    const ordersRef = db.collection('orders').where("ref", "==", order_ref).limit(1);
+    const snapshot = await ordersRef.get();
+
+    const userRef = db.collection('users').doc(user_id);
+    const user = await userRef.get();
+    if (!user.exists) {
+      cust_points = 0;           
+    } else {                
+        cust_points  = user.data().points;          
+    } 
+
+
+    if (snapshot.empty) {
+      let response = { "text": "Incorrect order number" };
+      callSend(sender_psid, response).then(()=>{
+        return startGreeting(sender_psid);
+      });
+    }else{
+          let order = {}
+
+          snapshot.forEach(doc => {      
+              order.ref = doc.data().ref;
+              order.status = doc.data().status;
+              order.comment = doc.data().comment;  
+          });
+
+
+          let response1 = { "text": `Your order ${order.ref} is ${order.status}.` };
+          let response2 = { "text": `Seller message: ${order.comment}.` };
+          let response3 = { "text": `You have remaining ${cust_points} point(s)` };
+            callSend(sender_psid, response1).then(()=>{
+              return callSend(sender_psid, response2).then(()=>{
+                return callSend(sender_psid, response3)
+              });
+          });
+
+    }
+
+    
+
+}
