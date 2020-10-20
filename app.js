@@ -836,7 +836,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "ရှမ်းခေါက်ဆွဲ",
-                  "payload": "food:ရှမ်းခေါက်ဆွဲ",
+                  "payload": "food:breakfast",
                 },               
               ],
           },{
@@ -1000,12 +1000,12 @@ const foodtypeReply =(sender_psid) => {
     "quick_replies":[
             {
               "content_type":"text",
-              "title":"Delivery",
-              "payload":"breakfast",              
+              "title":"Breakfast",
+              "payload":"food:breakfast",              
             },{
               "content_type":"text",
-              "title":"Pickup",
-              "payload":"lunch",             
+              "title":"Lunch",
+              "payload":"food:lunch",             
             }
     ]
   };
