@@ -522,7 +522,9 @@ const handleMessage = (sender_psid, received_message) => {
       case "webview":
         webviewTest(sender_psid);
         break;  
-
+case "Breakfast":
+breakfastReply(sender_psid);
+break;
       case "show images":
         showImages(sender_psid)
         break;               
@@ -1015,6 +1017,135 @@ const foodtypeReply =(sender_psid) => {
   });
 }
 
+const breakfastReply =(sender_psid) => {
+let response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "400",
+
+            "subtitle": "မနက်စာ",
+            "image_url":"https://s.yimg.com/ny/api/res/1.2/qsNFpXXUTYpc8mHA1i.2qg--~A/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAw/https://itk-assets.nyc3.cdn.digitaloceanspaces.com/2020/01/559c3c00-e51f-11e9-8797-d1089c252eee-1620x911.jpeg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "ကော်ဖီ",
+                  "payload": "food:breakfast",
+                },               
+              ],
+          },{
+            "title": "700",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://www.kenyans.co.ke/files/images/news/gallery-1513337481-cup-of-tea.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "လက်ဘက်ရည်",
+                  "payload": "food:breakfast",
+                },               
+              ],
+          },{
+            "title": "500",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://sanctum-inle-resort.com/wp-content/uploads/2015/09/mohinga-myanmar-food-sanctum-inle-resort.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "မုန့်ဟင်းခါး",
+                  "payload": "food:breakfast",
+                },               
+              ],
+          }
+          ,{
+            "title": "1200",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://www.beyondboundariesmyanmar.com/blog/wp-content/uploads/2019/08/Nangyi-thoke-myanmar.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "နန်းကြီးသုပ်",
+                  "payload": "food:breakfast",
+                },               
+              ],
+          },{
+            "title": "1200",
+            "subtitle": "မနက်စာ",
+            "image_url":"http://www.seetheworldinmyeyes.com/wp-content/uploads/2014/01/SeeTheWorldInMyEyes-Vegetarian-Travels-Myanmar-Noodle-Salad-in-Yangon.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "ခေါက်ဆွဲသုပ်",
+                  "payload": "food:breakfast",
+                },               
+              ],
+          },{
+            "title": "200",
+            "subtitle": "မနက်စာ",
+            "image_url":"http://www.averysegal.com/wp-content/uploads/2014/03/myanmar-breakfast-fritters-and-somosas.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "အီကြာကွေ",
+                  "payload": "food:breakfast",
+                },               
+              ],
+          },{
+            "title": "1200",
+            "subtitle": "မနက်စာ",
+            "image_url":"http://i2.wp.com/www.foodrepublic.com/wp-content/uploads/2017/02/Shan-Noodles.jpg?resize=700%2C547",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "ရှမ်းခေါက်ဆွဲ",
+                  "payload": "food:breakfast",
+                },               
+              ],
+          },{
+            "title": "1200",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://th.bing.com/th/id/OIP.PuwOyjubLC5VDhsCwDVEsQHaG0?pid=Api&rs=1",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "ဆီချက်",
+                  "payload": "food:breakfast",
+                },               
+              ],
+          },{
+            "title": "2000",
+            "subtitle": "မနက်စာ",
+            "image_url":"https://blog-001.west.edge.storage-yahoo.jp/res/blog-0b-10/nanakita2012/folder/1867020/66/68299566/img_3?1397789574",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "ကော်ရည်",
+                  "payload": "food:breakfast",
+                },               
+              ],
+          },{
+            "title": "2500",
+            "subtitle": "မနက်စာ",
+            "image_url":"http://flavorverse.com/wp-content/uploads/2016/11/Laphet-Thoke-Best-Burmese-Food-640x427.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "လက်ဖက်သုပ်",
+                  "payload": "food:lunch",
+                },               
+              ],
+          }
+
+          ]
+        }
+      }
+    }
+
+  
+  callSend(sender_psid, response);
+
+}
 
 const greetInMyanmar =(sender_psid) => {
   let response = {"text": "Mingalarbar. How may I help"};
