@@ -117,14 +117,15 @@ app.post('/webhook', (req, res) => {
     body.entry.forEach(function(entry) {
 
       let webhook_event = entry.messaging[0];
-      let sender_psid = webhook_event.sender.id; 
-
+      let sender_psid = webhook_event.sender.id;       
+      
       user_id = sender_psid; 
 
-      if(!userInputs[user_id]){
-        userInputs[user_id] = {};
-      }    
-
+      if(!userInputs2[user_id2]){
+        userInputs2[user_id2] = {};
+        customer[user_id2] = {};
+      } 
+               
 
       if (webhook_event.message) {
         if(webhook_event.message.quick_reply){
@@ -853,7 +854,7 @@ const handleMessage = (sender_psid, received_message) => {
      
      confirmcustomerorder(sender_psid);
   }else if(current_question2 == 'q1'){     
-     userInputs2[user_id2].username = received_message.text;
+     userInputs2[user_id2].name = received_message.text;
      current_question2 = 'q2';
      botQuestions2(current_question2, sender_psid);
   }else if(current_question2 == 'q2'){    
@@ -1833,7 +1834,7 @@ const whitelistDomains = (res) => {
 const confirmRegister = (sender_psid) => {
 
   let summery = "";
-  summery += "name:" + userInputs2[user_id2].name2 + "\u000A";
+  summery += "name:" + userInputs2[user_id2].name + "\u000A";
   summery += "phone:" + userInputs2[user_id2].phone + "\u000A";
   summery += "address:" + userInputs2[user_id2].address + "\u000A";
 
