@@ -50,8 +50,8 @@ const bot_questions2 = {
 let sess;
 
 let current_question2 = '';
-let user_id = ''; 
-let userInputs = [];
+let user_id2 = ''; 
+let userInputs2 = [];
 let first_reg = false;
 let customer = [];
 
@@ -1315,17 +1315,17 @@ const botQuestions = (current_question, sender_psid) => {
 
 const botQuestions2 = (current_question2, sender_psid) => {
   if(current_question2 == 'q1'){
-    let response = {"text": bot_questions.q1};
+    let response = {"text": bot_questions2.q1};
     callSend(sender_psid, response);
   }else if(current_question2 == 'q2'){
-    let response = {"text": bot_questions.q2};
+    let response = {"text": bot_questions2.q2};
     callSend(sender_psid, response);
   }else if(current_question2 == 'q3'){
-    let response = {"text": bot_questions.q3};
+    let response = {"text": bot_questions2.q3};
     callSend(sender_psid, response);
   }
   else if(current_question2 == 'q4'){
-    let response = {"text": bot_questions.q4};
+    let response = {"text": bot_questions2.q4};
     callSend(sender_psid, response);
   }
 }
