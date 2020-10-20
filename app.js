@@ -612,7 +612,7 @@ const handlePostback = (sender_psid, received_postback) => {
   
 }
 
-const handlePostback = (sender_psid, received_postback) => { 
+const handlefoodtypeReply = (sender_psid, received_postback) => { 
 
   
 
