@@ -853,7 +853,7 @@ const handleMessage = (sender_psid, received_message) => {
      
      confirmcustomerorder(sender_psid);
   }else if(current_question2 == 'q1'){     
-     userInputs2[user_id2].name2 = received_message.text;
+     userInputs2[user_id2].username = received_message.text;
      current_question2 = 'q2';
      botQuestions2(current_question2, sender_psid);
   }else if(current_question2 == 'q2'){    
@@ -1882,7 +1882,7 @@ const saveRegistration = (arg, sender_psid) => {
       });
 
   }else{
-      let update_data = {name2:data.name2, phone:data.phone, address:data.address};
+      let update_data = {username:data.name, phone:data.phone, address:data.address};
       db.collection('users').doc(sender_psid).update(update_data).then((success)=>{
       console.log('SAVED', success);
       //first_reg = false;
