@@ -498,6 +498,9 @@ const handleMessage = (sender_psid, received_message) => {
       case "hi":
           hiReply(sender_psid);
         break;
+      case "foodtype":
+          foodtypeReply(sender_psid);
+          break;
       case "foodorder":
           foodorder(sender_psid);
         break;                
@@ -987,6 +990,10 @@ end hospital
 
 const hiReply =(sender_psid) => {
   let response = {"text": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ် အစားအသောက်မှာယူရန် foodorder ဟုရိုက်ထည့်ပါ"};
+  callSend(sender_psid, response);
+}
+const foodtypeReply =(sender_psid) => {
+  let response = {"text": "မင်္ဂလာပါ "};
   callSend(sender_psid, response);
 }
 
