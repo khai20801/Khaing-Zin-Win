@@ -612,6 +612,39 @@ const handlePostback = (sender_psid, received_postback) => {
   
 }
 
+const handlePostback = (sender_psid, received_postback) => { 
+
+  
+
+  let payload = received_postback.payload;
+
+  console.log('FOODTYPE PAYLOAD', payload);
+
+  
+  if(payload.startsWith("food:")){
+    let food_name = payload.slice(7);
+    console.log('SELECTED FOODTYPE IS: ', food_name);
+    userInputs[user_id].food = food_name;
+    console.log('TEST', userInpts);
+    foodtype(sender_psid);
+  }else{
+
+      switch(payload) {        
+      case "breakfast":
+          showfoodtypeReplybreakfast(sender_psid);
+        break;
+      case "lunch":
+          showfoodtypeReplylunch(sender_psid);
+        break;                      
+      default:
+          defaultReply(sender_psid);
+    } 
+
+  }
+
+
+  
+}
 
 const generateRandom = (length) => {
    var result           = '';
