@@ -316,22 +316,22 @@ app.post('/admin/updatecustomerorder', function(req,res){
 /*****Example***/
 app.get('/shop', async function(req,res){
 
-  customer[user_id].id = user_id;
+  customer[user_id2].id = user_id;
 
-  const userRef = db.collection('users').doc(user_id);
+  const userRef = db.collection('users').doc(user_id2);
   const user = await userRef.get();
   if (!user.exists) {
-    customer[user_id].name = ""; 
-    customer[user_id].phone = "";
-    customer[user_id].address = "";
-    customer[user_id].points = 0;
+    customer[user_id2].name = ""; 
+    customer[user_id2].phone = "";
+    customer[user_id2].address = "";
+    customer[user_id2].points = 0;
          
   } else {
-      customer[user_id].name = user.data().name; 
-      customer[user_id].phone = user.data().phone; 
-      customer[user_id].address = user.data().address; 
+      customer[user_id2].name = user.data().name; 
+      customer[user_id2].phone = user.data().phone; 
+      customer[user_id2].address = user.data().address; 
       
-      customer[user_id].points = user.data().points; 
+      customer[user_id2].points = user.data().points; 
        
   } 
 
@@ -382,13 +382,13 @@ app.post('/cart', function(req, res){
 
 
     const itemInCart = (element) => element.id == item.id;
-    let item_index = customer[user_id].cart.findIndex(itemInCart); 
+    let item_index = customer[user_id2].cart.findIndex(itemInCart); 
 
     if(item_index < 0){
-        customer[user_id].cart.push(item);
+        customer[user_id2].cart.push(item);
     }else{
-        customer[user_id].cart[item_index].qty = item.qty;
-        customer[user_id].cart[item_index].total = item.total;
+        customer[user_id2].cart[item_index].qty = item.qty;
+        customer[user_id2].cart[item_index].total = item.total;
     }      
      
     res.redirect('../cart');   
@@ -396,33 +396,33 @@ app.post('/cart', function(req, res){
 
 
 app.get('/cart', function(req, res){     
-    temp_points = customer[user_id].points; 
+    temp_points = customer[user_id2].points; 
     let sub_total = 0;
     cart_total = 0;
     cart_discount = 0;
 
-    if(!customer[user_id].cart){
-        customer[user_id].cart = [];
+    if(!customer[user_id2].cart){
+        customer[user_id2].cart = [];
     }
-    if(customer[user_id].cart.length < 1){
+    if(customer[user_id2].cart.length < 1){
         res.send('your cart is empty. back to shop <a href="../shop">shop</a>');
     }else{ 
 
-        customer[user_id].cart.forEach((item) => sub_total += item.total);        
+        customer[user_id2].cart.forEach((item) => sub_total += item.total);        
 
         cart_total = sub_total - cart_discount;       
 
-        customer[user_id].use_point = false;
+        customer[user_id2].use_point = false;
 
-        res.render('cart.ejs', {cart:customer[user_id].cart, sub_total:sub_total, user:customer[user_id], cart_total:cart_total, discount:cart_discount, points:temp_points});    
+        res.render('cart.ejs', {cart:customer[user_id2].cart, sub_total:sub_total, user:customer[user_id2], cart_total:cart_total, discount:cart_discount, points:temp_points});    
     }
 });
 
 
 
 app.get('/emptycart', function(req, res){  
-    customer[user_id].cart = [];
-    customer[user_id].use_point = false;
+    customer[user_id2].cart = [];
+    customer[user_id2].use_point = false;
     //customer[user_id].points = 400;
     cart_discount = 0;
     res.redirect('../cart');    
@@ -436,15 +436,15 @@ app.post('/pointdiscount', function(req, res){
     //cart_total = 0;
     //cart_discount = 0;
   
-    if(!customer[user_id].cart){
-        customer[user_id].cart = [];
+    if(!customer[user_id2].cart){
+        customer[user_id2].cart = [];
     }
-    if(customer[user_id].cart.length < 1){
+    if(customer[user_id2].cart.length < 1){
         res.send('your cart is empty. back to shop <a href="../shop">shop</a>');
     }else{ 
-        customer[user_id].use_point = true;        
+        customer[user_id2].use_point = true;        
 
-        customer[user_id].cart.forEach((item) => sub_total += item.total); 
+        customer[user_id2].cart.forEach((item) => sub_total += item.total); 
 
         console.log('BEFORE');
         console.log('sub total:'+sub_total);
@@ -477,7 +477,7 @@ app.post('/pointdiscount', function(req, res){
         console.log('cart discount:'+cart_discount);
         console.log('temp points:'+ temp_points);
         
-        res.render('cart.ejs', {cart:customer[user_id].cart, sub_total:sub_total, user:customer[user_id], cart_total:cart_total, discount:cart_discount, points:temp_points});      
+        res.render('cart.ejs', {cart:customer[user_id2].cart, sub_total:sub_total, user:customer[user_id2], cart_total:cart_total, discount:cart_discount, points:temp_points});      
     }
 });
 
@@ -485,19 +485,19 @@ app.post('/pointdiscount', function(req, res){
 app.get('/order', function(req, res){
     let sub_total;
   
-    if(!customer[user_id].cart){
-        customer[user_id].cart = [];
+    if(!customer[user_id2].cart){
+        customer[user_id2].cart = [];
     }
-    if(customer[user_id].cart.length < 1){
+    if(customer[user_id2].cart.length < 1){
         res.send('your cart is empty. back to shop <a href="../shop">shop</a>');
     }else{   
         sub_total = 0;
-        customer[user_id].cart.forEach((item) => sub_total += item.total);   
+        customer[user_id2].cart.forEach((item) => sub_total += item.total);   
 
         let item_list = "";
-        customer[user_id].cart.forEach((item) => item_list += item.name+'*'+item.qty);  
+        customer[user_id2].cart.forEach((item) => item_list += item.name+'*'+item.qty);  
         
-        res.render('order.ejs', {cart:customer[user_id].cart, sub_total:sub_total, user:customer[user_id], cart_total:cart_total, discount:cart_discount, items:item_list});    
+        res.render('order.ejs', {cart:customer[user_id2].cart, sub_total:sub_total, user:customer[user_id2], cart_total:cart_total, discount:cart_discount, items:item_list});    
     }
 });
 
@@ -526,7 +526,7 @@ app.post('/order', function(req, res){
     db.collection('orders').add(data).then((success)=>{
         
         console.log('TEMP POINTS:', temp_points);
-        console.log('CUSTOMER: ', customer[user_id]);
+        console.log('CUSTOMER: ', customer[user_id2]);
 
         //get 10% from sub total and add to remaining points;
         let newpoints = temp_points + data.sub_total * 0.1;  
@@ -535,11 +535,11 @@ app.post('/order', function(req, res){
 
         console.log('update_data: ', update_data);
 
-        db.collection('users').doc(user_id).update(update_data).then((success)=>{
+        db.collection('users').doc(user_id2).update(update_data).then((success)=>{
               console.log('POINT UPDATE:');
               let text = "Thank you. Your order has been confirmed. Your order reference number is "+data.ref;      
               let response = {"text": text};
-              callSend(user_id, response);       
+              callSend(user_id2, response);       
           
           }).catch((err)=>{
              console.log('Error', err);
@@ -794,7 +794,7 @@ function handleQuickReply(sender_psid, received_message) {
           shopMenu(sender_psid);
         break; 
       case "confirm-register":         
-            saveRegistration(userInputs[user_id], sender_psid);
+            saveRegistration(userInputs2[user_id2], sender_psid);
         break;  
                  
       default:
@@ -853,15 +853,15 @@ const handleMessage = (sender_psid, received_message) => {
      
      confirmcustomerorder(sender_psid);
   }else if(current_question2 == 'q1'){     
-     userInputs[user_id].name = received_message.text;
+     userInputs2[user_id2].name = received_message.text;
      current_question2 = 'q2';
      botQuestions2(current_question2, sender_psid);
   }else if(current_question2 == 'q2'){    
-     userInputs[user_id].phone = received_message.text; 
+     userInputs2[user_id2].phone = received_message.text; 
      current_question2 = 'q3';
      botQuestions2(current_question2, sender_psid);
   }else if(current_question2 == 'q3'){
-     userInputs[user_id].address = received_message.text;     
+     userInputs2[user_id2].address = received_message.text;     
      current_question2 = '';     
      confirmRegister(sender_psid);
   }else if(current_question2 == 'q4'){
@@ -1763,9 +1763,9 @@ const whitelistDomains = (res) => {
 const confirmRegister = (sender_psid) => {
 
   let summery = "";
-  summery += "name:" + userInputs[user_id].name + "\u000A";
-  summery += "phone:" + userInputs[user_id].phone + "\u000A";
-  summery += "address:" + userInputs[user_id].address + "\u000A";
+  summery += "name:" + userInputs2[user_id2].name + "\u000A";
+  summery += "phone:" + userInputs2[user_id2].phone + "\u000A";
+  summery += "address:" + userInputs2[user_id2].address + "\u000A";
 
   let response1 = {"text": summery};
 
@@ -1833,7 +1833,7 @@ const showOrder = async(sender_psid, order_ref) => {
     const ordersRef = db.collection('orders').where("ref", "==", order_ref).limit(1);
     const snapshot = await ordersRef.get();
 
-    const userRef = db.collection('users').doc(user_id);
+    const userRef = db.collection('users').doc(user_id2);
     const user = await userRef.get();
     if (!user.exists) {
       cust_points = 0;           
