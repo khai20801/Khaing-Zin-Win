@@ -997,7 +997,7 @@ const handlePostback = (sender_psid, received_postback) => {
 }
 
  const startGreeting =(sender_psid) => {
-  let response = {"text": "Welcome to NAY shop."};
+  let response = {"text": "Welcome to Thein Yar Zaw Restauant"};
   callSend(sender_psid, response).then(()=>{
     showMenu(sender_psid);
   });  
@@ -1045,7 +1045,7 @@ const shopMenu =(sender_psid) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Nay Shop",
+            "title": "Restaurant",
             "image_url":"https://img.favpng.com/8/22/6/toy-shop-retail-toys-r-us-clip-art-png-favpng-Q5kvdVUxgvDQT9M9vmsHzByQY.jpg",                       
             "buttons": [              
               {
