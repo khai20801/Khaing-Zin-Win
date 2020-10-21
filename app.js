@@ -360,7 +360,7 @@ app.get('/shop', async function(req,res){
     data.push(product);
     
   });  
-
+ 
   //console.log('DATA:', data); 
   res.render('shop.ejs', {data:data});
 
@@ -997,7 +997,7 @@ const handlePostback = (sender_psid, received_postback) => {
 }
 
  const startGreeting =(sender_psid) => {
-  let response = {"text": "Welcome to Thein Yar Zaw Restauant"};
+  let response = {"text": "Welcome to Thein Yar Zar Restauant"};
   callSend(sender_psid, response).then(()=>{
     showMenu(sender_psid);
   });  
@@ -1020,7 +1020,7 @@ const showMenu = async(sender_psid) => {
     "quick_replies":[
             {
               "content_type":"text",
-              "title":"title",
+              "title":"Registration",
               "payload":"register",              
             },{
               "content_type":"text",
