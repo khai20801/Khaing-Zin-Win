@@ -866,7 +866,6 @@ const handleMessage = (sender_psid, received_message) => {
      confirmRegister(sender_psid);
   }else if(current_question2 == 'q4'){
      let order_ref = received_message.text; 
-
      console.log('order_ref: ', order_ref);    
      current_question2 = '';     
      showOrder(sender_psid, order_ref);
@@ -980,11 +979,11 @@ const handlePostback = (sender_psid, received_postback) => {
   }else{
 
       switch(payload) {        
-      case "yes":
-          showButtonReplyYes(sender_psid);
+      case "Breakfast":
+          BreakfastReply(sender_psid);
         break;
-      case "no":
-          showButtonReplyNo(sender_psid);
+      case "Lunch":
+          LunchReply(sender_psid);
         break;                      
       default:
           defaultReply(sender_psid);
@@ -1037,6 +1036,7 @@ const showMenu = async(sender_psid) => {
   };
   callSend(sender_psid, response);
 }
+
 
 const shopMenu =(sender_psid) => {
   let response = {
@@ -1173,17 +1173,39 @@ const OrderOrViewPoints = (sender_psid) => {
     "quick_replies":[
             {
               "content_type":"text",
-              "title":"အစားအသောက်မှာယူမည်",
-              "payload":"visit:food order",              
+              "title":"Breakfast",
+              "payload":"visit:BreakfastReply",              
             },{
-              "content_type":"text",
+              "content_type":"Lunch",
               "title":"Point များကြည့်မည်",
-              "payload":"visit:view point",             
+              "payload":"visit:LunchReply",             
             }
     ]
   };
   callSend(sender_psid, response);
 
+}
+
+const BreakfastReply =(sender_psid) => {
+  let response1 = {"text": "မင်္ဂလာပါ "};
+  let response2 = {
+    "text": "Please select foodtype",
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"Breakfast",
+              "payload":"food:breakfast",              
+            },{
+              "content_type":"text",
+              "title":"Lunch",
+              "payload":"food:lunch",             
+            }
+    ]
+  };
+
+  callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2);
+  });
 }
 
 /*ViewPoint reply
@@ -1462,27 +1484,6 @@ const hiReply =(sender_psid) => {
   callSend(sender_psid, response);
 }
 
-const foodtypeReply =(sender_psid) => {
-  let response1 = {"text": "မင်္ဂလာပါ "};
-  let response2 = {
-    "text": "Please select foodtype",
-    "quick_replies":[
-            {
-              "content_type":"text",
-              "title":"Breakfast",
-              "payload":"food:breakfast",              
-            },{
-              "content_type":"text",
-              "title":"Lunch",
-              "payload":"food:lunch",             
-            }
-    ]
-  };
-
-  callSend(sender_psid, response1).then(()=>{
-    return callSend(sender_psid, response2);
-  });
-}
 
 
 const greetInMyanmar =(sender_psid) => {
