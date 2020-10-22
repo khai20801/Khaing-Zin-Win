@@ -1160,12 +1160,12 @@ start hospital
 
     ]
   };
-*/
+
   callSend(sender_psid, response1).then(()=>{
     return callSend(sender_psid, response2);
   });
 }
-
+*/
 const OrderOrViewPoints = (sender_psid) => {
 
   let response = {
