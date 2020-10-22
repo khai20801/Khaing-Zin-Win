@@ -1459,7 +1459,7 @@ end hospital
 
 
 const hiReply =(sender_psid) => {
-  let response = {"text": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ် အစားအသောက်မှာယူရန် foodorder ဟုရိုက်ထည့်ပါ"};
+  let response = {"text": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ် Register လုပ်ရန် start ဟု ရိုက်ထည့်ပါ အစားအသောက်မှာယူရန် foodorder ဟုရိုက်ထည့်ပါ"};
   callSend(sender_psid, response);
 }
 
@@ -1623,7 +1623,7 @@ function testDelete(sender_psid){
 const defaultReply = (sender_psid) => {
   let response1 = {"text": "အစားအသောက်မှာယူရန် foodorder ဟုရိုက်ထည့်ပါ"};
   let response2 = {"text": "Point များကြည့်ရန် viewpoint ဟုရိုက်ထည့်ပါ"};
-  let response3 = {"text": "To test button reply, type 'button'"};   
+  let response3 = {"text": "Register လုပ်ရန် start ဟု ရိုက်ထည့်ပါ"};   
   let response4 = {"text": "To test webview, type 'webview'"};
     callSend(sender_psid, response1).then(()=>{
       return callSend(sender_psid, response2).then(()=>{
