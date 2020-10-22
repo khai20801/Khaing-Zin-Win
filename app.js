@@ -1142,7 +1142,7 @@ function webviewTest(sender_psid){
 /**************
 start hospital
 **************/
-const foodorder = (sender_psid) => {
+/*const foodorder = (sender_psid) => {
    let response1 = {"text": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ်"};
    let response2 = {
     "text": "Please select order method",
@@ -1160,7 +1160,7 @@ const foodorder = (sender_psid) => {
 
     ]
   };
-
+*/
   callSend(sender_psid, response1).then(()=>{
     return callSend(sender_psid, response2);
   });
