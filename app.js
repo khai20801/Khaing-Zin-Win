@@ -883,9 +883,9 @@ const handleMessage = (sender_psid, received_message) => {
       case "foodtype":
           foodtypeReply(sender_psid);
           break;
-      /*case "foodorder":
+      case "foodorder":
           foodorder(sender_psid);
-        break;*/                
+        break;                
       case "text":
         textReply(sender_psid);
         break;
@@ -1164,8 +1164,11 @@ start hospital
   callSend(sender_psid, response1).then(()=>{
     return callSend(sender_psid, response2);
   });
+}*/
+const foodorder =(sender_psid) => {
+  let response = {"text": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ် အစားအသောက်မှာယူရန် foodorder ဟုရိုက်ထည့်ပါ"};
+  callSend(sender_psid, response);
 }
-*/
 const OrderOrViewPoints = (sender_psid) => {
 
   let response = {
