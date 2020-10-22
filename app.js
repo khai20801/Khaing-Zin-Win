@@ -883,9 +883,9 @@ const handleMessage = (sender_psid, received_message) => {
       case "foodtype":
           foodtypeReply(sender_psid);
           break;
-      case "foodorder":
+      /*case "foodorder":
           foodorder(sender_psid);
-        break;                
+        break;*/                
       case "text":
         textReply(sender_psid);
         break;
