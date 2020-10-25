@@ -987,7 +987,6 @@ const handlePostback = (sender_psid, received_postback) => {
     userInputs[user_id].food = food_name;
     console.log('TEST', userInputs);
     OrderOrViewPoints(sender_psid);
-    botQuestions = (current_question, sender_psid);
   }else{
 
       switch(payload) {        
