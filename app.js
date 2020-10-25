@@ -979,10 +979,10 @@ const handlePostback = (sender_psid, received_postback) => {
   }else{
 
       switch(payload) {        
-      case "Delivery":
+      case "ordermethod:Delivery":
           showButtonReplyDelivery(sender_psid);
         break;
-      case "Pickup":
+      case "ordermethod:Pickup":
           showButtonReplyPickup(sender_psid);
         break;                      
       default:
