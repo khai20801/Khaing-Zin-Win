@@ -790,7 +790,7 @@ if(received_message.startsWith("ordermethod:")){
   }else if(received_message.startsWith("visit:")){
     let visit = received_message.slice(11);
     userInputs[user_id].visit = visit;
-    botQuestions = (current_question,sender_psid);
+    showMenu(sender_psid);
   }else{
   switch(received_message) {                
       case "register":
@@ -1162,12 +1162,12 @@ const foodorder = (sender_psid) => {
     "quick_replies":[
             {
               "content_type":"text",
-              "title":"Delivery",
-              "payload":"ordermethod:NayPyiTaw",              
+              "title":"NayPyiTaw",
+              "payload":"ordermethod:NPT",              
             },{
               "content_type":"text",
-              "title":"Pickup",
-              "payload":"ordermethod:Other City",             
+              "title":"OtherCity",
+              "payload":"ordermethod:OtherCity",             
             }
     ]
   };
