@@ -788,7 +788,7 @@ function handleQuickReply(sender_psid, received_message) {
     
     current_question = 'q1';
     botQuestions(current_question, sender_psid);
-  }else {
+  }else if{
 
   switch(received_message) {                
       case "register":
