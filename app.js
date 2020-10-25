@@ -776,10 +776,19 @@ Function to Handle when user send quick reply message
 ***********************************************/
 
 function handleQuickReply(sender_psid, received_message) {
+console.log('QUICK REPLY', received_message);
 
-  console.log('QUICK REPLY', received_message);
+  received_message = received_message.toLowerCase();
 
-  received_message = received_message.toLowerCase();  
+  if(received_message.startsWith("ordermethod:")){
+    let ordermethod = received_message.slice(6);
+    
+    userInputs[user_id].ordermethod = ordermethod;
+    
+    current_question = 'q1';
+    botQuestions(current_question, sender_psid);
+  
+  }else{
 
   switch(received_message) {                
       case "register":
