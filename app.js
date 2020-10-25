@@ -809,7 +809,9 @@ if(received_message.startsWith("ordermethod:")){
       case "confirm-register":         
             saveRegistration(userInputs2[user_id2], sender_psid);
         break;  
-                 
+      case "confirm-customerorder":
+            savecustomerorder(userInputs[user_id], sender_psid);
+            break;           
       default:
           defaultReply(sender_psid);
   }  
@@ -1538,7 +1540,7 @@ const showQuickReplyOn =(sender_psid) => {
 }
 
 const showQuickReplyOff =(sender_psid) => {
-  let response = { "text": "order cancel ပြီးပါပြီ အစားအသောက်မှာယူရန် foodorder ဟုရိုက်ထည့်ပါ" };
+  let response = { "text": "order cancel ပြီးပါပြီ အစားအသောက်မှာယူရန် start ဟုရိုက်ထည့်ပါ" };
   callSend(sender_psid, response);
 }
 
