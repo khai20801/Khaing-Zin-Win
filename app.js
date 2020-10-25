@@ -802,7 +802,7 @@ if(received_message.startsWith("ordermethod:")){
           botQuestions2(current_question2, sender_psid);
         break; 
       case "shop":
-          shopMenu(sender_psid);
+          foodorder(sender_psid);
         break; 
       case "confirm-register":         
             saveRegistration(userInputs2[user_id2], sender_psid);
@@ -1050,7 +1050,7 @@ const showMenu = async(sender_psid) => {
 
 
 
-const shopMenu =(sender_psid) => {
+/*const shopMenu =(sender_psid) => {
   let response = {
       "attachment": {
         "type": "template",
