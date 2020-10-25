@@ -1179,7 +1179,7 @@ const foodorder = (sender_psid) => {
 }
 
 
-/*const OrderOrViewPoints = (sender_psid) => {
+const OrderOrViewPoints = (sender_psid) => {
 
   let response = {
     "text": "Please select order method",
@@ -1200,7 +1200,7 @@ const foodorder = (sender_psid) => {
   callSend(sender_psid, response);
 
 }
-*/
+
 /*ViewPoint reply
 const viewpoint = (sender_psid) => {
 
