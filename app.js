@@ -790,7 +790,7 @@ if(received_message.startsWith("ordermethod:")){
   }else if(received_message.startsWith("visit:")){
     let visit = received_message.slice(11);
     userInputs[user_id].visit = visit;
-    showMenu(sender_psid);
+    showFood(sender_psid);
   }else{
   switch(received_message) {                
       case "register":
@@ -802,7 +802,7 @@ if(received_message.startsWith("ordermethod:")){
           botQuestions2(current_question2, sender_psid);
         break; 
       case "shop":
-          showFood(sender_psid);
+          shopMenu(sender_psid);
         break; 
       case "confirm-register":         
             saveRegistration(userInputs2[user_id2], sender_psid);
