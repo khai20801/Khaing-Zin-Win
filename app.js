@@ -1542,12 +1542,12 @@ const buttonReply =(sender_psid) => {
   callSend(sender_psid, response);
 }
 
-const showButtonReplyYes =(sender_psid) => {
+const showButtonReplyDelivert =(sender_psid) => {
   let response = { "text": "You clicked YES" };
   callSend(sender_psid, response);
 }
 
-const showButtonReplyNo =(sender_psid) => {
+const showButtonReplyPickup =(sender_psid) => {
   let response = { "text": "You clicked NO" };
   callSend(sender_psid, response);
 }
