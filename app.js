@@ -788,8 +788,8 @@ if(received_message.startsWith("ordermethod:")){
     current_question = 'q1';
     botQuestions(current_question, sender_psid);
   }else if(received_message.startsWith("visit:")){
-    let dept = received_message.slice(11);
-    userInputs[user_id].visit = dept;
+    let visit = received_message.slice(11);
+    userInputs[user_id].visit = visit;
     showFood(sender_psid);
   }else{
   switch(received_message) {                
