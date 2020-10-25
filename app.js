@@ -801,9 +801,7 @@ if(received_message.startsWith("ordermethod:")){
           current_question2 = "q4";
           botQuestions2(current_question2, sender_psid);
         break; 
-      case "shop":
-          foodorder(sender_psid);
-        break; 
+      
       case "confirm-register":         
             saveRegistration(userInputs2[user_id2], sender_psid);
         break;  
