@@ -1050,7 +1050,7 @@ const showMenu = async(sender_psid) => {
 
 
 
-/*const shopMenu =(sender_psid) => {
+const shopMenu =(sender_psid) => {
   let response = {
       "attachment": {
         "type": "template",
