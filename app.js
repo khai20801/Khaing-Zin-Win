@@ -787,7 +787,7 @@ if(received_message.startsWith("ordermethod:")){
     
     current_question = 'q1';
     botQuestions(current_question, sender_psid);
-  }else if{
+  } else{
   switch(received_message) {                
       case "register":
           current_question2 = "q1";
