@@ -786,10 +786,11 @@ if(received_message.startsWith("ordermethod:")){
     userInputs[user_id].ordermethod = ordermethod;
     
     current_question = 'q1';
+    botQuestions(current_question, sender_psid);
   }else if(received_message.startsWith("visit:")){
     let visit = received_message.slice(11);
     userInputs[user_id].visit = visit;
-    botQuestions(current_question,sender_psid);
+    botQuestions = (current_question,sender_psid);
   }else{
   switch(received_message) {                
       case "register":
