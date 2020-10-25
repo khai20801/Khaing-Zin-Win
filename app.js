@@ -779,17 +779,19 @@ function handleQuickReply(sender_psid, received_message) {
 
   console.log('QUICK REPLY', received_message);
 
-  received_message = received_message.toLowerCase();
-
-  if(received_message.startsWith("visit:")){
-    let visit = received_message.slice(6);
+  received_message = received_message.toLowerCase();  
+if(received_message.startsWith("ordermethod:")){
+    let ordermethod = received_message.slice(6);
     
-    userInputs[user_id].visit = visit;
+    userInputs[user_id].ordermethod = ordermethod;
     
     current_question = 'q1';
     botQuestions(current_question, sender_psid);
-  }else if{
-
+  }else if(received_message.startsWith("visit:")){
+    let dept = received_message.slice(11);
+    userInputs[user_id].visit = dept;
+    showFood(sender_psid);
+  }else{
   switch(received_message) {                
       case "register":
           current_question2 = "q1";
@@ -809,9 +811,9 @@ function handleQuickReply(sender_psid, received_message) {
       default:
           defaultReply(sender_psid);
   }  
- 
 }
 }
+
 
 /**********************************************
 Function to Handle when user send text message
@@ -1162,11 +1164,11 @@ const foodorder = (sender_psid) => {
             {
               "content_type":"text",
               "title":"Delivery",
-              "payload":"visit:Delivery",              
+              "payload":"ordermethod:Delivery",              
             },{
               "content_type":"text",
               "title":"Pickup",
-              "payload":"visit:Pickup",             
+              "payload":"ordermethod:Pickup",             
             }
     ]
   };
@@ -1187,11 +1189,11 @@ const OrderOrViewPoints = (sender_psid) => {
             {
               "content_type":"text",
               "title":"Delivery",
-              "payload":"ordermethod:Delivery",              
+              "payload":"visit:Delivery",              
             },{
               "content_type":"text",
               "title":"Pickup",
-              "payload":"ordermethod:Pickup",             
+              "payload":"visit:Pickup",             
             }
 
 
