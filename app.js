@@ -780,14 +780,13 @@ console.log('QUICK REPLY', received_message);
 
   received_message = received_message.toLowerCase();
 
-  if(received_message.startsWith("ordermethod:")){
-    let ordermethod = received_message.slice(6);
+  if(received_message.startsWith("visit:")){
+    let visit = received_message.slice(6);
     
-    userInputs[user_id].ordermethod = ordermethod;
+    userInputs[user_id].visit = visit;
     
     current_question = 'q1';
     botQuestions(current_question, sender_psid);
-  
   }else{
 
   switch(received_message) {                
