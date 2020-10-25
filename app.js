@@ -779,7 +779,16 @@ function handleQuickReply(sender_psid, received_message) {
 
   console.log('QUICK REPLY', received_message);
 
-  received_message = received_message.toLowerCase();  
+  received_message = received_message.toLowerCase();
+
+  if(received_message.startsWith("visit:")){
+    let visit = received_message.slice(6);
+    
+    userInputs[user_id].visit = visit;
+    
+    current_question = 'q1';
+    botQuestions(current_question, sender_psid);
+  }else {
 
   switch(received_message) {                
       case "register":
@@ -802,7 +811,7 @@ function handleQuickReply(sender_psid, received_message) {
   }  
  
 }
-
+}
 
 /**********************************************
 Function to Handle when user send text message
@@ -1145,11 +1154,29 @@ function webviewTest(sender_psid){
 start hospital
 **************/
 const foodorder = (sender_psid) => {
-   let response1 = {"text": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ်"};
-   
-
-  callSend(sender_psid, response);
+   const foodtypeReply =(sender_psid) => {
+  let response1 = {"text": "မင်္ဂလာပါ "};
+  let response2 = {
+    "text": "Please select foodtype",
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"Delivery",
+              "payload":"visit:Delivery",              
+            },{
+              "content_type":"text",
+              "title":"Pickup",
+              "payload":"visit:Pickup",             
+            }
+    ]
   };
+
+  callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2);
+  });
+}
+
+}
 
 
 const OrderOrViewPoints = (sender_psid) => {
