@@ -975,15 +975,15 @@ const handlePostback = (sender_psid, received_postback) => {
     console.log('SELECTED FOOD IS: ', food_name);
     userInputs[user_id].food = food_name;
     console.log('TEST', userInputs);
-    botQuestions(sender_psid)
+    OrderOrViewPoints = (sender_psid)
  ;
   }else{
 
       switch(payload) {        
-      case "yes":
+      case "food order":
           showButtonReplyYes(sender_psid);
         break;
-      case "no":
+      case "view point":
           showButtonReplyNo(sender_psid);
         break;                      
       default:
@@ -1168,7 +1168,7 @@ const foodorder = (sender_psid) => {
   });
 }
 
-/*const OrderOrViewPoints = (sender_psid) => {
+const OrderOrViewPoints = (sender_psid) => {
 
   let response = {
     "text": "အစားအသောက်မှာယူမည် သို့မဟုတ် Point များကြည့်မည်",
