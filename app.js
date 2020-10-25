@@ -1167,7 +1167,7 @@ const foodorder = (sender_psid) => {
   });
 }
 
-/*const OrderOrViewPoints = (sender_psid) => {
+const OrderOrViewPoints = (sender_psid) => {
 
   let response = {
     "text": "အစားအသောက်မှာယူမည် သို့မဟုတ် Point များကြည့်မည်",
