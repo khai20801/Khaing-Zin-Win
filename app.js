@@ -980,10 +980,10 @@ const handlePostback = (sender_psid, received_postback) => {
 
       switch(payload) {        
       case "Delivery":
-          showButtonReplyYes(sender_psid);
+          showButtonReplyDelivery(sender_psid);
         break;
       case "Pickup":
-          showButtonReplyNo(sender_psid);
+          showButtonReplyPickup(sender_psid);
         break;                      
       default:
           defaultReply(sender_psid);
@@ -1542,13 +1542,13 @@ const buttonReply =(sender_psid) => {
   callSend(sender_psid, response);
 }
 
-const showButtonReplyDelivert =(sender_psid) => {
-  let response = { "text": "You clicked YES" };
+const showButtonReplyDelivery =(sender_psid) => {
+  let response = { "text": "Delivery" };
   callSend(sender_psid, response);
 }
 
 const showButtonReplyPickup =(sender_psid) => {
-  let response = { "text": "You clicked NO" };
+  let response = { "text": "Pickup" };
   callSend(sender_psid, response);
 }
 
