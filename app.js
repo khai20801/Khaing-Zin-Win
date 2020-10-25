@@ -787,11 +787,7 @@ if(received_message.startsWith("ordermethod:")){
     
     current_question = 'q1';
     botQuestions(current_question, sender_psid);
-  }else if(received_message.startsWith("visit:")){
-    let visit = received_message.slice(11);
-    userInputs[user_id].visit = visit;
-    botQuestions(current_question,sender_psid);
-  }else{
+  }else if{
   switch(received_message) {                
       case "register":
           current_question2 = "q1";
@@ -986,7 +982,7 @@ const handlePostback = (sender_psid, received_postback) => {
     console.log('SELECTED FOOD IS: ', food_name);
     userInputs[user_id].food = food_name;
     console.log('TEST', userInputs);
-    OrderOrViewPoints(sender_psid);
+
   }else{
 
       switch(payload) {        
@@ -1163,11 +1159,11 @@ const foodorder = (sender_psid) => {
             {
               "content_type":"text",
               "title":"Delivery",
-              "payload":"ordermethod:Delivery",              
+              "payload":"ordermethod:NayPyiTaw",              
             },{
               "content_type":"text",
               "title":"Pickup",
-              "payload":"ordermethod:Pickup",             
+              "payload":"ordermethod:Other City",             
             }
     ]
   };
@@ -1180,7 +1176,7 @@ const foodorder = (sender_psid) => {
 }
 
 
-const OrderOrViewPoints = (sender_psid) => {
+/*const OrderOrViewPoints = (sender_psid) => {
 
   let response = {
     "text": "Please select order method",
@@ -1201,7 +1197,7 @@ const OrderOrViewPoints = (sender_psid) => {
   callSend(sender_psid, response);
 
 }
-
+*/
 /*ViewPoint reply
 const viewpoint = (sender_psid) => {
 
