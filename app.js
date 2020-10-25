@@ -976,14 +976,15 @@ const handlePostback = (sender_psid, received_postback) => {
     userInputs[user_id].food = food_name;
     console.log('TEST', userInputs);
     OrderOrViewPoints(sender_psid);
+    botQuestions = (current_question, sender_psid);
   }else{
 
       switch(payload) {        
-      case "ordermethod:Delivery":
-          showButtonReplyDelivery(sender_psid);
+      case "Yes":
+          showButtonRepleyYes(sender_psid);
         break;
-      case "ordermethod:Pickup":
-          showButtonReplyPickup(sender_psid);
+      case "No":
+          showButtonReplyNo(sender_psid);
         break;                      
       default:
           defaultReply(sender_psid);
@@ -1542,13 +1543,13 @@ const buttonReply =(sender_psid) => {
   callSend(sender_psid, response);
 }
 
-const showButtonReplyDelivery =(sender_psid) => {
-  let response = { "text": "Delivery" };
+const showButtonReplyYes =(sender_psid) => {
+  let response = { "text": "You Clicked Yes" };
   callSend(sender_psid, response);
 }
 
-const showButtonReplyPickup =(sender_psid) => {
-  let response = { "text": "Pickup" };
+const showButtonReplyNo =(sender_psid) => {
+  let response = { "text": "You Clicked No" };
   callSend(sender_psid, response);
 }
 
