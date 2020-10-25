@@ -979,10 +979,10 @@ const handlePostback = (sender_psid, received_postback) => {
   }else{
 
       switch(payload) {        
-      case "food order":
+      case "Delivery":
           showButtonReplyYes(sender_psid);
         break;
-      case "view point":
+      case "Pickup":
           showButtonReplyNo(sender_psid);
         break;                      
       default:
@@ -1145,7 +1145,15 @@ start hospital
 **************/
 const foodorder = (sender_psid) => {
    let response1 = {"text": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ်"};
-   let response2 = {
+   
+
+  callSend(sender_psid, response);
+  };
+
+
+const OrderOrViewPoints = (sender_psid) => {
+
+  let response = {
     "text": "Please select order method",
     "quick_replies":[
             {
@@ -1161,32 +1169,9 @@ const foodorder = (sender_psid) => {
 
     ]
   };
-
-  callSend(sender_psid, response1).then(()=>{
-    return callSend(sender_psid, response2);
-  });
-}
-
-const OrderOrViewPoints = (sender_psid) => {
-
-  let response = {
-    "text": "အစားအသောက်မှာယူမည် သို့မဟုတ် Point များကြည့်မည်",
-    "quick_replies":[
-            {
-              "content_type":"text",
-              "title":"အစားအသောက်မှာယူမည်",
-              "payload":"visit:food order",              
-            },{
-              "content_type":"text",
-              "title":"Point များကြည့်မည်",
-              "payload":"visit:view point",             
-            }
-    ]
-  };
   callSend(sender_psid, response);
 
 }
-
 
 /*ViewPoint reply
 const viewpoint = (sender_psid) => {
