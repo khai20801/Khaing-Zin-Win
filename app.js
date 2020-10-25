@@ -790,7 +790,7 @@ if(received_message.startsWith("ordermethod:")){
   }else if(received_message.startsWith("visit:")){
     let visit = received_message.slice(11);
     userInputs[user_id].visit = visit;
-    showFood(sender_psid);
+    botQuestions(current_question,sender_psid);
   }else{
   switch(received_message) {                
       case "register":
