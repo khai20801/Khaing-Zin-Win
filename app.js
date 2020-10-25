@@ -975,8 +975,7 @@ const handlePostback = (sender_psid, received_postback) => {
     console.log('SELECTED FOOD IS: ', food_name);
     userInputs[user_id].food = food_name;
     console.log('TEST', userInputs);
-    OrderOrViewPoints = (sender_psid)
- ;
+    OrderOrViewPoints(sender_psid);
   }else{
 
       switch(payload) {        
@@ -1168,7 +1167,7 @@ const foodorder = (sender_psid) => {
   });
 }
 
-const OrderOrViewPoints = (sender_psid) => {
+/*const OrderOrViewPoints = (sender_psid) => {
 
   let response = {
     "text": "အစားအသောက်မှာယူမည် သို့မဟုတ် Point များကြည့်မည်",
