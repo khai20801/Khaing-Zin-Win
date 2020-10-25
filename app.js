@@ -314,7 +314,7 @@ app.post('/admin/update_order', function(req,res){
     comment:req.body.comment
   }
 
-  db.collection('customerorder').doc(req.body.doc_id)
+  db.collection('confirmcustomerorder').doc(req.body.doc_id)
   .update(data).then(()=>{
       res.redirect('/admin/order');
   }).catch((err)=>console.log('ERROR:', error)); 
