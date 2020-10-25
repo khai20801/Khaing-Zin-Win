@@ -791,7 +791,7 @@ function handleQuickReply(sender_psid, received_message) {
           botQuestions2(current_question2, sender_psid);
         break; 
       case "shop":
-          foodorder(sender_psid);
+          showFood(sender_psid);
         break; 
       case "confirm-register":         
             saveRegistration(userInputs2[user_id2], sender_psid);
