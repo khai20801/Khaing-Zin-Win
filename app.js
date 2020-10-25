@@ -165,6 +165,39 @@ app.post('/test',function(req,res){
     callSend(sender_psid, response);
 });
 
+app.get('/admin/products', async(req,res) =>{   
+
+   
+  const productsRef = db.collection('products').orderBy('created_on', 'desc');
+  const snapshot = await productsRef.get();
+
+  if (snapshot.empty) {
+    res.send('no data');
+  }else{
+    let data = []; 
+
+  snapshot.forEach(doc => {
+    let product = {};
+    
+    product = doc.data();
+    product.doc_id = doc.id;
+    
+    let d = new Date(doc.data().created_on._seconds);
+    d = d.toString();
+    product.created_on = d;
+    
+
+    data.push(product);
+    
+  });
+  
+  res.render('products.ejs', {data:data});
+
+  }
+
+  
+});
+
 app.get('/admin/addproduct', async function(req,res){
   res.render('addproduct.ejs');  
 });
@@ -204,50 +237,6 @@ app.post('/admin/saveproduct',upload.single('file'),function(req,res){
       }             
 });
 
-app.get('/admin/customerorder', async function(req,res){
- 
-  const customerorderRef = db.collection('customerorder');
-  const snapshot = await customerorderRef.get();
-
-  if (snapshot.empty) {
-    res.send('no data');
-  } 
-
-  let data = []; 
-
-  snapshot.forEach(doc => {
-    let customerorder = {};
-    customerorder = doc.data();
-    customerorder.doc_id = doc.id;
-
-    data.push(customerorder);
-    
-  });
-
-  console.log('DATA:', data);
-
-  res.render('customerorder.ejs', {data:data});
-  
-});
-
-app.get('/admin/updatecustomerorder/:doc_id', async function(req,res){
-  let doc_id = req.params.doc_id; 
-  
-  const appoinmentRef = db.collection('customerorder').doc(doc_id);
-  const doc = await appoinmentRef.get();
-  if (!doc.exists) {
-    console.log('No such document!');
-  } else {
-    console.log('Document data:', doc.data());
-    let data = doc.data();
-    data.doc_id = doc.id;
-
-    console.log('Document data:', data);
-    res.render('editcustomerorder.ejs', {data:data});
-  } 
-
-});
-
 app.get('/admin/orders', async(req,res)=>{
 
   const ordersRef = db.collection('orders').orderBy('created_on', 'desc');
@@ -284,7 +273,26 @@ app.get('/admin/orders', async(req,res)=>{
 });
 
 
-app.post('/admin/updatecustomerorder', function(req,res){
+app.get('/admin/update_order/:doc_id', async function(req,res){
+  let doc_id = req.params.doc_id; 
+  
+  const orderRef = db.collection('orders').doc(doc_id);
+  const doc = await orderRef.get();
+  if (!doc.exists) {
+    console.log('No such document!');
+  } else {
+    
+    let data = doc.data();
+    data.doc_id = doc.id;
+    
+    res.render('update_order.ejs', {data:data});
+  } 
+
+});
+
+
+
+app.post('/admin/update_order', function(req,res){
   console.log('REQ:', req.body); 
 
   
@@ -308,7 +316,7 @@ app.post('/admin/updatecustomerorder', function(req,res){
 
   db.collection('customerorder').doc(req.body.doc_id)
   .update(data).then(()=>{
-      res.redirect('/admin/customerorder');
+      res.redirect('/admin/order');
   }).catch((err)=>console.log('ERROR:', error)); 
  
 });
@@ -526,7 +534,7 @@ app.post('/order', function(req, res){
     db.collection('orders').add(data).then((success)=>{
         
         console.log('TEMP POINTS:', temp_points);
-        console.log('CUSTOMER: ', customer[user_id2]);
+        console.log('CUSTOMER: ', customer[user_id]);
 
         //get 10% from sub total and add to remaining points;
         let newpoints = temp_points + data.sub_total * 0.1;  
@@ -535,11 +543,11 @@ app.post('/order', function(req, res){
 
         console.log('update_data: ', update_data);
 
-        db.collection('users').doc(user_id2).update(update_data).then((success)=>{
+        db.collection('users').doc(user_id).update(update_data).then((success)=>{
               console.log('POINT UPDATE:');
               let text = "Thank you. Your order has been confirmed. Your order reference number is "+data.ref;      
               let response = {"text": text};
-              callSend(user_id2, response);       
+              callSend(user_id, response);       
           
           }).catch((err)=>{
              console.log('Error', err);
