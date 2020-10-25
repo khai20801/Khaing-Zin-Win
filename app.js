@@ -1038,52 +1038,6 @@ const showMenu = async(sender_psid) => {
 }
 
 
-const showOrder = async(sender_psid, order_ref) => {
-
-    let cust_points = 0;
-
-    const ordersRef = db.collection('orders').where("ref", "==", order_ref).limit(1);
-    const snapshot = await ordersRef.get();
-
-    const userRef = db.collection('users').doc(user_id);
-    const user = await userRef.get();
-    if (!user.exists) {
-      cust_points = 0;           
-    } else {                
-        cust_points  = user.data().points;          
-    } 
-
-
-    if (snapshot.empty) {
-      let response = { "text": "Incorrect order number" };
-      callSend(sender_psid, response).then(()=>{
-        return startGreeting(sender_psid);
-      });
-    }else{
-          let order = {}
-
-          snapshot.forEach(doc => {      
-              order.ref = doc.data().ref;
-              order.status = doc.data().status;
-              order.comment = doc.data().comment;  
-          });
-
-
-          let response1 = { "text": `Your order ${order.ref} is ${order.status}.` };
-          let response2 = { "text": `Seller message: ${order.comment}.` };
-          let response3 = { "text": `You have remaining ${cust_points} point(s)` };
-            callSend(sender_psid, response1).then(()=>{
-              return callSend(sender_psid, response2).then(()=>{
-                return callSend(sender_psid, response3)
-              });
-          });
-
-    }
-
-    
-
-}
-
 
 const shopMenu =(sender_psid) => {
   let response = {
