@@ -975,6 +975,7 @@ const handlePostback = (sender_psid, received_postback) => {
     console.log('SELECTED FOOD IS: ', food_name);
     userInputs[user_id].food = food_name;
     console.log('TEST', userInputs);
+    botQuestions(current_question, sender_psid)
  ;
   }else{
 
