@@ -877,6 +877,7 @@ const handleMessage = (sender_psid, received_message) => {
      confirmcustomerorder(sender_psid);
   }else if(current_question2 == 'q1'){     
     console.log("inside q1");
+    console.log("inside q1 text", received_message.text);
      userInputs2[user_id2].name = received_message.text;
      current_question2 = 'q2';
      botQuestions2(current_question2, sender_psid);
