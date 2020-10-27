@@ -124,7 +124,9 @@ app.post('/webhook', (req, res) => {
       if(!userInputs[user_id]){
         userInputs[user_id] = {};
       }    
-
+        if(!userInputs2[user_id2]){
+        userInputs2[user_id2] = {};
+      } 
 
       if (webhook_event.message) {
         if(webhook_event.message.quick_reply){
