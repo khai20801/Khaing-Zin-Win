@@ -790,7 +790,7 @@ function handleQuickReply(sender_psid, received_message) {
   console.log('QUICK REPLY', received_message);
 
   received_message = received_message.toLowerCase();  
-if(received_message.startsWith("ordermethod:")){
+if(received_message.startsWith("visit:")){
     let ordermethod = received_message.slice(6);
     
     userInputs[user_id].ordermethod = ordermethod;
@@ -1442,7 +1442,7 @@ const confirmcustomerorder = (sender_psid) => {
   summery += "address:" + userInputs[user_id].address + "\u000A";
   summery += "phone:" + userInputs[user_id].phone + "\u000A";
   summery += "quantity:" + userInputs[user_id].quantity + "\u000A";
-  summery += "request:" + userInputs[user_id].request + "\u000A";
+  summery += "message:" + userInputs[user_id].message + "\u000A";
 
   let response1 = {"text": summery};
 
