@@ -1574,13 +1574,13 @@ const hiReply =(sender_psid) => {
               "payload":"food:lunch",             
             }
     ]
-  };*/
+  };
 
   callSend(sender_psid, response1).then(()=>{
     return callSend(sender_psid, response2);
   });
 }
-
+*/
 
 const greetInMyanmar =(sender_psid) => {
   let response = {"text": "Mingalarbar. How may I help"};
