@@ -1042,7 +1042,7 @@ const showMenu = async(sender_psid) => {
 
 
   let response = {
-    "text": "Select your reply",
+    "text": "Please Select Type </br> Note: အစားအသောက်မမှာယူမီ Register လုပ်ပါ",
     "quick_replies":[
             {
               "content_type":"text",
@@ -1555,11 +1555,11 @@ end hospital
 
 
 const hiReply =(sender_psid) => {
-  let response = {"text": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ် Register လုပ်ရန် start ဟု ရိုက်ထည့်ပါ အစားအသောက်မှာယူရန် foodorder ဟုရိုက်ထည့်ပါ"};
+  let response = {"text": "မင်္ဂလာပါ သိန်းရာဇာ စားသောက်ဆိုင်မှကြိုဆိုပါတယ် Register လုပ်ရန် အစားအသောက်မှာယူရန် start ဟု ရိုက်ထည့်ပါ"};
   callSend(sender_psid, response);
 }
 
-const foodtypeReply =(sender_psid) => {
+/*const foodtypeReply =(sender_psid) => {
   let response1 = {"text": "မင်္ဂလာပါ "};
   let response2 = {
     "text": "Please select foodtype",
@@ -1574,7 +1574,7 @@ const foodtypeReply =(sender_psid) => {
               "payload":"food:lunch",             
             }
     ]
-  };
+  };*/
 
   callSend(sender_psid, response1).then(()=>{
     return callSend(sender_psid, response2);
