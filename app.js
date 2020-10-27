@@ -1042,7 +1042,7 @@ const showMenu = async(sender_psid) => {
 
 
   let response = {
-    "text": "Please Select Type </br> Note: အစားအသောက်မမှာယူမီ Register လုပ်ပါ",
+    "text": "Please Select Type. Note: အစားအသောက်မမှာယူမီ Register လုပ်ပါ",
     "quick_replies":[
             {
               "content_type":"text",
