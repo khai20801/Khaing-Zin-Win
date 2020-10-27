@@ -1087,7 +1087,7 @@ const showMenu = async(sender_psid) => {
     }  
   callSend(sender_psid, response);
 }
-
+*/
 
 const generateRandom = (length) => {
    var result           = '';
