@@ -1448,7 +1448,7 @@ const confirmcustomerorder = (sender_psid) => {
             {
               "content_type":"text",
               "title":"Confirm",
-              "payload":"confirmcustomerorder",              
+              "payload":"confirm-customerorder",              
             },{
               "content_type":"text",
               "title":"Cancel",
@@ -1466,7 +1466,7 @@ const savecustomerorder = (arg, sender_psid) => {
   let data = arg;
   data.ref = generateRandom(6);
   data.status = "pending";
-  db.collection('confirmcustomerorder').add(data).then((success)=>{
+  db.collection('customerorder').add(data).then((success)=>{
     console.log('SAVED', success);
     let text = "Thank you. Order ကိုအတည်ပြုပြီးပါပြီ."+ "\u000A";
     text += " မှာယူပြီး မိနစ်သုံးဆယ်အတွင်းရပါမည် "+ "\u000A";
