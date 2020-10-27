@@ -828,7 +828,7 @@ if(received_message.startsWith("ordermethod:")){
 
 
 /**********************************************
-Function to Handle when user send text message
+Async to Handle when user send text message
 ***********************************************/
 
 const handleMessage = (sender_psid, received_message) => {
