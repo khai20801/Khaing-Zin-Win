@@ -1024,7 +1024,7 @@ const handlePostback = (sender_psid, received_postback) => {
 
   
   if(payload.startsWith("food:")){
-    let food_name = payload.slice(7);
+    let food_name = payload.slice(5);
     console.log('SELECTED FOOD IS: ', food_name);
     userInputs[user_id].food = food_name;
     console.log('TEST', userInputs);
