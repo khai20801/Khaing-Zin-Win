@@ -157,6 +157,10 @@ app.get('/',function(req,res){
     res.send('your app is up and running');
 });
 
+app.get('/admin/order',function(req,res){    
+    res.render('orderlist.ejs');
+});
+
 app.get('/test',function(req,res){    
     res.render('test.ejs');
 });
