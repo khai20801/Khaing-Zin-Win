@@ -181,6 +181,23 @@ app.get('/admin/order', async(req,res) => {
   res.render('orderlist.ejs', {data:data});   
 });
 
+app.get('/admin/updateorder/:doc_id', async function(req,res){
+  let doc_id = req.params.doc_id; 
+  
+  const orderRef = db.collection('customerorder').doc(doc_id);
+  const doc = await orderRef.get();
+  if (!doc.exists) {
+    console.log('No such document!');
+  } else {
+    console.log('Document data:', doc.data());
+    let data = doc.data();
+    data.doc_id = doc.id;
+
+    console.log('Document data:', data);
+    res.render('editorder.ejs', {data:data});
+  } 
+
+});
 
 
 app.get('/test',function(req,res){    
