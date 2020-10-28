@@ -199,6 +199,23 @@ app.get('/admin/updateorder/:doc_id', async function(req,res){
 
 });
 
+app.post('/admin/updateorder', function(req,res){ 
+
+  
+
+  let data = {
+    status:req.body.status,
+    doc_id:req.body.doc_id,
+    ref:req.body.ref,
+    comment:req.body.comment
+  }
+
+  db.collection('customerorder').doc(req.body.doc_id)
+  .update(data).then(()=>{
+      res.redirect('/admin/order');
+  }).catch((err)=>console.log('ERROR:', error)); 
+ 
+});
 
 app.get('/test',function(req,res){    
     res.render('test.ejs');
