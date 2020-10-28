@@ -16,6 +16,7 @@
     
     <th>Name</th>
     <th>Food</th>
+    <th>Message</th>
     <th>Action</th>
   </tr>
 
@@ -25,6 +26,7 @@
       
        <td><%= order.name %></td>
        <td><%= order.food %></td>
+       <td><%= order.message %></td>
        <td><a href="updateorder/<%= order.doc_id %>">Edit</a> | Delete</td>
      </tr>
   <% }); %>
