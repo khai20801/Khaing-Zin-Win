@@ -178,7 +178,7 @@ app.get('/admin/order', async(req,res) => {
 
   console.log('DATA:', data);
 
-  res.render('appointments.ejs', {data:data});   
+  res.render('orderlist.ejs', {data:data});   
 });
 
 
