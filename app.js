@@ -157,9 +157,31 @@ app.get('/',function(req,res){
     res.send('your app is up and running');
 });
 
-app.get('/admin/order',function(req,res){    
-    res.render('orderlist.ejs');
+app.get('/admin/order',function(req,res){ 
+  const ordersRef = db.collection('customerorder');
+  const snapshot = await ordersRef.get();
+
+  if (snapshot.empty) {
+    res.send('no data');
+  } 
+
+  let data = []; 
+
+  snapshot.forEach(doc => {
+    let order = {};
+    order = doc.data();
+    order.doc_id = doc.id;
+
+    data.push(order);
+    
+  });
+
+  console.log('DATA:', data);
+
+  res.render('appointments.ejs', {data:data});   
 });
+
+
 
 app.get('/test',function(req,res){    
     res.render('test.ejs');
@@ -1250,17 +1272,6 @@ const showFood = (sender_psid) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "700",
-            "subtitle": "Breakfast",
-            "image_url":"https://www.kenyans.co.ke/files/images/news/gallery-1513337481-cup-of-tea.jpg",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "လက်ဘက်ရည်",
-                  "payload": "food:လက်ဘက်ရည်",
-                },               
-              ],
-          },{
             "title": "2500",
             "subtitle": "Myanmar",
             "image_url":"https://myanmars.net/images/art-handicraftslogo/myanmar_rice_meal.jpg",                       
@@ -1269,17 +1280,6 @@ const showFood = (sender_psid) => {
                   "type": "postback",
                   "title": "မြန်မာထမင်းဟင်း (ကြက်၊ဝက်၊ငါး၊ပုစွန်၊ကြက်အသဲမြစ်၊ဆိတ်မွှ၊ကြက်မွှ၊ဆိတ်သား၊ဘဲပေါင်း၊ကြက်ပေါင်း၊)",
                   "payload": "food:Myanmar",
-                },               
-              ],
-          },{
-            "title": "500/600/800/1200",
-            "subtitle": "Breakfast",
-            "image_url":"https://sanctum-inle-resort.com/wp-content/uploads/2015/09/mohinga-myanmar-food-sanctum-inle-resort.jpg",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "မုန့်ဟင်းခါး(အလွတ်၊ပဲကြော်၊အိုးဘဲဥ၊ငါးဖယ်၊အစုံ)",
-                  "payload": "food:Breakfast",
                 },               
               ],
           }
@@ -1306,17 +1306,6 @@ const showFood = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "200",
-            "subtitle": "Breakfast",
-            "image_url":"http://www.averysegal.com/wp-content/uploads/2014/03/myanmar-breakfast-fritters-and-somosas.jpg",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "အီကြာကွေ",
-                  "payload": "food:Breakfast",
-                },               
-              ],
-          },{
             "title": "1200",
             "subtitle": "Breakfast,Myanmar Food",
             "image_url":"http://i2.wp.com/www.foodrepublic.com/wp-content/uploads/2017/02/Shan-Noodles.jpg?resize=700%2C547",                       
@@ -1339,28 +1328,6 @@ const showFood = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "2000",
-            "subtitle": "Breakfast",
-            "image_url":"https://blog-001.west.edge.storage-yahoo.jp/res/blog-0b-10/nanakita2012/folder/1867020/66/68299566/img_3?1397789574",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "ကော်ရည်",
-                  "payload": "food:Breakfast",
-                },               
-              ],
-          },{
-            "title": "1000",
-            "subtitle": "Myanmar Food",
-            "image_url":"http://flavorverse.com/wp-content/uploads/2016/11/Laphet-Thoke-Best-Burmese-Food-640x427.jpg",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "လက်ဖက်သုပ်",
-                  "payload": "food:Myanmar",
-                },               
-              ],
-          },{
             "title": "2500",
             "subtitle": "Chinese Food",
             "image_url":"https://3.bp.blogspot.com/-vsimayFTUh4/T1SVaoWagFI/AAAAAAAAL70/g8cz-Yty2fs/s1600/yakisoba.jpg",                       
@@ -1368,17 +1335,6 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "ခေါက်ဆွဲကြေ(ကြက်/ဝက်)",
-                  "payload": "food:Chinese",
-                },               
-              ],
-          },{
-            "title": "2500",
-            "subtitle": "Chinese Food",
-            "image_url":"https://www.seriouseats.com/recipes/images/2016/01/20160206-fried-rice-food-lab-68-1500x1125.jpg",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "ထမင်း‌ကြော်(ကြက်/ဝက်)",
                   "payload": "food:Chinese",
                 },               
               ],
