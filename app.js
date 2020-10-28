@@ -157,7 +157,7 @@ app.get('/',function(req,res){
     res.send('your app is up and running');
 });
 
-app.get('/admin/order',function(req,res){ 
+app.get('/admin/order', async(req,res) => { 
   const ordersRef = db.collection('customerorder');
   const snapshot = await ordersRef.get();
 
