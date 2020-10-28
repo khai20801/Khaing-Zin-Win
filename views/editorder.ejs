@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Edit Order</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ </head>
+
+  <body>
+  
+
+
+  <form id="form" method="post" action="../updateappointment">
+
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" name="name" value="<%= data.name %>">
+
+  </div>
+  <div class="form-group">
+    <label for="name">Reference</label>
+    <input type="text" class="form-control" name="name" value="<%= data.ref %>">    
+  </div>
+  <div class="form-group">
+    <label for="status">Status:</label>
+  <select name="status" id="status">    
+    <option value="pending"
+    <%if(data.status == "pending"){%>
+        <%="selected"%>
+    <%}%>
+    >Pending</option>
+    <option value="confirm"
+    <%if(data.status == "confirm"){%>
+        <%="selected"%>
+    <%}%>
+    >Confirm</option>
+   
+  </select>   
+  </div>
+  <div class="form-group">
+    <label for="name">Comment</label>
+    <textarea name="comment" rows="4" cols="50"></textarea>      
+  </div>
+
+  
+  <input type="hidden"  name="doc_id" value="<%= data.doc_id %>">
+  <input type="hidden"  name="ref" value="<%= data.ref %>">
+  <input type="submit" value="Submit"> 
+  </form>
+
+
+  
+  
+
+  </body>
+
+</html>
