@@ -1380,7 +1380,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "ကြာဇံ‌ကြေ(ကြက်/ဝက်)",
-                  "payload": "food:ကြာဇံ‌ကြေ",
+                  "payload": "food:ကြာဇံကြော်",
                 },               
               ],
           },{
@@ -1391,7 +1391,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "အစိမ်း‌ကြေ",
-                  "payload": "food:အစိမ်း‌ကြေ",
+                  "payload": "food:အစိမ်းကြော်",
                 },               
               ],
           },{
