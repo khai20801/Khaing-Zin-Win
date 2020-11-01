@@ -1325,7 +1325,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "နန်းကြီးသုပ်",
-                  "payload": "food:Breakfast Myanmar",
+                  "payload": "food:နန်းကြီးသုပ်",
                 },               
               ],
           },{
@@ -1336,7 +1336,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "ခေါက်ဆွဲသုပ်",
-                  "payload": "food:Breakfast Myanmar",
+                  "payload": "food:ခေါက်ဆွဲသုပ်",
                 },               
               ],
           },{
@@ -1347,7 +1347,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "ရှမ်းခေါက်ဆွဲ",
-                  "payload": "food:Breakfast Myanmar",
+                  "payload": "food:ရှမ်းခေါက်ဆွဲ",
                 },               
               ],
           },{
@@ -1358,7 +1358,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "ဆီချက်",
-                  "payload": "food:Breakfast Myanmar",
+                  "payload": "food:ဆီချက်",
                 },               
               ],
           },{
@@ -1369,7 +1369,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "ခေါက်ဆွဲကြေ(ကြက်/ဝက်)",
-                  "payload": "food:Chinese",
+                  "payload": "food:ခေါက်ဆွဲကြေ",
                 },               
               ],
           },{
@@ -1380,7 +1380,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "ကြာဇံ‌ကြေ(ကြက်/ဝက်)",
-                  "payload": "food:Chinese",
+                  "payload": "food:ကြာဇံ‌ကြေ",
                 },               
               ],
           },{
@@ -1391,7 +1391,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "အစိမ်း‌ကြေ",
-                  "payload": "food:Chinese",
+                  "payload": "food:အစိမ်း‌ကြေ",
                 },               
               ],
           },{
@@ -1402,7 +1402,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "တုံ့ယမ်းဟင်းချို",
-                  "payload": "food:Chinese",
+                  "payload": "food:တုံ့ယမ်းဟင်းချို",
                 },               
               ],
           },{
@@ -1413,7 +1413,7 @@ const showFood = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "၁၂မျိုးဟင်းချို",
-                  "payload": "food:Chinese",
+                  "payload": "food:၁၂မျိုးဟင်းချို",
                 },               
               ],
           }
