@@ -29,7 +29,7 @@
        <td><%= order.food %></td>
        <td><%= order.message %></td>
        <td><%= order.status %></td>
-       <td><a href="updateorder/<%= order.doc_id %>">Edit</a> | Delete</td>
+       <td><button style="background-color:green;"><a href="updateorder/<%= order.doc_id %>">Edit</a></button> | <button style="background-color:red;">Delete</button></td>
      </tr>
   <% }); %>
 
