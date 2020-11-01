@@ -59,6 +59,8 @@
     <th>Name</th>
     <th>Food</th>
     <th>Message</th>
+    <th>Address</th>
+    <th>Phone No</th>
     <th>Status</th>
     <th>Action</th>
   </tr>
@@ -70,6 +72,8 @@
        <td><%= order.name %></td>
        <td><%= order.food %></td>
        <td><%= order.message %></td>
+       <td><%= order.address %></td>
+       <td><%= order.phone %></td>
        <td><%= order.status %></td>
        <td><button style="background-color:green;"><a href="updateorder/<%= order.doc_id %>">Edit</a></button> | <button style="background-color:red;">Delete</button></td>
      </tr>
