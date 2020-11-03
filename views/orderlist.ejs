@@ -81,7 +81,7 @@
        <td><%= order.date %></td>
        <td><%= order.time %></td>
        <td><%= order.status %></td>
-       <td><button style="background-color:green;"><a href="updateorder/<%= order.doc_id %>">Edit</a></button> | <button style="background-color:red;">Delete</button></td>
+       <td><button style="background-color:green;"><a href="updateorder/<%= order.doc_id %>">Edit</a></button> | <button style="background-color:red;"><a href="deleteorder/<%= order.doc_id %>">Delete</a></button></td>
      </tr>
   <% }); %>
 
