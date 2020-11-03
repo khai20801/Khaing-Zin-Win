@@ -181,6 +181,31 @@ app.get('/admin/order', async(req,res) => {
   res.render('orderlist.ejs', {data:data});   
 });
 
+app.get('/admin/addinvoice', async(req,res) => { 
+  const ordersRef = db.collection('customerorder');
+  const snapshot = await ordersRef.get();
+
+  if (snapshot.empty) {
+    res.send('no data');
+  } 
+
+  let data = []; 
+
+  snapshot.forEach(doc => {
+    let order = {};
+    order = doc.data();
+    order.doc_id = doc.id;
+
+    data.push(order);
+    
+  });
+
+  console.log('DATA:', data);
+
+  res.render('addinvoice.ejs', {data:data});   
+});
+
+
 app.get('/admin/updateorder/:doc_id', async function(req,res){
   let doc_id = req.params.doc_id; 
   
@@ -213,6 +238,24 @@ app.post('/admin/updateorder', function(req,res){
   db.collection('customerorder').doc(req.body.doc_id)
   .update(data).then(()=>{
       res.redirect('/admin/order');
+  }).catch((err)=>console.log('ERROR:', error)); 
+ 
+});
+
+app.post('/admin/addinvoice', function(req,res){ 
+
+
+  let data = {
+    doc_id:req.body.doc_id,
+    ref:req.body.ref,
+    name:req.body.name,
+    food:req.body.food,
+    total:req.body.total
+  }
+
+  db.collection('customerorder').doc(req.body.doc_id)
+  .update(data).then(()=>{
+      res.redirect('/admin/addinvoice');
   }).catch((err)=>console.log('ERROR:', error)); 
  
 });
