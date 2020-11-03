@@ -274,7 +274,7 @@ app.get('/admin/deleteorder/:doc_id', async function(req,res){
     data.doc_id = doc.id;
 
     console.log('Document data:', data);
-    res.render('editorder.ejs', {data:data});
+    res.render('orderlist.ejs', {data:data});
   } 
 
 });
