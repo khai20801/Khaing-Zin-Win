@@ -181,28 +181,47 @@ app.get('/admin/order', async(req,res) => {
   res.render('orderlist.ejs', {data:data});   
 });
 
-app.get('/admin/addinvoice', async(req,res) => { 
-  const ordersRef = db.collection('addinvoice');
-  const snapshot = await ordersRef.get();
+app.get('/admin/addinvoice/:doc_id', async function(req,res){
+  let doc_id = req.params.doc_id; 
+  
+  const ordersRef = db.collection('appointments').doc(doc_id);
+  const doc = await ordersRef.get();
+  if (!doc.exists) {
+    console.log('No such document!');
+  } else {
+    console.log('Document data:', doc.data());
+    let data = doc.data();
+    data.doc_id = doc.id;
 
-  if (snapshot.empty) {
-    res.send('no data');
+    console.log('Document data:', data);
+    res.render('addinvoice.ejs', {data:data});
   } 
 
-  let data = []; 
+});
 
-  snapshot.forEach(doc => {
-    let order = {};
-    order = doc.data();
-    order.doc_id = doc.id;
 
-    data.push(order);
-    
-  });
+app.post('/admin/addinvoice', function(req,res){
+  console.log('REQ:', req.body); 
 
-  console.log('DATA:', data);
+  
 
-  res.render('addinvoice.ejs', {data:data});   
+  let data = {
+    name:req.body.name,
+    phone:req.body.phone,
+    visit:req.body.visit,
+    date:req.body.date,
+    time:req.body.time,
+    message:req.body.message,
+    doc_id:req.body.doc_id,
+    ref:req.body.ref,
+    comment:req.body.comment
+  }
+
+  db.collection('addinvoice').doc(req.body.doc_id)
+  .update(data).then(()=>{
+      res.redirect('/admin/addinvoice');
+  }).catch((err)=>console.log('ERROR:', error)); 
+ 
 });
 
 
@@ -242,23 +261,6 @@ app.post('/admin/updateorder', function(req,res){
  
 });
 
-app.post('/admin/addinvoice', function(req,res){ 
-
-
-  let data = {
-    doc_id:req.body.doc_id,
-    ref:req.body.ref,
-    name:req.body.name,
-    food:req.body.food,
-    total:req.body.total
-  }
-
-  db.collection('addinvoice').doc(req.body.doc_id)
-  .update(data).then(()=>{
-      res.redirect('/admin/addinvoice');
-  }).catch((err)=>console.log('ERROR:', error)); 
- 
-});
 
 app.get('/test',function(req,res){    
     res.render('addinvoice.ejs');
@@ -425,6 +427,8 @@ app.post('/admin/update_order', function(req,res){
   }).catch((err)=>console.log('ERROR:', error)); 
  
 });
+
+
 
 /*****Example***/
 app.get('/shop', async function(req,res){
