@@ -341,8 +341,8 @@ app.get('/admin/products', async(req,res) =>{
   
 });
 
-app.get('/admin/addproduct', async function(req,res){
-  res.render('addproduct.ejs');  
+app.get('/admin/addinvoice', async function(req,res){
+  res.render('addinvoice.ejs');  
 });
 
 app.post('/admin/saveproduct',upload.single('file'),function(req,res){
