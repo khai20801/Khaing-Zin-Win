@@ -261,6 +261,42 @@ app.post('/admin/updateorder', function(req,res){
  
 });
 
+app.get('/admin/deleteorder/:doc_id', async function(req,res){
+  let doc_id = req.params.doc_id; 
+  
+  const orderRef = db.collection('customerorder').doc(doc_id);
+  const doc = await orderRef.get();
+  if (!doc.exists) {
+    console.log('No such document!');
+  } else {
+    console.log('Document data:', doc.data());
+    let data = doc.data();
+    data.doc_id = doc.id;
+
+    console.log('Document data:', data);
+    res.render('editorder.ejs', {data:data});
+  } 
+
+});
+
+app.post('/admin/deleteorder', function(req,res){ 
+
+  
+
+  let data = {
+    status:req.body.status,
+    doc_id:req.body.doc_id,
+    ref:req.body.ref,
+    comment:req.body.comment
+  }
+
+  db.collection('customerorder').doc(req.body.doc_id)
+  .update(data).then(()=>{
+      res.redirect('/admin/order');
+  }).catch((err)=>console.log('ERROR:', error)); 
+ 
+});
+
 
 app.get('/test',function(req,res){    
     res.render('addinvoice.ejs');
