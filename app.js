@@ -182,7 +182,7 @@ app.get('/admin/order', async(req,res) => {
 });
 
 app.get('/admin/addinvoice', async(req,res) => { 
-  const ordersRef = db.collection('customerorder');
+  const ordersRef = db.collection('addinvoice');
   const snapshot = await ordersRef.get();
 
   if (snapshot.empty) {
@@ -253,7 +253,7 @@ app.post('/admin/addinvoice', function(req,res){
     total:req.body.total
   }
 
-  db.collection('customerorder').doc(req.body.doc_id)
+  db.collection('addinvoice').doc(req.body.doc_id)
   .update(data).then(()=>{
       res.redirect('/admin/addinvoice');
   }).catch((err)=>console.log('ERROR:', error)); 
@@ -261,7 +261,7 @@ app.post('/admin/addinvoice', function(req,res){
 });
 
 app.get('/test',function(req,res){    
-    res.render('test.ejs');
+    res.render('addinvoice.ejs');
 });
 
 app.post('/test',function(req,res){
